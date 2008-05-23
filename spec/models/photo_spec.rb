@@ -11,7 +11,6 @@ describe Photo do
 
   it "should grab the flickr data" do
     @photo.grab_flickr_data!
-    @photo.reload
-    @photo.ready_for_captioning?.should be_true
+    @photo.ready_for_captioning?.should == true
   end
 end

@@ -1,0 +1,8 @@
+%h1 Add some photos!
+
+- form_for :photo  do
+  - 10.times  do
+    = text_field_tag "photos[]"
+    Flickr ID
+    %br
+  = submit_tag
