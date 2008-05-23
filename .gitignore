@@ -12,3 +12,4 @@ t.sql
 *.pid
 *.sqlite3
 db/schema.rb
+config/database.yml
