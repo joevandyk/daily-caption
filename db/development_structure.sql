@@ -1,0 +1,8 @@
+CREATE TABLE "captions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "photo_id" integer DEFAULT NULL NULL, "caption" text DEFAULT NULL NULL, "user_id" integer DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL);
+CREATE TABLE "photos" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "flickr_id" integer NOT NULL, "square" varchar(255) DEFAULT NULL NULL, "thumbnail" varchar(255) DEFAULT NULL NULL, "small" varchar(255) DEFAULT NULL NULL, "medium" varchar(255) DEFAULT NULL NULL, "original" varchar(255) DEFAULT NULL NULL, "state" varchar(255) DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL);
+CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL);
+CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "site_id" integer DEFAULT NULL NULL, "username" varchar(255) DEFAULT NULL NULL, "email" varchar(255) DEFAULT NULL NULL, "profile_url" varchar(255) DEFAULT NULL NULL, "profile_image_url" varchar(255) DEFAULT NULL NULL, "created_at" datetime DEFAULT NULL NULL, "updated_at" datetime DEFAULT NULL NULL);
+CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version");
+INSERT INTO schema_migrations (version) VALUES ('20080509233216');
+INSERT INTO schema_migrations (version) VALUES ('20080523212805');
+INSERT INTO schema_migrations (version) VALUES ('20080523213943');
