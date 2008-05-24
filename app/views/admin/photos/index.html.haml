@@ -1,0 +1,11 @@
+= link_to "Add more photos", new_admin_photo_path
+|
+= link_to "Main Admin", admin_root_path
+
+%h1 Ready For Captioning Photos
+= render :partial => 'photo', :collection => @ready_for_captioning_photos
+
+%h1 Recently Submitted Photos
+- for photo in @recently_submitted_photos
+  = photo.flickr_id
+  %br

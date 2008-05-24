@@ -1,7 +1,7 @@
 class CreatePhotos < ActiveRecord::Migration
   def self.up
     create_table :photos do |t|
-      t.column :flickr_id, :integer, :null => false
+      t.column :flickr_id, :string, :null => false
       t.column :square, :string
       t.column :thumbnail, :string
       t.column :small, :string

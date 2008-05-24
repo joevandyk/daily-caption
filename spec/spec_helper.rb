@@ -16,3 +16,11 @@ end
 def create_photo
   Photo.create! :flickr_id => "1234567890"
 end
+
+def login user, pass
+  @request.env['HTTP_AUTHORIZATION'] = 'Basic ' + Base64::encode64("#{user}:#{pass}")
+end
+
+def login_as_admin
+  login Admin::AdminController::USERNAME, Admin::AdminController::PASSWORD
+end

@@ -3,9 +3,6 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Admin::AdminController do
   integrate_views
 
-  def login user, pass
-    @request.env['HTTP_AUTHORIZATION'] = 'Basic ' + Base64::encode64("#{user}:#{pass}")
-  end
 
   it "failed logins should fail" do
     get :index
@@ -17,7 +14,7 @@ describe Admin::AdminController do
   end
 
   it "successful logins should pass" do
-    login Admin::AdminController::USERNAME, Admin::AdminController::PASSWORD
+    login_as_admin
     get :index
     response.should be_success
   end
