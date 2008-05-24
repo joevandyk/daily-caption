@@ -1,0 +1,15 @@
+<h1>You have added the application? <%= @current_facebook_user.has_added_app.to_s == 1.to_s rescue false %></h1>
+
+<span class="title">Fields on the User Object</span>
+<% if( @user.name rescue false)%>
+<ul>
+        <% for field in Facebooker::User::FIELDS.map(&:to_s).sort %>
+          <% value = h( @user.send(field).to_s ) %>
+        <li> <%= field %> :  <%= field.match(/pic/) ? image_tag(value) : value  %></li>      
+        <% end %>
+</ul>
+<% else %>
+  You must add the app to see this data.
+<% end%>
+
+<%= fb_comments "comments_for_status", true, false, 20,:showform => true, :title => "Status Comments" %>
