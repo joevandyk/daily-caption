@@ -2,11 +2,13 @@ development:
   adapter: postgresql
   database: dailycaption_development
   min_messages: warning
+  host: 10.0.1.5
 
 test:
   adapter: postgresql
   database: dailycaption_test
   min_messages: warning
+  host: 10.0.1.5
 
 production:
   adapter: postgresql
