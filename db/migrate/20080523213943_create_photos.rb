@@ -2,12 +2,14 @@ class CreatePhotos < ActiveRecord::Migration
   def self.up
     create_table :photos do |t|
       t.column :flickr_id, :string, :null => false
-      t.column :square, :string
-      t.column :thumbnail, :string
-      t.column :small, :string
-      t.column :medium, :string
-      t.column :original, :string
+      t.column :square, :text
+      t.column :thumbnail, :text
+      t.column :small, :text
+      t.column :medium, :text
+      t.column :large, :text
+      t.column :original, :text
       t.column :state, :string
+      t.column :author, :text
       t.timestamps
     end
   end

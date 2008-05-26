@@ -11,13 +11,36 @@ class Photo < ActiveRecord::Base
   event :grab_flickr_data do
     transitions :from => :submitted, :to => :ready_for_captioning
   end
-  
-  # Checks to see if the photo is still valid from flickr.
-  def check_for_flickr_validity
+
+
+  def self.process_new_photos
+    Photo.find_in_state(:all, :submitted).each do |photo|
+      photo.grab_flickr_data!
+    end
+  end
+
+  def self.create_in_bulk flickr_ids
+    count = 0
+    flickr_ids.each do |flickr_id|
+      if ! flickr_id.empty?
+        count += 1
+        Photo.create! :flickr_id => flickr_id
+      end
+    end
+    Bj.submit "./script/runner Photo.process_new_photos"
+    count
   end
 
   private
 
+  # Checks to see if the photo is still valid from flickr.
   def grab_flickr_data
+    flickr_photo = Flickr::Photo.new(self.flickr_id)
+    flickr_photo.sizes.each do |size|
+      self.send "#{size['label'].downcase}=", size['source']
+    end
+    self.author = flickr_photo.owner.username.to_s.strip
+    save!
   end
+
 end

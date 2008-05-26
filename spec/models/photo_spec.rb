@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Photo do
   before(:each) do
-    @photo = Photo.create! :flickr_id => 12345
+    @photo = Photo.create! :flickr_id => "2515403644"
   end
 
   it "should be in the submitted state" do
