@@ -11,5 +11,35 @@
 <% else %>
   You must add the app to see this data.
 <% end%>
-<fb:share-button class="url" href="<%= current_uri %>" />
-<%= fb_comments "comments_for_status", true, false, 20,:showform => true, :title => "Status Comments" %>
+
+<div style="width: 400px">
+<fb:wall>
+  <fb:wallpost uid="10701640" t="1180502413">
+    This could be an example of a caption
+    <div style="float:right"> <fb:share-button class="url" href="http://apps.facebook.com/example" /></div>
+    <fb:wallpost-action href="#"><b>20 Comments</b></fb:wallpost-action>
+    <fb:wallpost-action href="#">This is Spam</fb:wallpost-action>
+  </fb:wallpost>
+
+  <fb:wallpost uid="10701640" t="1180502413">
+    This actually might not work since we need to link the author to the user's dailycaption profile instead of fb profile
+    <div style="float:right"> <fb:share-button class="url" href="http://apps.facebook.com/example" /></div>
+    <fb:wallpost-action href="#"><b>20 Comments</b></fb:wallpost-action>
+    <fb:wallpost-action href="#">This is Spam</fb:wallpost-action>
+  </fb:wallpost>
+
+  <fb:wallpost uid="10701640" t="1180502413">
+    We will probably have to manually create the "wallpost" instead of using FBML
+    <div style="float:right"> <fb:share-button class="url" href="http://apps.facebook.com/example" /></div>
+    <fb:wallpost-action href="#"><b>20 Comments</b></fb:wallpost-action>
+    <fb:wallpost-action href="#">This is Spam</fb:wallpost-action>
+  </fb:wallpost>
+
+  <fb:wallpost uid="10701640" t="1180502413">
+    This could be an example of a caption
+    <div style="float:right"> <fb:share-button class="url" href="http://apps.facebook.com/example" /></div>
+    <fb:wallpost-action href="#"><b>20 Comments</b></fb:wallpost-action>
+    <fb:wallpost-action href="#">This is Spam</fb:wallpost-action>
+  </fb:wallpost>
+</fb:wall>
+</div>
