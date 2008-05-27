@@ -11,5 +11,5 @@
 <% else %>
   You must add the app to see this data.
 <% end%>
-
+<fb:share-button class="url" href="<%= current_uri %>" />
 <%= fb_comments "comments_for_status", true, false, 20,:showform => true, :title => "Status Comments" %>
