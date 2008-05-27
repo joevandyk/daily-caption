@@ -4,7 +4,8 @@
       :background #F7F7F7 url(http://dailycaption.com:4007/images/polaroid.png) no-repeat 350px -30px
       :padding 1.5em
     #hd
-
+      #logo
+        :padding-bottom 0.5em
     #bd
       :background white
       :border-left 1px solid #CCC
@@ -14,9 +15,10 @@
 
 #canvas
   #hd
-    = image_tag "dc_logo.png", :alt => "DailyCaption"
+    #logo= image_tag "dc_logo.png", :alt => "DailyCaption"
 
     - fb_tabs do
+      = fb_tab_item "Help & Feedback", fb_about_url, :selected => false, :align => "left"
       = fb_tab_item "Current Contest", "#", :selected => true, :align => "right"
       = fb_tab_item "Past Contests", "#", :selected => false, :align => "right"
       = fb_tab_item "Profile", "#", :selected => false, :align => "right"
@@ -24,4 +26,5 @@
 
   #bd
     = yield
+
   #ft
