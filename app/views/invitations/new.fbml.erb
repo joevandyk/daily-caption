@@ -1,0 +1,4 @@
+<% fb_multi_friend_request("DailyCaption", "Invite your friends to use DailyCaption.", index_path) do %> 
+  See if you are as funny as you think you are.  Compete against others to win caption contests! Install DailyCaption now...
+  <%= fb_req_choice("Get Started!", new_invitation_url(:from=>@from_user_id,:canvas=>true))%> 
+<% end %> 

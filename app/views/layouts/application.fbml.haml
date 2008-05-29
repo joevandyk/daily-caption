@@ -2,7 +2,7 @@
   :sass
     #canvas
       :background #F7F7F7 url(http://dailycaption.com:4007/images/polaroid.png) no-repeat 350px -30px
-      :padding 1.5em
+      :padding 1.8em 0.5em
     #hd
       #logo
         :padding-bottom 0.5em
@@ -12,10 +12,22 @@
       :border-right 1px solid #CCC
       :border-bottom 1px solid #898989
       :padding 0.5em
+    #ft
+      ul
+        :padding 0
+        :margin 0.3em 0 0 0.5em
+        li
+          :display inline
+          :list-style none
+          :margin-right 0.3em
+          :color #AAA
+      
+=# javascript_include_tag "application"
+=# stylesheet_link_tag "screen"
 
 #canvas
   #hd
-    #logo= image_tag "dc_logo.png", :alt => "DailyCaption"
+    #logo= link_to image_tag("dc_logo.png", :alt => "DailyCaption"), index_url
 
     - fb_tabs do
       = fb_tab_item "Help & Feedback", fb_about_url, :selected => false, :align => "left"
@@ -28,3 +40,7 @@
     = yield
 
   #ft
+    %ul
+      %li Current Contest -
+      %li Help & Feedback -
+      %li About

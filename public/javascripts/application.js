@@ -1,2 +1,29 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+// JavaScript for DailyCaption
+
+function update_count(str,message_id) { 
+  len=str.length; 
+  if (len < 200) { 
+    $(message_id).setInnerXHTML("<span style='color: green'>"+ 
+    (200-len)+" remaining</span>"); 
+  } else { 
+    $(message_id).setInnerXHTML("<span style='color: red'>"+ 
+    "Comment too long. Only 200 characters allowed.</span>"); 
+  } 
+}
+
+/*
+pg 141
+// use Dialog.DIALOG_POP for a popup 
+var d = new Dialog(Dialog.DIALOG_CONTEXTUAL ); 
+// Setting the context is only 
+// necessary for contextual dialogs 
+d.setContext($('comment')); 
+d.onconfirm = function() { 
+$('comment').setTextValue(""); 
+}; 
+// Show a message with only one button 
+d.showMessage(title,message,button_name); 
+// Or, show a message with two buttons 
+d.showChoice(title,message,confirm_name,cancel_name) 
+
+*/
