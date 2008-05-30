@@ -7,4 +7,8 @@ module ApplicationHelper
   def show_media photo, size=:medium
     image_tag photo[size]
   end
+  
+  def show_new_caption_form
+    "$('new-caption').toggleClassName('hidden');"
+  end
 end

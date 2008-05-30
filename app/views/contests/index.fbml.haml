@@ -3,7 +3,7 @@
 #contests.clearfix
   #current-contest
     #photo
-      = link_to_function(show_media(Photo.current), "$('new-caption').toggleClassName('hidden');")
+      = link_to_function(show_media(Photo.current), show_new_caption_form)
       %p.tagline== Flickr photo by: #{link_to Photo.current.author, "#"}
     #new-caption.hidden
       - facebook_form_for Caption.new, :url => "http://dailycaption.com:4007/captions" do |f| 
