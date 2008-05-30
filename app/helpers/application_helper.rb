@@ -8,7 +8,7 @@ module ApplicationHelper
     image_tag photo[size]
   end
   
-  def show_new_caption_form
-    "$('new-caption').toggleClassName('hidden');"
+  def link_to_new_caption_form link
+    link_to_function(link,"$('new-caption').toggleClassName('hidden');")
   end
 end
