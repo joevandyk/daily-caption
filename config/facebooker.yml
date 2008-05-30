@@ -5,7 +5,7 @@
 development:
   api_key: 0f19574542a20c9aabad7ee62d8dc5de
   secret_key: 9c0dd62fa836bd5b9803245b5e32ffad
-  canvas_page_name: /dailycaption/
+  canvas_page_name: dailycaption
   callback_url: http://localhost:3000/
   tunnel:
     public_host_username: joe

@@ -4,7 +4,7 @@ module ApplicationHelper
     request.protocol << request.host_with_port << request.request_uri
   end
 
-  def show_media photo
-    image_tag photo.medium
+  def show_media photo, size=:medium
+    image_tag photo[size]
   end
 end
