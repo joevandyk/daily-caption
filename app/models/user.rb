@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   def facebook_session
     @facebook_session ||=  
       returning Facebooker::Session.create do |session| 
-        session.secure_with!(session_key,facebook_id,1.day.from_now) 
+        session.secure_with!(session_key,site_user_id,1.day.from_now) 
       end
   end
 end

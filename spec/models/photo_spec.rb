@@ -13,4 +13,8 @@ describe Photo do
     @photo.grab_flickr_data!
     @photo.ready_for_captioning?.should == true
   end
+
+  it "should have captions" do
+    @photo.captions.create! :caption => "This one sucks", :user => create_user
+  end
 end

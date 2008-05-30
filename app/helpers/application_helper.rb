@@ -7,4 +7,8 @@ module ApplicationHelper
   def show_media photo, size=:medium
     image_tag photo[size]
   end
+
+  def name(user,options={})
+    fb_name(user,{:ifcantsee=>"a hidden ninja"}.merge(options))
+  end
 end
