@@ -13,3 +13,4 @@ t.sql
 *.sqlite3
 db/schema.rb
 config/database.yml
+config/facebooker.yml

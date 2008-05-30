@@ -11,4 +11,8 @@ module ApplicationHelper
   def name(user,options={})
     fb_name(user,{:ifcantsee=>"a hidden ninja"}.merge(options))
   end
+  
+  def link_to_new_caption_form link
+    link_to_function(link,"$('new-caption').toggleClassName('hidden');")
+  end
 end

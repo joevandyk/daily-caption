@@ -3,15 +3,15 @@
 #contests.clearfix
   #current-contest
     #photo
-      = link_to_function(show_media(Photo.current), "$('new-caption').toggleClassName('hidden');")
-      %p.tagline== Flickr photo by: #{link_to Photo.current.author, "#"}
+      = link_to_new_caption_form(show_media(Photo.current))
+      %p.tagline== Flickr photo by: #{link_to Photo.current.author, "#"} | Yesterday's Winner: Jordan Isip
     #new-caption.hidden
       - facebook_form_for Caption.new, :url => captions_url do |f| 
-        = f.text_field :caption 
+        = f.text_area :caption 
         = hidden_field_tag :photo_id, Photo.current.id
         = f.buttons "Add Caption!"
-        
-    This is where the number 1 caption goes!  
+    #best-caption
+      This is where the number 1 caption goes!  
       
   #past-contests
     %b Past Contests
@@ -30,8 +30,16 @@
       
     %p= link_to "View all past contests", "#"
     
-#competing-captions
-  %fb:wall
-    - for caption in Photo.current.captions
-      %fb:wallpost{:uid=>caption.user.site_user_id, :t => caption.created_at.to_i}
-        = caption.caption
+#competition.clearfix
+  #competing-captions
+    .add-caption-link== [ #{link_to_new_caption_form("Add your own caption")} ]
+    %h2 Competing Captions
+    #sort.quiet== Sort the #{Photo.current.captions.size} competing captions by: Time | Rank | Comments
+    %fb:wall
+      - for caption in Photo.current.captions
+        %fb:wallpost{:uid=>caption.user.site_user_id, :t => caption.created_at.to_i}
+          = caption.caption
+    .add-caption-link== [ #{link_to_new_caption_form("Add your own caption")} ]
+
+  #contest-sidebar
+    = image_tag("ad-205x180.gif")
