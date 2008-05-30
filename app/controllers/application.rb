@@ -20,9 +20,16 @@ class ApplicationController < ActionController::Base
   private
 
   def set_current_user
-    logger.info facebook_session.inspect
     if facebook_session
-      self.current_user = User.for(facebook_session.user.to_i, facebook_session)
+      begin
+        self.current_user = User.for(facebook_session.user.to_i, facebook_session)
+      rescue Facebooker::Session::MissingOrInvalidParameter => e
+        logger.info e
+      end
     end
+  end
+
+  def facebook_session
+    session[:facebook_session]
   end
 end

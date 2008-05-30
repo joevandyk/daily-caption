@@ -1,5 +1,6 @@
 class Photo < ActiveRecord::Base
   validates_presence_of :flickr_id
+  has_many :captions, :order => 'created_at desc'
 
   acts_as_state_machine :initial => :submitted
   state :submitted

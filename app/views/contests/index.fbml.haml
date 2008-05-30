@@ -6,7 +6,7 @@
       = link_to_function(show_media(Photo.current), show_new_caption_form)
       %p.tagline== Flickr photo by: #{link_to Photo.current.author, "#"}
     #new-caption.hidden
-      - facebook_form_for Caption.new, :url => "http://dailycaption.com:4007/captions" do |f| 
+      - facebook_form_for Caption.new, :url => captions_url do |f| 
         = f.text_field :caption 
         = hidden_field_tag :photo_id, Photo.current.id
         = f.buttons "Add Caption!"
@@ -32,11 +32,6 @@
     
 #competing-captions
   %fb:wall
-    %fb:wallpost{:uid=>"10701640", :t=>"1180502413"}
-      This actually might not work since we need to link the author to the user's dailycaption profile instead of fb profile
-      .float-right
-        %fb:share-button{:class=>"url", :href=>"http://apps.facebook.com/example"}
-      %fb:wallpost-action{:href=>"#"}
-        %b 20 Comments
-      %fb:wallpost-action{:href=>"#"}
-        This is spam
+    - for caption in Photo.current.captions
+      %fb:wallpost{:uid=>caption.user.site_user_id, :t => caption.created_at.to_i}
+        = caption.caption
