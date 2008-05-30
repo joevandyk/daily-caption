@@ -3,7 +3,6 @@ ActionController::Routing::Routes.draw do |map|
     admin.root :controller => 'admin'
     admin.resources :photos
   end
-  
   map.resources :invitations
   map.with_options :controller => 'invitations' do |m|
     m.invitations 'dailycaptionjoe/invitations/', :action => 'index'
@@ -15,7 +14,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :contests
 
   map.index '/',  :controller => 'contests'
-  map.facebook_front_page '', :controller => 'contests'
   
   # Install the default route as the lowest priority.
   map.connect '/:controller/:action/:id'

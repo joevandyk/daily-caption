@@ -1,0 +1,37 @@
+%h1 Current DailyCaption Contest
+
+#contests.clearfix
+  #current-contest
+    #photo
+      = link_to_function(show_media(Photo.current), "$('new-caption').toggleClassName('hidden');")
+      %p.tagline== Flickr photo by: #{link_to Photo.current.author, "#"}
+    #new-caption.hidden
+      - facebook_form_for Caption.new, :url => captions_url do |f| 
+        = f.text_field :caption 
+        = hidden_field_tag :photo_id, Photo.current.id
+        = f.buttons "Add Caption!"
+        
+    This is where the number 1 caption goes!  
+      
+  #past-contests
+    %b Past Contests
+    %dl
+      %dt= link_to show_media(Photo.current, :square), "#"
+      %dd= link_to "Yesterday", "#"
+    %dl
+      %dt= link_to show_media(Photo.current, :square), "#"
+      %dd= link_to "Wednesday", "#"
+    %dl
+      %dt= link_to show_media(Photo.current, :square), "#"
+      %dd= link_to "Tuesday", "#"
+    %dl
+      %dt= link_to show_media(Photo.current, :square), "#"
+      %dd= link_to "Monday", "#"
+      
+    %p= link_to "View all past contests", "#"
+    
+#competing-captions
+  %fb:wall
+    - for caption in Photo.current.captions
+      %fb:wallpost{:uid=>caption.user.site_user_id, :t => caption.created_at.to_i}
+        = caption.caption
