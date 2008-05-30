@@ -4,7 +4,7 @@
   #current-contest
     #photo
       = link_to_new_caption_form(show_media(Photo.current))
-      %p.tagline== Flickr photo by: #{link_to Photo.current.author, "#"}
+      %p.tagline== Flickr photo by: #{link_to Photo.current.author, "#"} | Yesterday's Winner: Jordan Isip
     #new-caption.hidden
       - facebook_form_for Caption.new, :url => captions_url do |f| 
         = f.text_area :caption 
@@ -30,12 +30,16 @@
       
     %p= link_to "View all past contests", "#"
     
-#competing-captions.clearfix
-  .add-caption-link== [ #{link_to_new_caption_form("Add your own caption")} ]
-  %h2 Competing Captions
-  #sort.quiet== Sort the #{Photo.current.captions.size} competing captions by:
-  %fb:wall
-    - for caption in Photo.current.captions
-      %fb:wallpost{:uid=>caption.user.site_user_id, :t => caption.created_at.to_i}
-        = caption.caption
-  .add-caption-link== [ #{link_to_new_caption_form("Add your own caption")} ]
+#competition.clearfix
+  #competing-captions
+    .add-caption-link== [ #{link_to_new_caption_form("Add your own caption")} ]
+    %h2 Competing Captions
+    #sort.quiet== Sort the #{Photo.current.captions.size} competing captions by: Time | Rank | Comments
+    %fb:wall
+      - for caption in Photo.current.captions
+        %fb:wallpost{:uid=>caption.user.site_user_id, :t => caption.created_at.to_i}
+          = caption.caption
+    .add-caption-link== [ #{link_to_new_caption_form("Add your own caption")} ]
+
+  #contest-sidebar
+    = image_tag("ad-205x180.gif")
