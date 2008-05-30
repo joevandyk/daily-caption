@@ -9,10 +9,10 @@ module Facebooker
     end
     include Model
     attr_accessor :pic, :pic_small, :pic_big, :name, :creator, :recent_news, :gid, :update_time, :group_subtype, :group_type, :website, :office, :description, :venue, :nid
-
-
+    
+    
     ##
-    # Get the full list of members as populated User objects.  First time fetches group members via Facebook API call.
+    # Get the full list of members as populated User objects.  First time fetches group members via Facebook API call.  
     # Subsequent calls return cached values.
     # This is a convenience method for getting all of the Membership instances and instantiating User instances for each Membership.
     def members
@@ -20,7 +20,7 @@ module Facebooker
         User.new(membership.uid, session)
       end
     end
-
+    
     ##
     # Get a list of Membership instances associated with this Group.  First call retrieves the Membership instances via a Facebook
     # API call.  Subsequent calls are retrieved from in-memory cache.

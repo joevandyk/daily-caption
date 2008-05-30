@@ -45,11 +45,11 @@ Facebooker can be installed as a Rails plugin by:
 
   script/plugin install http://facebooker.rubyforge.org/svn/trunk/facebooker/
 
-Once the plugin is installed, you will need to configure your Facebook app in config/facebooker.yml.
+Once the plugin is installed, you will need to configure your Facebook app in config/facebooker.yml. 
 
 Your application users will need to have added the application in facebook to access all of facebooker's features. You enforce this by adding
 
-  ensure_application_is_installed_by_facebook_user
+  ensure_application_is_installed_by_facebook_user  
 
 to your application controller.
 

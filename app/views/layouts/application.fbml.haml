@@ -7,7 +7,7 @@
       #logo
         :padding-bottom 0.5em
     #bd
-      :background white
+      :background #FFFFFF
       :border-left 1px solid #CCC
       :border-right 1px solid #CCC
       :border-bottom 1px solid #898989
@@ -21,9 +21,12 @@
           :list-style none
           :margin-right 0.3em
           :color #AAA
+          a
+            &:link, &:visited
+              :color #888
+            &:hover
+              :color #3B5998
       
-=# javascript_include_tag "application"
-=# stylesheet_link_tag "screen"
 
 #canvas
   #hd
@@ -41,6 +44,8 @@
 
   #ft
     %ul
-      %li Current Contest -
-      %li Help & Feedback -
-      %li About
+      %li== #{ link_to "About", fb_about_url } -
+      %li== #{ link_to "Current Contest", "#" } -
+      %li== #{ link_to "Terms", "#" } -
+      %li== #{ link_to "Privacy", "#" } -
+      %li== #{ link_to "Help & Feedback", fb_about_url }

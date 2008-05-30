@@ -13,6 +13,10 @@ class Photo < ActiveRecord::Base
   end
 
 
+  def self.current
+    Photo.find_in_state(:first, :ready_for_captioning, :order => 'id')
+  end
+
   def self.process_new_photos
     Photo.find_in_state(:all, :submitted).each do |photo|
       photo.grab_flickr_data!

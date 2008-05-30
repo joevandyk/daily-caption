@@ -11,7 +11,7 @@
 #           public_path
 #         end
 #       end
-#
+#       
 #       alias_method_chain :compute_public_path, :facebooker
 #     end
 #   end

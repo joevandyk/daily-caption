@@ -41,7 +41,7 @@ Form.serialize = function(form_element) {
 	elements=$(form_element).serialize();
 	param_string="";
 	for (var name in elements) {
-		if (param_string)
+		if (param_string)	
 			param_string += "&";
 		param_string += encodeURIComponent(name)+"="+encodeURIComponent(elements[name]);
 	}
@@ -78,7 +78,7 @@ Ajax.Updater = function (container,url,options) {
 		val=kv[1].replace('%3D','=').replace('%26','&');
 		parameters[key]=val;
 	}
-  this.ajax.post(url,parameters);
+  this.ajax.post(url,parameters);	
 };
 Ajax.Request = function(url,options) {
 	Ajax.Updater('unused',url,options);

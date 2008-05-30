@@ -5,6 +5,6 @@ class PublisherGenerator < Rails::Generator::NamedBase
       m.template "publisher.rb", "app/models/#{file_name}_publisher.rb"
     end
   end
-
-
+  
+  
 end

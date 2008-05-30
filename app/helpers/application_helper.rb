@@ -3,4 +3,8 @@ module ApplicationHelper
   def current_uri
     request.protocol << request.host_with_port << request.request_uri
   end
+
+  def show_media photo
+    image_tag photo.medium
+  end
 end

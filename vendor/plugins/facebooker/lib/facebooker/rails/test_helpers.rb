@@ -10,12 +10,12 @@ module Facebooker
       def follow_facebook_redirect!
         facebook_post facebook_redirect_url
       end
-
+      
       def facebook_post(path, params={}, fb_params=facebook_parameters)
         params = fb_params.merge(:canvas => true).merge(params)
-        post path, params
+        post path, params    
       end
-
+      
       def facebook_parameters(overrides=nil)
         overrides ||= {}
         params = default_facebook_parameters.merge(overrides)
@@ -26,9 +26,9 @@ module Facebooker
 
       def default_facebook_parameters
         {
-          :fb_sig_added => "1",
-          :fb_sig_session_key => "facebook_session_key",
-          :fb_sig_user => "1234",
+          :fb_sig_added => "1", 
+          :fb_sig_session_key => "facebook_session_key", 
+          :fb_sig_user => "1234", 
           :fb_sig_expires => "0",
           :fb_sig_in_canvas => "1",
           :fb_sig_time => Time.now.to_f
@@ -36,7 +36,7 @@ module Facebooker
       end
 
       def facebook_params(params)
-        params.inject({}) do |fb_params, pair|
+        params.inject({}) do |fb_params, pair| 
           unless pair.first.to_s.match(/^fb_sig_/).nil?
             fb_params[pair.first] = pair.last
           end
@@ -58,7 +58,8 @@ module Facebooker
         raw_string = facebook_sig_params.map{ |*args| args.join('=') }.sort.join
         Digest::MD5.hexdigest([raw_string, Facebooker::Session.secret_key].join)
       end
-
+      
     end
   end
 end
+        

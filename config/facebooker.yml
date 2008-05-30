@@ -8,7 +8,7 @@ development:
   canvas_page_name: /dailycaption/
   callback_url: http://localhost:3000/
   tunnel:
-    public_host_username: jordan
+    public_host_username: joe
     public_host: dailycaption.com
     public_port: 4007
     local_port: 3000

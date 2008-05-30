@@ -12,6 +12,18 @@
   You must add the app to see this data.
 <% end%>
 
+
+<h1> Caption This! </h1>
+<%= show_media Photo.current %>
+
+<% facebook_form_for Caption.new, :url => "http://dailycaption.com:4007/captions" do |f|  %>
+  <%= f.text_field :caption %>
+  <%= hidden_field_tag :photo_id, Photo.current.id %>
+
+  <%= f.buttons "Caption it!" %>
+<% end %>
+
+
 <%= link_to "Invites", new_invitation_url %>
 
 <div style="width: 400px">

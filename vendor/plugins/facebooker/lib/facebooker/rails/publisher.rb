@@ -1,11 +1,11 @@
 module Facebooker
   module Rails
     # ActionMailer like module for publishing Facbook messages
-    #
+    # 
     # To use, create a subclass and define methods
     # Each method should start by calling send_as to specify the type of message
     # Valid options are :action, :templatized_action, :story, :email and :notification
-    #
+    # 
     #
     # Below is an example of each type
     #
@@ -17,7 +17,7 @@ module Facebooker
     #       title "Action Title"
     #       body "Body FBML here #{fb_name(f)} #{link_to "text",new_invitation_url}"
     #     end
-    #
+    #   
     #     # Templatized Action uses From
     #     def templatized_action(f)
     #       send_as :templatized_action
@@ -31,14 +31,14 @@ module Facebooker
     #       recipients to
     #       title 'Story Title'
     #     end
-    #
+    #  
     #     def notification(to,f)
     #       send_as :notification
     #       recipients to
     #       from f
     #       fbml "Not"
     #     end
-    #
+    #  
     #     def email(to,f)
     #       send_as :email
     #       recipients to
@@ -78,10 +78,10 @@ module Facebooker
     #
     # Publisher makes many helpers available, including the linking and asset helpers
     class Publisher
-
+      
       class_inheritable_accessor :master_helper_module
-
-
+      
+      
       class InvalidSender < StandardError; end
       class UnknownBodyType < StandardError; end
       class UnspecifiedBodyType < StandardError; end
@@ -90,11 +90,11 @@ module Facebooker
         attr_accessor :text
         attr_accessor :fbml
       end
-
+  
       class Notification
         attr_accessor :fbml
       end
-
+  
       class Profile
         attr_accessor :profile
         attr_accessor :profile_action
@@ -107,8 +107,8 @@ module Facebooker
 
       cattr_accessor :ignore_errors
       attr_accessor :_body
-
-
+    
+  
 
       def recipients(*args)
         if args.size==0
@@ -117,13 +117,13 @@ module Facebooker
           @recipients=args.first
         end
       end
-
+      
       def from(*args)
         if args.size==0
           @from
         else
           @from=args.first
-        end
+        end        
       end
 
 
@@ -147,7 +147,7 @@ module Facebooker
           raise UnknownBodyType.new("Unknown type to publish")
         end
       end
-
+      
       def method_missing(name,*args)
         if args.size==1 and self._body.respond_to?("#{name}=")
           self._body.send("#{name}=",*args)
@@ -157,7 +157,7 @@ module Facebooker
           super
         end
       end
-
+  
       def send_message
         @recipients = @recipients.is_a?(Array) ? @recipients : [@recipients]
         if from.nil? and @recipients.size==1
@@ -172,18 +172,18 @@ module Facebooker
         when Notification
           from.session.send_notification(@recipients,_body.fbml)
         when Email
-          from.session.send_email(@recipients,
-                                             _body.title,
-                                             _body.text,
+          from.session.send_email(@recipients, 
+                                             _body.title, 
+                                             _body.text, 
                                              _body.fbml)
         when Profile
          # If recipient and from aren't the same person, create a new user object using the
          # userid from recipient and the session from from
          if @from != @recipients.first
-           @from = Facebooker::User.new(Facebooker::User.cast_to_facebook_id(@recipients.first),from.session)
+           @from = Facebooker::User.new(Facebooker::User.cast_to_facebook_id(@recipients.first),from.session) 
          end
-         from.set_profile_fbml(_body.profile,
-                                            _body.mobile_profile,
+         from.set_profile_fbml(_body.profile, 
+                                            _body.mobile_profile, 
                                             _body.profile_action)
         when Ref
           @from.session.server_cache.set_ref_handle(_body.handle,_body.fbml)
@@ -214,11 +214,11 @@ module Facebooker
           template.extend(self.class.master_helper_module)
         end
       end
-
-
+  
+      
       self.master_helper_module = Module.new
       self.master_helper_module.module_eval do
-        # url_helper delegates to @controller,
+        # url_helper delegates to @controller, 
         # so we need to define that in the template
         # we make it point to the publisher
         include ActionView::Helpers::UrlHelper
@@ -234,9 +234,9 @@ module Facebooker
       # Publisher is the controller, it should do the rewriting
       include ActionController::UrlWriter
       class <<self
-
-
-
+        
+        
+        
         def method_missing(name,*args)
           should_send=false
           method=""
@@ -248,44 +248,44 @@ module Facebooker
           else
             super
           end
-
+      
           #now create the item
           (publisher=new).send(method,*args)
           should_send ? publisher.send_message : publisher._body
         end
-
+    
         def default_url_options
           {:host => "apps.facebook.com" + Facebooker.facebook_path_prefix}
         end
-
+    
         def controller_path
           self.to_s.underscore
         end
-
+        
         def helper(*args)
           args.each do |arg|
             case arg
             when Symbol,String
-              add_template_helper("#{arg.to_s.classify}Helper".constantize)
+              add_template_helper("#{arg.to_s.classify}Helper".constantize)              
             when Module
               add_template_helper(arg)
             end
           end
         end
-
+        
         def add_template_helper(helper_module) #:nodoc:
           master_helper_module.send :include,helper_module
           include master_helper_module
         end
 
-
+    
         def inherited(child)
-          super
+          super          
           child.master_helper_module=Module.new
           child.master_helper_module.send!(:include,self.master_helper_module)
-          child.send(:include, child.master_helper_module)
+          child.send(:include, child.master_helper_module)      
         end
-
+    
       end
     end
   end

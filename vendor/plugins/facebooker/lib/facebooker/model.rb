@@ -1,6 +1,6 @@
 module Facebooker
   ##
-  # helper methods primarily supporting the management of Ruby objects which are populatable via Hashes.
+  # helper methods primarily supporting the management of Ruby objects which are populatable via Hashes.  
   # Since most Facebook API calls accept and return hashes of data (as XML), the Model module allows us to
   # directly populate a model's attributes given a Hash with matching key names.
   module Model
@@ -19,15 +19,15 @@ module Facebooker
         yield instance if block_given?
         instance
       end
-
+      
       ##
-      # Create a standard attr_writer and a populating_attr_reader
+      # Create a standard attr_writer and a populating_attr_reader      
       def populating_attr_accessor(*symbols)
         attr_writer *symbols
         populating_attr_reader *symbols
       end
 
-      ##
+      ## 
       # Create a reader that will attempt to populate the model if it has not already been populated
       def populating_attr_reader(*symbols)
         symbols.each do |symbol|
@@ -37,17 +37,17 @@ module Facebooker
           end
         end
       end
-
+      
       def populating_hash_settable_accessor(symbol, klass)
         populating_attr_reader symbol
         hash_settable_writer(symbol, klass)
       end
-
+        
       def populating_hash_settable_list_accessor(symbol, klass)
         populating_attr_reader symbol
         hash_settable_list_writer(symbol, klass)
       end
-
+      
       #
       # Declares an attribute named ::symbol:: which can be set with either an instance of ::klass::
       # or a Hash which will be used to populate a new instance of ::klass::.
@@ -55,43 +55,43 @@ module Facebooker
         attr_reader symbol
         hash_settable_writer(symbol, klass)
       end
-
+      
       def hash_settable_writer(symbol, klass)
         define_method("#{symbol}=") do |value|
           instance_variable_set("@#{symbol}", value.kind_of?(Hash) ? klass.from_hash(value) : value)
-        end
+        end        
       end
-
+      
       #
       # Declares an attribute named ::symbol:: which can be set with either a list of instances of ::klass::
-      # or a list of Hashes which will be used to populate a new instance of ::klass::.
+      # or a list of Hashes which will be used to populate a new instance of ::klass::.      
       def hash_settable_list_accessor(symbol, klass)
         attr_reader symbol
         hash_settable_list_writer(symbol, klass)
       end
-
+      
       def hash_settable_list_writer(symbol, klass)
         define_method("#{symbol}=") do |list|
           instance_variable_set("@#{symbol}", list.map do |item|
             item.kind_of?(Hash) ? klass.from_hash(item) : item
           end)
         end
-      end
+      end      
     end
-
+    
     ##
     # Centralized, error-checked place for a model to get the session to which it is bound.
     # Any Facebook API queries require a Session instance.
     def session
       @session || (raise UnboundSessionException, "Must bind this object to a Facebook session before querying")
     end
-
-    #
+    
+    # 
     # This gets populated from FQL queries.
     def anon=(value)
       @anonymous_fields = value
     end
-
+    
     def initialize(hash = {})
       populate_from_hash!(hash)
     end
@@ -103,7 +103,7 @@ module Facebooker
     def populated?
       !@populated.nil?
     end
-
+    
     ##
     # Set model's attributes via Hash.  Keys should map directly to the model's attribute names.
     def populate_from_hash!(hash)
@@ -112,7 +112,7 @@ module Facebooker
           self.__send__("#{key}=", value)
         end
         @populated = true
-      end
-    end
+      end      
+    end    
   end
 end

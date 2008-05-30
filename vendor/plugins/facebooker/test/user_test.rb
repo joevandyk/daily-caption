@@ -3,28 +3,28 @@ require 'rubygems'
 require 'flexmock/test_unit'
 
 class UserTest < Test::Unit::TestCase
-
+  
   def setup
     @session = Facebooker::Session.create('apikey', 'secretkey')
     @user = Facebooker::User.new(1234, @session)
     @other_user = Facebooker::User.new(4321, @session)
     @user.friends = [@other_user]
   end
-
+  
   def test_can_ask_user_if_he_or_she_is_friends_with_another_user
     assert(@user.friends_with?(@other_user))
   end
-
+  
   def test_can_ask_user_if_he_or_she_is_friends_with_another_user_by_user_id
     assert(@user.friends_with?(@other_user.id))
   end
-
+  
   def test_can_create_from_current_session
     Facebooker::Session.expects(:current).returns("current")
     user=Facebooker::User.new(1)
     assert_equal("current",user.session)
   end
-
+  
   def test_can_set_mobile_fbml
     @user.expects(:set_profile_fbml).with(nil,"test",nil)
     @user.mobile_fbml="test"
@@ -37,63 +37,63 @@ class UserTest < Test::Unit::TestCase
     @user.expects(:set_profile_fbml).with("test",nil,nil)
     @user.profile_fbml="test"
   end
-
+  
   def test_can_call_set_profile_fbml
     @session.expects(:post).with('facebook.profile.setFBML', :uid=>1234,:profile=>"profile",:profile_action=>"action",:mobile_profile=>"mobile")
     @user.set_profile_fbml("profile","mobile","action")
   end
-
+  
   def test_can_get_profile_photos
     @user.expects(:profile_photos)
     @user.profile_photos
   end
-
+  
   def test_can_set_cookie
     @user.expects(:set_cookie).with('name', 'value')
     @user.set_cookie('name', 'value')
   end
-
+  
   def test_can_get_cookies
     @user.expects(:get_cookies).with('name')
     @user.get_cookies('name')
   end
-
+  
   def test_get_profile_photos
     @user = Facebooker::User.new(548871286, @session)
-    expect_http_posts_with_responses(example_profile_photos_get_xml)
+    expect_http_posts_with_responses(example_profile_photos_get_xml)    
     photos = @user.profile_photos
     assert_equal "2357384227378429949", photos.first.aid
   end
-
+  
   def test_can_send_email
     @user.expects(:send_email).with("subject", "body text")
     @user.send_email("subject", "body text")
-
+    
     @user.expects(:send_email).with("subject", nil, "body fbml")
     @user.send_email("subject", nil, "body fbml")
   end
-
+  
   def test_can_set_status_with_string
     @session.expects(:post).with('facebook.users.setStatus', :status=>"my status",:status_includes_verb=>1)
     @user.status="my status"
   end
-
+  
   def test_get_events
     @user = Facebooker::User.new(9507801, @session)
     expect_http_posts_with_responses(example_events_get_xml)
     events = @user.events
     assert_equal "29511517904", events.first.eid
   end
-
+  
   def test_can_get_events
     @user.expects(:events)
     @user.events
   end
-
+  
   def test_to_s
     assert_equal("1234",@user.to_s)
   end
-
+  
   private
   def example_profile_photos_get_xml
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -124,7 +124,7 @@ class UserTest < Test::Unit::TestCase
        </photo>
     </photos_get_response>"
   end
-
+  
   def example_events_get_xml
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
     <events_get_response xmlns=\"http://api.facebook.com/1.0/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd\" list=\"true\">
