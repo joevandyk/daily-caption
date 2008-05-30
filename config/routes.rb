@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.root :controller => 'admin'
     admin.resources :photos
   end
+  map.resources :captions
   map.resources :users
   map.resources :votes
   map.resources :sites

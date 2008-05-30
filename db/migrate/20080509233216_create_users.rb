@@ -2,6 +2,8 @@ class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
       t.integer :site_id
+      t.integer :site_user_id, :limit => 8
+      t.string  :session_key
       t.string :username
       t.string :email
       t.string :profile_url
