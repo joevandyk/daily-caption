@@ -10,7 +10,7 @@ describe Photo do
   end
 
   it "should grab the flickr data" do
-    @photo.grab_flickr_data!
+    @photo.grab_flickr_data
     @photo.ready_for_captioning?.should == true
   end
 

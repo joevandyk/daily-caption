@@ -40,6 +40,10 @@ class Caption < ActiveRecord::Base
     self.photo.captioning? and !voted_for?(user)
   end
 
+  def facebook_user
+    user.facebook_user
+  end
+
   private
 
   def check_for_caption_permission
@@ -51,7 +55,7 @@ class Caption < ActiveRecord::Base
   def send_notification
     begin
       logger.info "Publishing feed for caption"
-      CaptionPublisher.deliver_caption_feed self if RAILS_ENV != 'test'
+      FacebookPublisher.deliver_caption_action self if RAILS_ENV != 'test'
     rescue StandardError
       nil
     end

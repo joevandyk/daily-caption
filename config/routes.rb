@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :captions
   map.resources :users
   map.resources :contests
+  map.resources :photos
 
   map.votes '/votes/:caption_id', :controller => 'votes', :action => 'create', :method => 'post'
 

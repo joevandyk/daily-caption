@@ -12,6 +12,7 @@ class CreatePhotos < ActiveRecord::Migration
         t.column :state, :string
         t.column :author, :text
         t.column :photostream, :text
+        t.column :captioned_at, :datetime
         t.timestamps
       end
     end

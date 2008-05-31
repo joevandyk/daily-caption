@@ -23,4 +23,8 @@ class User < ActiveRecord::Base
         session.secure_with!(session_key,site_user_id,1.day.from_now) 
       end
   end
+
+  def facebook_user
+    facebook_session.user
+  end
 end
