@@ -4,8 +4,4 @@ describe Vote do
   before(:each) do
     @vote = Vote.new
   end
-
-  it "should be valid" do
-    @vote.should be_valid
-  end
 end
