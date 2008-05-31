@@ -8,6 +8,12 @@ module ActiveRecord
     end
   end
 
+  class DuplicateMigrationNameError < ActiveRecordError#:nodoc:
+    def initialize(name)
+      super("Multiple migrations have the name #{name}")
+    end
+  end
+
   class UnknownMigrationVersionError < ActiveRecordError #:nodoc:
     def initialize(version)
       super("No migration with version number #{version}")
@@ -202,7 +208,7 @@ module ActiveRecord
   #
   # You can quiet them down by setting ActiveRecord::Migration.verbose = false.
   #
-  # You can also insert your own messages and benchmarks by using the #say_with_time
+  # You can also insert your own messages and benchmarks by using the +say_with_time+
   # method:
   #
   #   def self.up
@@ -371,7 +377,7 @@ module ActiveRecord
       end
 
       def proper_table_name(name)
-        # Use the ActiveRecord objects own table_name, or pre/suffix from ActiveRecord::Base if name is a symbol/string
+        # Use the Active Record objects own table_name, or pre/suffix from ActiveRecord::Base if name is a symbol/string
         name.table_name rescue "#{ActiveRecord::Base.table_name_prefix}#{name}#{ActiveRecord::Base.table_name_suffix}"
       end
     end
@@ -439,6 +445,10 @@ module ActiveRecord
           
           if klasses.detect { |m| m.version == version }
             raise DuplicateMigrationVersionError.new(version) 
+          end
+
+          if klasses.detect { |m| m.name == name.camelize }
+            raise DuplicateMigrationNameError.new(name.camelize) 
           end
           
           load(file)
