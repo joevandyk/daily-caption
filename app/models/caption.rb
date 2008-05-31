@@ -22,8 +22,12 @@ class Caption < ActiveRecord::Base
   end
 
   def send_notification
+    begin
     logger.info "Publishing feed for caption"
     CaptionPublisher.deliver_caption_feed self if RAILS_ENV != 'test'
+  rescue StandardError
+    nil
+  end
   end
 
 end

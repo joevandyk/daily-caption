@@ -45,6 +45,7 @@ class Photo < ActiveRecord::Base
       self.send "#{size['label'].downcase}=", size['source']
     end
     self.author = flickr_photo.owner.username.to_s.strip
+    self.photostream = flickr_photo.url
     save!
   end
 

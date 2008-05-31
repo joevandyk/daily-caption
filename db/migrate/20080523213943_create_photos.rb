@@ -10,6 +10,7 @@ class CreatePhotos < ActiveRecord::Migration
       t.column :original, :text
       t.column :state, :string
       t.column :author, :text
+      t.column :photostream, :text
       t.timestamps
     end
   end

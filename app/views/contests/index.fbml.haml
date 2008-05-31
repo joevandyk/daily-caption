@@ -4,7 +4,7 @@
   #current-contest
     #photo
       = link_to_new_caption_form(show_media(Photo.current))
-      %p.tagline== Flickr photo by: #{link_to Photo.current.author, "#"} | Yesterday's Winner: Jordan Isip
+      %p.tagline== Flickr photo by: #{link_to Photo.current.author, Photo.current.photostream} | Yesterday's Winner: Jordan Isip
     #new-caption.hidden
       - facebook_form_for Caption.new, :url => captions_url do |f| 
         = f.text_area :caption 
