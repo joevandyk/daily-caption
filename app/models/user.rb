@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :captions
+  has_many :votes
 
   def self.for(facebook_id,facebook_session=nil)
     returning find_or_create_by_site_user_id(facebook_id) do |user|
@@ -13,6 +15,7 @@ class User < ActiveRecord::Base
       update_attribute(:session_key,session_key) 
     end
   end
+
 
   def facebook_session
     @facebook_session ||=  

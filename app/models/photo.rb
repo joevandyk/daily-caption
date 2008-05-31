@@ -1,6 +1,6 @@
 class Photo < ActiveRecord::Base
   validates_presence_of :flickr_id
-  has_many :captions, :order => 'created_at desc'
+  has_many :captions
 
   acts_as_state_machine :initial => :submitted
   state :submitted
@@ -13,9 +13,22 @@ class Photo < ActiveRecord::Base
     transitions :from => :submitted, :to => :ready_for_captioning
   end
 
+  event :start_captioning do
+    transitions :from => :ready_for_captioning, :to => :captioning
+  end
+
+  def winning_caption
+    self.captions.find :first, :order => 'votes_count desc'
+  end
+
 
   def self.current
-    Photo.find_in_state(:first, :ready_for_captioning, :order => 'id')
+    Photo.find_in_state(:first, :captioning, :order => 'id')
+  end
+
+  def find_captions_by_last_added
+    winning_caption = self.winning_caption
+    captions.find :all, :conditions => "id != #{winning_caption.id}", :order => 'created_at desc'
   end
 
   def self.process_new_photos

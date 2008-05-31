@@ -5,4 +5,8 @@ class CaptionsController < ApplicationController
     raise c.errors.full_messages.inspect if c.new_record?
     redirect_to index_url
   end
+  
+  def show
+    @caption = Caption.find(params[:id])
+  end
 end

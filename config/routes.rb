@@ -10,8 +10,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :sites
   map.resources :captions
   map.resources :users
-  map.resources :votes
   map.resources :contests
+
+  map.votes '/votes/:caption_id', :controller => 'votes', :action => 'create', :method => 'post'
 
   map.index '/',  :controller => 'contests'
   

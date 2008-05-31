@@ -5,6 +5,7 @@ class CreateCaptions < ActiveRecord::Migration
         t.integer :photo_id
         t.text :caption
         t.integer :user_id
+        t.integer :votes_count, :default => 0
 
         t.timestamps
       end
