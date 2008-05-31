@@ -3,4 +3,8 @@ class CaptionsController < ApplicationController
     c = Caption.create! :photo => Photo.find(params[:photo_id]), :user => current_user, :caption => params[:caption][:caption]
     redirect_to index_url
   end
+  
+  def show
+    @caption = Caption.find(params[:id])
+  end
 end

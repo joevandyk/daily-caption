@@ -36,6 +36,7 @@
       :display none
     .quiet
       :color #999
+      
     // Contest Page
     .add-caption-link
       :margin-top 2px
@@ -50,7 +51,7 @@
         :width 205px
     div#contests
       :margin-top 5px
-      #current-contest
+      #contest
         :background #E8F0F6 url(http://dailycaption.com:4007/images/fold.gif) no-repeat right bottom
         :border 1px solid #CCC
         :padding 10px 5px 40px
@@ -64,10 +65,9 @@
         div#photo
           :background #3A3A3A
           :border 1px solid #CCC
-          :position relative
           :margin auto
           :position relative
-          p
+          p#tagline
             :position absolute
             :top 0
             :left 0
@@ -83,6 +83,12 @@
             a:link, a:visited,a:hover
               :color #FFF
               :text-decoration underline
+          #add-caption-overlay
+            :position absolute
+            :bottom 0
+            :right 0
+            :width 77px
+            :height 81px            
         div#best-caption
           :background url(http://dailycaption.com:4007/images/quote.gif) no-repeat left top
           :margin-top 10px
@@ -91,6 +97,9 @@
           :font-size 1.3em
           :font-weight bold
           :color #3A3A3A
+          .wallkit_post
+            :float none !important
+            :margin-left 0 !important
               
       #past-contests
         :float right
@@ -120,7 +129,9 @@
             :margin 0
             :padding 0
             :text-align center
-
+    
+    // Caption
+    
 
 
 = javascript_include_tag "http://dailycaption.com:4007/javascripts/facebooker"
@@ -137,6 +148,7 @@
       = fb_tab_item "Friends/Invites", new_invitation_url, :selected => false, :align => "right"
 
   #bd
+    = facebook_messages    
     = yield
 
   #ft

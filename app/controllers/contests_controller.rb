@@ -2,7 +2,10 @@ class ContestsController < ApplicationController
   ensure_authenticated_to_facebook
   
   def index
-    @user = session[:facebook_session].user
+    #find captions	
+    @photo = Photo.current
+    @captions = @photo.captions
+    @best_caption = @captions.shift
   end
 
 end
