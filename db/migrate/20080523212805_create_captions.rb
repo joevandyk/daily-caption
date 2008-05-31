@@ -9,6 +9,9 @@ class CreateCaptions < ActiveRecord::Migration
 
         t.timestamps
       end
+      add_index :captions, :photo_id
+      add_index :captions, :user_id
+      add_index :captions, :votes_count
     end
   end
 
