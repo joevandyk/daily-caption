@@ -1,0 +1,45 @@
+#contests.clearfix
+  #contest
+    #contest-header
+      - if @photo.captioning?
+        #contest-time-left.quiet
+          == Time Left: <strong>#{ time_until_next_contest }</strong> <small>(until 12:00AM UTC)</small>
+      #contest-nav
+        = image_tag "left.gif", :alt => "Previous"
+        %h1== #{@photo.captioned_at.to_s(:long_date)}
+        = image_tag "right-off.gif", :alt => "Next"
+    #photo-cont
+      #photo
+        = link_to_new_caption_form(show_media(@photo))
+        %p#tagline== Flickr photo by: #{link_to @photo.author, @photo.photostream} | Yesterday's Winner: #{ link_to "Jordan Isip", "#" }
+        %a{:name => "add_caption"}
+        #add-caption-overlay= link_to_new_caption_form(image_tag "add_caption.png", :alt => "Add your own caption!")
+      #new-caption.hidden
+        - facebook_form_for Caption.new, :url => captions_url do |f| 
+          = f.text_field :caption 
+          = hidden_field_tag :photo_id, @photo.id
+          = f.buttons "Add Caption!"
+      #best-caption
+        = render :partial => "contests/caption", :object => @photo.winning_caption if @photo.winning_caption
+      
+  #past-contests
+    %b Past Contests
+    - for photo in Photo.past.recent
+      %dl
+        %dt= link_to show_media(photo, :square), contest_url(photo)
+        %dd= link_to relative_day(photo.captioned_at), contest_url(photo)
+      
+    .more= link_to "View all past contests", archive_contests_url
+    
+#competition.clearfix
+  #competing-captions
+    .add-caption-link== [ #{link_to_new_caption_form("Add your own caption")} ]
+    %h2 Competing Captions
+    #sort.quiet== Sort the #{@photo.captions.size} competing captions by: Time | Rank | Comments
+    %fb:wall
+      = render :partial => "contests/caption", :collection => @photo.captions.by_last_added(photo.winning_caption)
+
+    .add-caption-link== [ #{link_to_new_caption_form("Add your own caption")} ]
+
+  #contest-sidebar
+    = image_tag("ad-205x180.gif")

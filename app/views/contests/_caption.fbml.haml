@@ -4,8 +4,8 @@
     = fb_profile_pic caption.user.site_user_id
   .wallkit_postcontent
     %h4
-      = link_to "Joe Van Dyk", "#"
-      == wrote<span class="wall_time">#{ caption.created_at } </span>
+      = link_to name(caption.user), "#"
+      == wrote <span class="wall_time">#{ caption.created_at }</span>
 
       - if caption.voted_for? current_user
         You voted for this one!

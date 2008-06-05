@@ -79,7 +79,7 @@ class Photo < ActiveRecord::Base
   def ready_for_rotation?
     self.captioned_at <= 1.minute.ago
   end
-
+  
 
   # Checks to see if the photo is still valid from flickr.
   def grab_flickr_data

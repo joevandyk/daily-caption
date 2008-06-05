@@ -1,0 +1,4 @@
+- for photo in @photos
+  = link_to show_media(photo, :square), contest_url(photo)
+  = photo.winning_caption.caption
+  == by: #{name photo.winning_caption.user}

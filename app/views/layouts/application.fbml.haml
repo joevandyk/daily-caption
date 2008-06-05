@@ -1,8 +1,10 @@
 %style
   :sass
+    !alt_font = "arial,helvetica,clean,sans-serif"
     #canvas
       :background #F7F7F7 url(http://dailycaption.com:4007/images/polaroid.png) no-repeat 350px -30px
       :padding 1.8em 0.5em
+      :color #3A3A3A
     #hd
       #logo
         :padding-bottom 0.5em
@@ -36,6 +38,8 @@
       :display none
     .quiet
       :color #999
+    .more
+      :margin-top 10px
       
     // Contest Page
     .add-caption-link
@@ -50,13 +54,28 @@
         :float right
         :width 205px
     div#contests
-      :margin-top 5px
+      :margin-top 15px
+      #contest-header
+        #contest-time-left
+          :float right
+          :margin-top 5px
+        #contest-nav
+          :font-family = !alt_font
+          :font-weight bold
+          img, h1
+            :font-size 16px
+            :display inline
+            :vertical-align middle
+          img
+            :padding 1px
       #contest
+        :width 525px
+        :float left
+      #photo-cont
         :background #E8F0F6 url(http://dailycaption.com:4007/images/fold.gif) no-repeat right bottom
         :border 1px solid #CCC
         :padding 10px 5px 40px
         :text-align center
-        :float left
         div#new-caption,div#photo,div#photo p
           :width 500px
           :padding 5px
@@ -90,19 +109,17 @@
             :width 77px
             :height 81px            
         div#best-caption
-          :background url(http://dailycaption.com:4007/images/quote.gif) no-repeat left top
-          :margin-top 10px
           :text-align left
-          :padding 10px 10px 10px 20px
-          :font-size 1.3em
+          :font-size 16px
           :font-weight bold
           :color #3A3A3A
           .wallkit_post
             :float none !important
             :margin-left 0 !important
-              
       #past-contests
+        :margin-top 25px
         :float right
+        :text-align center
         :width 90px
         b
           :color #3A3A3A
@@ -125,27 +142,32 @@
             a
               :color #3B5998
               :text-decoration underline
-          dt,dd,dd p
+          dt,dd,p
             :margin 0
             :padding 0
-            :text-align center
+            :text-align center !important
+            
     
     // Caption
-    
+    .wallkit_postcontent 
+      h4
 
+      div
+        :background url(http://dailycaption.com:4007/images/quote.gif) no-repeat left -5px
+    
 
 = javascript_include_tag "http://dailycaption.com:4007/javascripts/facebooker"
 
 #canvas
   #hd
-    #logo= link_to image_tag("dc_logo.png", :alt => "DailyCaption"), index_path
+    #logo= link_to image_tag("http://dailycaption.com:4007/images/dc_logo.png", :alt => "DailyCaption"), index_path
 
     - fb_tabs do
       = fb_tab_item "Help & Feedback", fb_about_url, :selected => false, :align => "left"
-      = fb_tab_item "Current Contest", "#", :selected => true, :align => "right"
-      = fb_tab_item "Past Contests", "#", :selected => false, :align => "right"
-      = fb_tab_item "Profile", "#", :selected => false, :align => "right"
-      = fb_tab_item "Friends/Invites", new_invitation_url, :selected => false, :align => "right"
+      = fb_tab_item "Current Contest", index_url, :selected => current_tab?(:contest), :align => "right"
+      = fb_tab_item "Past Contests", archive_contests_url, :selected => current_tab?(:archive), :align => "right"
+      = fb_tab_item "Profile", "#", :selected => current_tab?(:profile), :align => "right"
+      = fb_tab_item "Friends/Invites", new_invitation_url, :selected => current_tab?(:friends), :align => "right"
 
   #bd
     = facebook_messages    
@@ -154,7 +176,7 @@
   #ft
     %ul
       %li== #{ link_to "About", fb_about_url } -
-      %li== #{ link_to "Current Contest", "#" } -
+      %li== #{ link_to "Current Contest", index_url } -
       %li== #{ link_to "Terms", "#" } -
       %li== #{ link_to "Privacy", "#" } -
       %li== #{ link_to "Help & Feedback", fb_about_url }

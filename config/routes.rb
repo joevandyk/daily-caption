@@ -4,15 +4,11 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :photos
   end
   map.resources :invitations
-  map.with_options :controller => 'invitations' do |m|
-    m.invitations 'dailycaptionjoe/invitations/', :action => 'index'
-  end
   map.resources :sites
   map.resources :captions
   map.resources :users
-  map.resources :contests
-  map.resources :photos
-
+  map.resources :contests, :collection => { :archive => :get }
+  
   map.votes '/votes/:caption_id', :controller => 'votes', :action => 'create', :method => 'post'
 
   map.index '/',  :controller => 'contests'
