@@ -1,8 +1,8 @@
 / Piggy backing on Facebook's CSS
-.wallkit_post
-  .wallkit_profilepic
-    = fb_profile_pic caption.user.site_user_id
-  .wallkit_postcontent
+.caption-container
+  .caption-author
+    = profile_pic caption.user
+  .caption-info
     %h4
       = link_to name(caption.user), "#"
       == wrote <span class="wall_time">#{ caption.created_at }</span>
@@ -14,5 +14,5 @@
 
       == This has #{ caption.votes_count } votes.
 
-    %div= link_to caption.caption, caption_path(caption)
+    .caption= link_to caption.caption, caption_path(caption)
     

@@ -15,8 +15,12 @@ module ApplicationHelper
   def name(user,options={})
     fb_name(user.site_user_id,{:ifcantsee=>"a hidden ninja"}.merge(options))
   end
+  
+  def profile_pic(user)
+    fb_profile_pic user.site_user_id
+  end
     
-  def relative_day(datetime,format=:day)
+  def relative_day(datetime)
     date = datetime.to_date
     today = Time.now.to_date
     if date == today
@@ -26,12 +30,16 @@ module ApplicationHelper
     elsif date == (today + 1)
       "Tomorrow"
     else
-      date.to_s(format)
+      datetime.to_s(:day)
     end
   end
   
   def show_media photo, size=:medium
     image_tag photo[size]
+  end
+  
+  def sortable_captions?(competing_captions)
+    competing_captions.size >= 2
   end
   
   def time_until_next_contest

@@ -1,5 +1,5 @@
 my_formats = {
-  :long_date => "%A - %b %d, %y",
+  :long_date => "%A - %b %d",
   :day => "%A",
   :date_and_time => "%a %b %d, %Y %I:%M %p",
   :long_date_and_time => "%a %b %d, %Y %I:%M:S %p",

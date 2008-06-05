@@ -40,16 +40,27 @@
       :color #999
     .more
       :margin-top 10px
+    .title
+      :font-family = !alt_font
+      :font-weight bold
+      span
+        :color #99CCFF
+    h1.title  
+      :font-size 17px
+    h2.title
+      :font-size 16px
       
     // Contest Page
     .add-caption-link
       :margin-top 2px
       :float right
     div#competition
-      :margin-top 10px
-      div#competing-captions
+      :margin-top 30px
+      div#competing-captions-container
         :float left
         :width 400px
+        div#competing-captions
+          :margin-top 10px
       div#contest-sidebar
         :float right
         :width 205px
@@ -60,10 +71,7 @@
           :float right
           :margin-top 5px
         #contest-nav
-          :font-family = !alt_font
-          :font-weight bold
           img, h1
-            :font-size 16px
             :display inline
             :vertical-align middle
           img
@@ -149,11 +157,24 @@
             
     
     // Caption
-    .wallkit_postcontent 
-      h4
-
-      div
-        :background url(http://dailycaption.com:4007/images/quote.gif) no-repeat left -5px
+    /:background url(http://dailycaption.com:4007/images/quote.gif) no-repeat left -5px
+    // Notices
+    .notice
+      :background #FFC4BF url("http://dailycaption.com:4007/images/error.png") no-repeat 5px 5px
+      :border 3px solid #BC0F00
+      :margin-bottom 15px
+      :padding 5px
+      :padding-left 25px
+      h1
+        :color #840A00
+        :margin 0
+        :padding 0
+      p
+        :margin 0
+        :padding 0 0 3px
+      a:link, a:hover, :visited
+        :color #840A00
+        :text-decoration underline
     
 
 = javascript_include_tag "http://dailycaption.com:4007/javascripts/facebooker"
