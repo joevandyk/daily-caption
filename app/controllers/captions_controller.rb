@@ -9,4 +9,9 @@ class CaptionsController < ApplicationController
   def show
     @caption = Caption.find(params[:id])
   end
+  
+  def new
+    @caption = Caption.new
+    @photo = Photo.current
+  end
 end

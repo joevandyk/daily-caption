@@ -59,6 +59,16 @@
       div#competing-captions-container
         :float left
         :width 400px
+        #sort
+          :color #999
+          ul
+            :margin 0
+            :padding 0
+            :display inline
+            li 
+              :padding 0 1px
+              :list-style none
+              :display inline
         div#competing-captions
           :margin-top 10px
       div#contest-sidebar
@@ -79,51 +89,7 @@
       #contest
         :width 525px
         :float left
-      #photo-cont
-        :background #E8F0F6 url(http://dailycaption.com:4007/images/fold.gif) no-repeat right bottom
-        :border 1px solid #CCC
-        :padding 10px 5px 40px
-        :text-align center
-        div#new-caption,div#photo,div#photo p
-          :width 500px
-          :padding 5px
-        div#new-caption
-          :background #D1D9DF
-        div#photo
-          :background #3A3A3A
-          :border 1px solid #CCC
-          :margin auto
-          :position relative
-          p#tagline
-            :position absolute
-            :top 0
-            :left 0
-            :filter alpha(opacity=80) 
-            :opacity 0.80
-            -moz-opacity 0.80
-            :margin 0
-            :padding-top 2px 
-            :padding-bottom 2px
-            :background #3A3A3A
-            :color #FFF
-            :text-align center
-            a:link, a:visited,a:hover
-              :color #FFF
-              :text-decoration underline
-          #add-caption-overlay
-            :position absolute
-            :bottom 0
-            :right 0
-            :width 77px
-            :height 81px            
-        div#best-caption
-          :text-align left
-          :font-size 16px
-          :font-weight bold
-          :color #3A3A3A
-          .wallkit_post
-            :float none !important
-            :margin-left 0 !important
+ 
       #past-contests
         :margin-top 25px
         :float right
@@ -154,10 +120,124 @@
             :margin 0
             :padding 0
             :text-align center !important
-            
     
-    // Caption
-    /:background url(http://dailycaption.com:4007/images/quote.gif) no-repeat left -5px
+    // Photo
+    #photo-cont
+      :background #E8F0F6
+      :border 1px solid #CCC
+      :padding 10px
+      :text-align center
+      div#new-caption,div#photo,div#photo p
+        :padding 5px
+      div#new-caption
+      div#photo
+        :background #3A3A3A
+        :border 1px solid #555
+        :margin auto
+        :position relative
+        p#tagline
+          :width 95%
+          :position absolute
+          :top 0
+          :left 0
+          :filter alpha(opacity=80) 
+          :opacity 0.80
+          -moz-opacity 0.80
+          :margin 0
+          :padding-top 2px 
+          :padding-bottom 2px
+          :background #3A3A3A
+          :color #FFF
+          :text-align center
+          a:link, a:visited,a:hover
+            :color #FFF
+            :text-decoration underline
+      #add-caption-overlay
+        :position absolute
+        :bottom 0
+        :right 0
+        :width 77px
+        :height 81px
+    #photo-cont.fold
+      :background #E8F0F6 url(http://dailycaption.com:4007/images/fold.gif) no-repeat right bottom
+      :padding 10px 5px 50px
+    // Captions
+    div#best-caption
+      :text-align left
+      .caption-container
+        :background transparent
+        :border none
+        .caption-info
+          :border 1px solid #CCC
+        .caption
+          :font-size 18px
+        
+    .caption-container
+      :background #EFF8FF
+      :border 1px solid #CCC
+      :margin-bottom 10px
+      .caption-info
+        :background #D1D9DF
+        :border-bottom 1px solid #CCC
+        :padding 3px
+        :vertical-align middle
+        .caption-spam
+          :float right
+          :font-size 9px
+        cite.caption-author
+          :font-style normal
+          span
+            :font-size 9px
+
+      .caption-with-votes      
+        :background url(http://dailycaption.com:4007/images/quote.gif) no-repeat left top
+        :padding 7px 5px 5px 15px
+        .caption
+          :padding-top 7px
+          :font-weight bold
+          :font-family = !alt_font
+          :font-size 14px
+          a:link, a:hover, a:visited
+            :color #4F6B7F
+        .caption-actions
+        
+        ul.caption-collab
+          :margin 0
+          :padding 0
+          :margin-top 15px
+          :vertical-align middle
+          li
+            :margin 0
+            :padding 0
+            :float left
+            :list-style none
+            :vertical-align middle
+            :margin-right 7px
+            img, a
+              :vertical-align middle
+            .share_and_hide
+              :margin-top 2px
+        .caption-voting
+          :float right
+          :width 45px
+          :margin-left 10px
+          :margin-right 5px
+          :text-align center
+          .caption-points
+            :font-family = !alt_font
+            :background #3A3A3A
+            :border 1px solid #555
+            :color #99CCFF
+            :font-size 18px
+            :font-weight bold
+            :padding 3px 0
+            span
+              :display block
+              :margin-top 2px
+              :font-size 11px
+              :color #CCC
+          .caption-votes
+      
     // Notices
     .notice
       :background #FFC4BF url("http://dailycaption.com:4007/images/error.png") no-repeat 5px 5px

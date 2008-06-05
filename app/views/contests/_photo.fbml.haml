@@ -1,0 +1,8 @@
+#photo-cont{:class => "#{ 'fold' unless params[:action] == "new" }"}
+  #photo
+    = link_to_unless_current show_media(photo), new_caption_url
+    %p#tagline== Flickr photo by: #{link_to photo.author, photo.photostream} | Yesterday's Winner: #{ link_to "Jordan Isip", "#" }
+    - unless params[:action] == "new"
+      %a{:name => "add_caption"}
+      #add-caption-overlay= link_to image_tag("add_caption.png", :alt => "Add your own caption!"), new_caption_url
+  = body

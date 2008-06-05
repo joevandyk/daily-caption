@@ -80,7 +80,6 @@ class Photo < ActiveRecord::Base
     self.captioned_at <= 1.minute.ago
   end
   
-
   # Checks to see if the photo is still valid from flickr.
   def grab_flickr_data
     flickr_photo = Flickr::Photo.new(self.flickr_id)

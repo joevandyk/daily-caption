@@ -1,5 +1,20 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def add_caption_link
+  "<div class='add-caption-link'>[ #{link_to "Add your own caption", new_caption_url} ]</div>"
+  end
+  
+  def caption_share_button(caption)
+    <<-eos
+      <fb:share-button class="meta">
+        <meta name="title" content="#{caption.caption}"/>
+        <meta name="description" content="Help vote up this epic caption on the DailyCaption contest!"/>
+        <link rel="image_src" href="#{caption.photo[:small]}"/>
+        <link rel="target_url" href="#{caption_url(caption)}"/> 
+      </fb:share-button>
+    eos
+  end
+  
   def current_tab?(tab)
     tab == @current_tab
   end
@@ -8,12 +23,17 @@ module ApplicationHelper
     request.protocol << request.host_with_port << request.request_uri
   end
   
-  def link_to_new_caption_form link
-    link_to_function(link,"$('new-caption').toggleClassName('hidden');")
+  def link_to_unless_sorting_by(name, options, html_options = {}, *parameters_for_method_reference, &block)
+      options.merge(:anchor => "captions")
+      link_to_unless params[:sort] == options[:sort], name, options, html_options, *parameters_for_method_reference, &block
   end
 
   def name(user,options={})
     fb_name(user.site_user_id,{:ifcantsee=>"a hidden ninja"}.merge(options))
+  end
+  
+  def photo_cont photo, &block
+    concat(render(:partial => "contests/photo", :locals => {:body => capture(&block), :photo => photo}), block.binding)
   end
   
   def profile_pic(user)
@@ -42,7 +62,12 @@ module ApplicationHelper
     competing_captions.size >= 2
   end
   
+  def time_left
+    "Time Left: <strong>#{ time_until_next_contest }</strong> <small>(until 12:00AM UTC)</small>"
+  end
+  
   def time_until_next_contest
     distance_of_time_in_words(Time.now, Time.now.tomorrow.at_beginning_of_day, include_seconds = true)
   end
+  
 end

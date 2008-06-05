@@ -43,6 +43,15 @@ class Caption < ActiveRecord::Base
   def facebook_user
     user.facebook_user
   end
+  
+  # Should return true if caption is marked as SPAM
+  def deleted?
+    false
+  end
+  
+  def votes_count
+    self[:votes_count] or 0
+  end
 
   private
 

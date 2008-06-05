@@ -5,7 +5,7 @@ my_formats = {
   :long_date_and_time => "%a %b %d, %Y %I:%M:S %p",
   :short_date => '%Y-%m-%d',
   :really_short_date => "%b %d",
-  :time_only => "%l:%M:%S %p"
+  :time => "%l:%M %p"
 }
 
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(my_formats)

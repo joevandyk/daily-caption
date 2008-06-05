@@ -8,22 +8,13 @@
     #contest-header
       - if @photo.captioning?
         #contest-time-left.quiet
-          == Time Left: <strong>#{ time_until_next_contest }</strong> <small>(until 12:00AM UTC)</small>
+          = time_left
       #contest-nav
         = link_to image_tag("left.gif", :alt => "Previous"), "#"
         %h1.title== #{@photo.captioned_at.to_s(:long_date)}
         = link_to image_tag("right-off.gif", :alt => "Next"), "#"
-    #photo-cont
-      #photo
-        = link_to_new_caption_form(show_media(@photo))
-        %p#tagline== Flickr photo by: #{link_to @photo.author, @photo.photostream} | Yesterday's Winner: #{ link_to "Jordan Isip", "#" }
-        %a{:name => "add_caption"}
-        #add-caption-overlay= link_to_new_caption_form(image_tag "add_caption.png", :alt => "Add your own caption!")
-      #new-caption.hidden
-        - facebook_form_for Caption.new, :url => captions_url do |f| 
-          = f.text_field :caption 
-          = hidden_field_tag :photo_id, @photo.id
-          = f.buttons "Add Caption!"
+
+    - photo_cont @photo do
       #best-caption
         = render :partial => "contests/caption", :object => @photo.winning_caption if @photo.winning_caption
       
@@ -38,17 +29,25 @@
     
 #competition.clearfix
   #competing-captions-container
-    .add-caption-link== [ #{link_to_new_caption_form("Add your own caption")} ]
+    = add_caption_link
     %h2.title <span>COMPETING</span> Captions
     - unless @competing_captions.empty?
       - if sortable_captions?(@competing_captions)
-        #sort.quiet== Sort the #{@competing_captions.size} competing captions by: Time | Rank | Comments
+        #sort
+          == Sort the #{@competing_captions.size} competing captions by: 
+          %ul
+            %li= link_to_unless_sorting_by "Time", {:sort => nil }
+            %li= link_to_unless_sorting_by "Rank", {:sort => :rank}
+            %li= link_to_unless_sorting_by "Comments", {:sort => :comments}
       #competing-captions
         = render :partial => "contests/caption", :collection => @competing_captions
     - else
-      %p Nobody has stepped up to compete yet, man up and post a caption!
+      - if @photo.captioning?
+        %p Nobody has stepped up to compete yet, man up and post a caption!
+      - else
+        %p== No captions were posted for this contest! Help us out and post a caption on the #{ link_to 'currest contest', index_url }!
 
-    .add-caption-link== [ #{link_to_new_caption_form("Add your own caption")} ]
+    = add_caption_link
 
   #contest-sidebar
     = image_tag("ad-205x180.gif")
