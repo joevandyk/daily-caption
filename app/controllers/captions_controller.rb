@@ -13,5 +13,6 @@ class CaptionsController < ApplicationController
   def new
     @caption = Caption.new
     @photo = Photo.current
+    @current_tab = :contest
   end
 end

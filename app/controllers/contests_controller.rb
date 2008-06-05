@@ -19,6 +19,13 @@ class ContestsController < ApplicationController
   def setup_contest
     @photo = Photo.find(params[:id]) rescue Photo.current
     @current_tab = (@photo == Photo.current) ? :contest : :archive
-    @competing_captions = @photo.captions.by_last_added(@photo.winning_caption)
+    @competing_captions = case params[:sort]
+      when "rank"	
+        @photo.captions.by_rank(@photo.winning_caption)
+      when "comments"
+        @photo.captions.by_last_added(@photo.winning_caption)
+      else #time desc by default
+        @photo.captions.by_last_added(@photo.winning_caption)
+    end
   end
 end
