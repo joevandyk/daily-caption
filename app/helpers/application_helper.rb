@@ -5,7 +5,7 @@ module ApplicationHelper
   end
   
   def show_fold?
-    params[:controller] == "contests"
+    params[:controller] == "contests" and @photo and !@photo.captions.empty?
   end
   
   def show_add_caption?(photo)

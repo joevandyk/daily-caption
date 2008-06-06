@@ -18,7 +18,7 @@
       - if @photo.winning_caption
         #best-caption= render :partial => "contests/caption", :object => @photo.winning_caption if @photo.winning_caption
       - else
-        %h1= link_to "Add the first caption for this contest!", new_caption_url
+        %h1#first-caption-message.title= link_to "Quick, nobody has captioned yet! Be the first to caption!", new_caption_url
   #past-contests
     %b Past Contests
     - for photo in Photo.past.recent
