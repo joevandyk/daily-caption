@@ -4,6 +4,10 @@ module ApplicationHelper
   "<div class='add-caption-link'>[ #{link_to "Add your own caption", new_caption_url} ]</div>"
   end
   
+  def can_add_caption?(photo)
+    photo.captioning? and params[:action] != "new"
+  end
+  
   def caption_share_button(caption)
     <<-eos
       <fb:share-button class="meta">

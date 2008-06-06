@@ -1,1 +1,7 @@
-= @caption.caption 
+%p= link_to "&lsaquo; Back to all captions", contest_url(@caption.photo)
+
+- photo_cont @caption.photo do
+  #best-caption
+    = render :partial => "contests/caption", :object => @caption
+
+%p= link_to "&lsaquo; Back to all captions", contest_url(@caption.photo)

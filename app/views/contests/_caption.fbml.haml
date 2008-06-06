@@ -1,9 +1,10 @@
 %a{:name => dom_id(caption)}
-.caption-container
+.caption-container.clearfix
   .caption-info
-    %div{:id => "spam_#{dom_id(caption)}", :class => "caption-spam"}
-      / Should be an AJAX SPAM Vote returns "SPAM vote submitted." Which should also show if user already flagged or caption deleted
-      This is SPAM
+    - if caption.photo.captioning?
+      %div{:id => "spam_#{dom_id(caption)}", :class => "caption-spam"}
+        / Should be an AJAX SPAM Vote returns "SPAM vote submitted." Which should also show if user already flagged or caption deleted
+        This is SPAM
     %cite{:id => "author_#{dom_id(caption)}", :class => "caption-author"}
       / hide author if current user has not voted on the caption if not, it should have a default icon and a vote to find out! message
       == #{ link_to name(caption.user), "#" } wrote <span>(2 hours before the deadline)</span>
