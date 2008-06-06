@@ -15,9 +15,10 @@
         = link_to image_tag("right-off.gif", :alt => "Next"), "#"
 
     - photo_cont @photo do
-      #best-caption
-        = render :partial => "contests/caption", :object => @photo.winning_caption if @photo.winning_caption
-      
+      - if @photo.winning_caption
+        #best-caption= render :partial => "contests/caption", :object => @photo.winning_caption if @photo.winning_caption
+      - else
+        %h1= link_to "Add the first caption for this contest!", new_caption_url
   #past-contests
     %b Past Contests
     - for photo in Photo.past.recent

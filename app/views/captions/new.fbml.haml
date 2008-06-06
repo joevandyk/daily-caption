@@ -1,7 +1,8 @@
 - photo_cont @photo do
   #new-caption
+    = facebook_messages
     - facebook_form_for @caption, :url => captions_url do |f| 
       .quiet== #{ time_left } | You can post up to 3 captions per contest (# remaining).
-      = f.text_field :caption 
+      = f.text_field :caption, :maxlength => Caption::CAPTION_LENGTH
       = hidden_field_tag :photo_id, @photo.id
       = f.buttons "Add Caption!"

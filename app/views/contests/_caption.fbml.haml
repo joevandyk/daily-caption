@@ -9,18 +9,8 @@
       / hide author if current user has not voted on the caption if not, it should have a default icon and a vote to find out! message
       == #{ link_to name(caption.user), "#" } wrote <span>(2 hours before the deadline)</span>
   .caption-with-votes
-    .caption-voting
-      .caption-points
-        %div{:id =>"points_#{dom_id(caption)}"} 
-          = caption.votes_count
-          %span votes
-      .caption-votes
-        - if caption.can_vote_for_caption? current_user
-          = link_to "Vote Up", votes_path(caption) 
-        - elsif caption.voted_for? current_user
-          %span.quiet Voted
-        - else
-          %span.quiet Closed
+    %div{:id => "vote_#{dom_id(caption)}", :class => "caption-voting"}
+      = render :partial => "caption_vote", :locals => { :caption => caption }
     .caption
       - unless caption.deleted?
         = link_to caption.caption, caption_path(caption)

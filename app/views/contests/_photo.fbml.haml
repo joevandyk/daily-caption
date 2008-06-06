@@ -1,11 +1,11 @@
-#photo-cont{:class => "#{ 'fold' if can_add_caption?(photo) }"}
+#photo-cont{:class => "#{ 'fold' if show_fold? }"}
   #photo
     - if photo.captioning?
       = link_to show_media(photo), new_caption_url
     - else
       = show_media(photo)
     %p#tagline== Flickr photo by: #{link_to photo.author, photo.photostream} | Yesterday's Winner: #{ link_to "Jordan Isip", "#" }
-    - if can_add_caption?(photo)
+    - if show_add_caption?(photo)
       %a{:name => "add_caption"}
       #add-caption-overlay= link_to image_tag("add_caption.png", :alt => "Add your own caption!"), new_caption_url
   = body

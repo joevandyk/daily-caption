@@ -169,16 +169,17 @@
         :background transparent
         :border none
         .caption-info
+          :background #D1D9DF
           :border 1px solid #CCC
         .caption
           :font-size 18px
         
     .caption-container
-      :background #EFF8FF
+      :background #F7F7F7
       :border 1px solid #CCC
       :margin-bottom 10px
       .caption-info
-        :background #D1D9DF
+        :background #E7E7E7
         :border-bottom 1px solid #CCC
         :padding 3px
         :vertical-align middle
@@ -281,6 +282,11 @@
             img
               :border 1px solid #CCC
               :padding 4px
+              &:hover
+                :border-color #3B5998
+                a
+                  :color #3B5998
+                  :text-decoration underline
           dd
             :margin-left 90px
             :padding 0
@@ -295,11 +301,10 @@
       = fb_tab_item "Help & Feedback", fb_about_url, :selected => false, :align => "left"
       = fb_tab_item "Current Contest", index_url, :selected => current_tab?(:contest), :align => "right"
       = fb_tab_item "Past Contests", archive_contests_url, :selected => current_tab?(:archive), :align => "right"
-      = fb_tab_item "Profile", "#", :selected => current_tab?(:profile), :align => "right"
+      = fb_tab_item "Profile", user_url(current_user), :selected => current_tab?(:profile), :align => "right"
       = fb_tab_item "Invites", new_invitation_url, :selected => current_tab?(:friends), :align => "right"
 
   #bd
-    = facebook_messages    
     = yield
 
   #ft
