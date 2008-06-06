@@ -7,7 +7,7 @@ class FacebookPublisher < Facebooker::Rails::Publisher
     send_as :action
     from caption.facebook_user
     title "<fb:fbml> #{ name(caption.user.facebook_session.user)} captioned a #{ link_to 'photo', caption_url }</fb:fbml>"
-    body  "<fb:fbml> #{ caption.caption } </fb:fbml>"
+    body  "<fb:fbml> #{ link_to caption.caption, caption_url(caption) } - Help vote up this caption on #{link_to "DailyCaption", index_url}!</fb:fbml>"
     add_image caption.photo.medium, caption_url
   rescue StandardError
     nil
@@ -16,8 +16,8 @@ class FacebookPublisher < Facebooker::Rails::Publisher
   def winning_caption_action caption
     send_as :action
     from caption.facebook_user
-    title "<fb:fbml> #{ name(caption.user.facebook_session.user)} won a #{ link_to 'captioning contest!', caption_url(:id => caption.id) }</fb:fbml>"
-    body  "<fb:fbml> #{ caption.caption } </fb:fbml>"
+    title "<fb:fbml> #{ name(caption.user.facebook_session.user)} won a #{ link_to 'DailyCaption contest!', caption_url(:id => caption.id) }</fb:fbml>"
+    body  "<fb:fbml> Winning caption: #{ caption.caption } </fb:fbml>"
     add_image caption.photo.medium, caption_url(:id => caption.id)
   end
 
@@ -32,8 +32,8 @@ class FacebookPublisher < Facebooker::Rails::Publisher
     send_as :email
     recipients caption.facebook_user
     from caption.facebook_user
-    title "<fb:fbml> Congratulations on winning a Daily Caption contest!</fb:fbml>"
-    fbml  "<fb:fbml> #{ caption.caption } </fb:fbml>"
+    title "Congratulations on winning a Daily Caption contest!"
+    fbml  "<fb:fbml> Woohoo! Here is your caption that won: #{ caption.caption } </fb:fbml>"
   end
 end
 

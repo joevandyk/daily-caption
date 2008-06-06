@@ -16,7 +16,7 @@ module ApplicationHelper
     <<-eos
       <fb:share-button class="meta">
         <meta name="title" content="#{caption.caption}"/>
-        <meta name="description" content="Help vote up this epic caption on the DailyCaption contest!"/>
+        <meta name="description" content="Help vote up this caption! Think you are funnier?? Write your own caption on DailyCaption!"/>
         <link rel="image_src" href="#{caption.photo[:small]}"/>
         <link rel="target_url" href="#{caption_url(caption)}"/> 
       </fb:share-button>
