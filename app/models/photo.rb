@@ -82,6 +82,10 @@ class Photo < ActiveRecord::Base
   def previous
     Photo.find(:first, :conditions => ['captioned_at < ?', self.captioned_at], :order => "captioned_at")    
   end
+
+  def number_of_captions_user_can_add user
+    Caption::CAPTION_LIMIT - self.captions.count(:conditions => "user_id = #{user.id}") 
+  end
   
   # Checks to see if the photo is ready for rotation
   def ready_for_rotation?
