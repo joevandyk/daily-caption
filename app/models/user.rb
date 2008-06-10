@@ -9,6 +9,14 @@ class User < ActiveRecord::Base
       end
     end
   end
+  
+  def recently_created_captions
+    self.captions.recent
+  end
+  
+  def recently_voted_captions
+    Vote.not_for_mine(self).recent.map{ |v| v.caption }
+  end
 
   def store_session(session_key)
     if self.session_key != session_key

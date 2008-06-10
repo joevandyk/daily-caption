@@ -1,1 +1,9 @@
 == hi #{name @user}
+
+%h3 Your Captions
+= render :partial => 'contests/caption', :collection => @user.recently_created_captions
+
+%h3 Captions you voted up
+= render :partial => 'contests/caption', :collection => @user.recently_voted_captions
+
+%h3 Your Comments

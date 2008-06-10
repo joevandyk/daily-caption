@@ -4,7 +4,7 @@
     %span votes
 .caption-votes
   - if caption.can_vote_for_caption? current_user
-    = link_to_remote "Vote Up", :url => votes_url(caption, :canvas => false), :update => "vote_#{dom_id(caption)}"
+    = link_to "Vote Up", votes_url(caption)
   - elsif caption.voted_for? current_user
     %span.quiet Voted
   - else

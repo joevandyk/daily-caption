@@ -75,6 +75,14 @@ class Photo < ActiveRecord::Base
     self.captions.find :first, :order => 'votes_count desc'
   end
 
+  def next
+    Photo.find(:first, :conditions => ['captioned_at > ?', self.captioned_at], :order => "captioned_at")
+  end
+  
+  def previous
+    Photo.find(:first, :conditions => ['captioned_at < ?', self.captioned_at], :order => "captioned_at")    
+  end
+  
   # Checks to see if the photo is ready for rotation
   def ready_for_rotation?
     self.captioned_at <= 1.minute.ago
