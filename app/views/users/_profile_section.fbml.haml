@@ -1,0 +1,16 @@
+.profile-section
+  %table.lists{ :cellspacing=>"0", :border=>"0" }
+    %tr
+      %th
+        %h4= title
+        = link_to "See All", link unless collection.empty?
+    %tr
+      %td.list
+        - if collection.empty?
+          .list_item== No #{title} have been created yet :(
+        - else
+          = render :partial => partial, :collection => collection
+    %tr
+      %td.see_all
+        %div
+          = link_to "See All #{title}", link unless collection.empty?

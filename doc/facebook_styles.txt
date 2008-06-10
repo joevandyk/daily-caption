@@ -1,0 +1,30 @@
+/http://wiki.developers.facebook.com/index.php/Facebook_Styless
+#profile-captions
+  %table.lists{ :cellspacing=>"0", :border=>"0" }
+    %tr
+      %th
+        %h4 List 1
+        = link_to "See All", '#'
+      %th.spacer
+      %th
+        %h4 List 2
+        = link_to "See All", '#'
+
+    %tr
+      %td.list
+        .list_item.clearfix
+          This will be a caption
+        
+      %td.spacer
+      %td.list
+        .list_item.clearfix
+          This will be a captions
+
+    %tr
+      %td.see_all
+        %div
+          = link_to "See All of list 1", '#'
+      %td.spacer
+      %td.see_all
+        %div
+          = link_to "See All of list 2", '#'

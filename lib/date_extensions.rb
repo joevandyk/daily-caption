@@ -3,7 +3,7 @@ my_formats = {
   :day => "%A",
   :date_and_time => "%a %b %d, %Y %I:%M %p",
   :long_date_and_time => "%a %b %d, %Y %I:%M:S %p",
-  :short_date => '%Y-%m-%d',
+  :short_date => '%B %d, %Y',
   :really_short_date => "%b %d",
   :time => "%l:%M %p"
 }

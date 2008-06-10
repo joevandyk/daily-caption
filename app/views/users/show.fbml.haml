@@ -1,9 +1,20 @@
-== hi #{name @user}
+#profile-page.clearfix
+  #profile-info
+    = profile_pic @user, :normal
+    %table#profile-stats.profileTable{ :cellspacing=>"0", :border=>"0" }
+      %tr
+        %td.label Total Captions:
+        %td.data= @user.captions.size
+      %tr
+        %td.label Total Votes:
+        %td.data= @user.voted_captions.size
+      %tr
+        %td.label Total Comments:
+        %td.data= @user.comments.size
 
-%h3 Your Captions
-= render :partial => 'contests/caption', :collection => @user.recently_created_captions
-
-%h3 Captions you voted up
-= render :partial => 'contests/caption', :collection => @user.recently_voted_captions
-
-%h3 Your Comments
+  #profile-contributions
+    %h1= name @user
+    %p.quiet== DailyCaption user since #{ @user.created_at.to_s :short_date }
+    = profile_section :title => "Captions", :link => "#", :partial => 'contests/caption', :collection => @user.recently_created_captions
+    = profile_section :title => "Voted on Captions", :link => "#", :partial => 'contests/caption', :collection => @user.recently_voted_captions
+    = profile_section :title => "Comments", :link => "#", :partial => 'captions/comment', :collection => @user.comments

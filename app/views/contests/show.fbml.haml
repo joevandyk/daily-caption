@@ -52,7 +52,7 @@
         = render :partial => "contests/caption", :collection => @competing_captions
     - else
       - if @photo.captioning?
-        %p Nobody has stepped up to compete yet, man up and post a caption!
+        %p== Nobody has stepped up to compete yet, man up and #{ link_to "post a caption", new_caption_url }!
       - else
         %p== No captions were posted for this contest! Help us out and post a caption on the #{ link_to 'currest contest', index_url }!
 
@@ -61,7 +61,3 @@
   #contest-sidebar
     #sponsor-1
       = image_tag("ad-205x180.gif")
-    #news
-      %h3 News
-      %p This just in...Joe sucks.
-    
