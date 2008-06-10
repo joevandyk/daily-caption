@@ -30,6 +30,9 @@
           :color #3B5998
           
 // Util Classes
+.box
+  :background url(http://dailycaption.com:4007/images/background_section.gif) repeat-x top
+  :padding 10px
 .float-right
   :float right
 .float-left
@@ -46,6 +49,7 @@
   :font-family = !alt_font
   :font-weight bold
   span
+    :text-transform uppercase
     :color #99CCFF
 h1.title  
   :font-size 17px
@@ -310,3 +314,16 @@ div#best-caption
     :width 400px
   .profile-section
     :margin-top 20px
+
+
+// Comments
+#comments-container
+  :margin-top 20px
+  #comments
+    :width 435px
+    :float left
+    
+  #comments-sidebar
+    :width 170px
+    :float right
+    :text-align right

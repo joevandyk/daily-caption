@@ -26,6 +26,10 @@
     #ft ul li a:hover {
       color: #3B5998; }
 
+.box {
+  background: url(http://dailycaption.com:4007/images/background_section.gif) repeat-x top;
+  padding: 10px; }
+
 .float-right {
   float: right; }
 
@@ -48,6 +52,7 @@
   font-family: arial,helvetica,clean,sans-serif;
   font-weight: bold; }
   .title span {
+    text-transform: uppercase;
     color: #99CCFF; }
 
 h1.title {
@@ -302,3 +307,13 @@ div#best-caption {
   width: 400px; }
 #profile-page .profile-section {
   margin-top: 20px; }
+
+#comments-container {
+  margin-top: 20px; }
+  #comments-container #comments {
+    width: 435px;
+    float: left; }
+  #comments-container #comments-sidebar {
+    width: 170px;
+    float: right;
+    text-align: right; }
