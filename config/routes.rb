@@ -7,7 +7,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :invitations
   map.resources :sites
   map.resources :captions
-  map.resources :users
+
+  map.resources :users do |user|
+    user.resources :captions
+    user.resources :votes
+  end
+
   map.resources :contests, :collection => { :archive => :get }
   
   map.votes '/votes/:caption_id', :controller => 'votes', :action => 'create', :method => 'post'

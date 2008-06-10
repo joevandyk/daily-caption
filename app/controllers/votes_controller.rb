@@ -6,4 +6,9 @@ class VotesController < ApplicationController
     redirect_to index_url
   end
 
+  def index
+    @user = User.find params[:user_id]
+    @captions = @user.voted_captions
+  end
+
 end
