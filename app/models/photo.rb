@@ -37,7 +37,7 @@ class Photo < ActiveRecord::Base
   # Processes all new photos (grabs flickr data)
   def self.process_new_photos
     Photo.find_in_state(:all, :submitted).each do |photo|
-      photo.grab_flickr_data
+      photo.process_flickr_photo
     end
   end
 
@@ -89,6 +89,12 @@ class Photo < ActiveRecord::Base
   end
   
   # Checks to see if the photo is still valid from flickr.
+  def process_flickr_photo
+    grab_flickr_data
+    ready_for_captioning!
+    save!
+  end
+    
   def grab_flickr_data
     flickr_photo = Flickr::Photo.new(self.flickr_id)
     flickr_photo.sizes.each do |size|
@@ -96,8 +102,6 @@ class Photo < ActiveRecord::Base
     end
     self.author = flickr_photo.owner.username.to_s.strip
     self.photostream = flickr_photo.url
-    ready_for_captioning!
-    save!
   rescue RuntimeError
     flickr_failure!
   end
