@@ -29,7 +29,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
   def facebook_session
     @facebook_session ||=  
       returning Facebooker::Session.create do |session| 

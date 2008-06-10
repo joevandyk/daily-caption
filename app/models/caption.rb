@@ -66,7 +66,7 @@ class Caption < ActiveRecord::Base
   private
 
   def check_for_caption_permission
-    if self.photo.captions.count(:conditions => "user_id = #{self.user_id}") >= CAPTION_LIMIT
+    unless self.photo.number_of_captions_user_can_add(self.user) > 0
       errors.add_to_base("Can't create more than #{CAPTION_LIMIT} captions per photo") and return false
     end
   end
