@@ -4,8 +4,8 @@ class ContestsController < ApplicationController
   
   def index
     respond_to do |format|
-      format.html { redirect_to facebook_page }
       format.fbml  { render :action => :show }
+      format.html { redirect_to facebook_page }
     end
   end
   

@@ -12,5 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   map.votes '/votes/:caption_id', :controller => 'votes', :action => 'create', :method => 'post'
   map.comments '/comments', :controller => 'comments', :action => 'create', :method => 'post'
 
+  map.news  '/news',  :controller => 'static', :action => 'news'
+
   map.index '/',  :controller => 'contests'
 end

@@ -45,7 +45,8 @@ class Caption < ActiveRecord::Base
     ! self.votes.for_user(user).empty?
   end
 
-  def can_vote_for_caption? user
+  def can_vote_for_caption? user=nil
+    return false unless user
     self.photo.captioning? and !voted_for?(user)
   end
 

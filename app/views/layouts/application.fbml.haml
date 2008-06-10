@@ -2,7 +2,7 @@
   :sass
     !alt_font = "arial,helvetica,clean,sans-serif"
     #canvas
-      :background #F7F7F7 url(http://dailycaption.com:4007/images/polaroid.png) no-repeat 350px -30px
+      :background #F7F7F7 url(http://beavis.tanga.com.com:4008/images/polaroid.png) no-repeat 350px -30px
       :padding 1.8em 0.5em
       :color #3A3A3A
     #hd
@@ -160,7 +160,7 @@
         :width 77px
         :height 81px
     #photo-cont.fold
-      :background #E8F0F6 url(http://dailycaption.com:4007/images/fold.gif) no-repeat right bottom
+      :background #E8F0F6 url(http://beavis.tanga.com:4008/images/fold.gif) no-repeat right bottom
       :padding 10px 5px 50px
       
     // Captions
@@ -193,7 +193,7 @@
             :font-size 9px
 
       .caption-with-votes      
-        :background url(http://dailycaption.com:4007/images/quote.gif) no-repeat left top
+        :background url(http://beavis.tanga.com:4008/images/quote.gif) no-repeat left top
         :padding 7px 5px 5px 15px
         .caption
           :padding-top 7px
@@ -243,7 +243,7 @@
       
     // Notices
     .notice
-      :background #FFC4BF url("http://dailycaption.com:4007/images/error.png") no-repeat 5px 5px
+      :background #FFC4BF url("http://beavis.tanga.com:4008/images/error.png") no-repeat 5px 5px
       :border 3px solid #BC0F00
       :margin-bottom 15px
       :padding 5px
@@ -292,11 +292,11 @@
             :margin-left 90px
             :padding 0
 
-= javascript_include_tag "http://dailycaption.com:4007/javascripts/facebooker"
+= javascript_include_tag "http://beavis.tanga.com:4008/javascripts/facebooker"
 
 #canvas
   #hd
-    #logo= link_to image_tag("http://dailycaption.com:4007/images/dc_logo.png", :alt => "DailyCaption"), index_path
+    #logo= link_to image_tag("http://beavis.tanga.com:4008/images/dc_logo.png", :alt => "DailyCaption"), index_path
 
     - fb_tabs do
       = fb_tab_item "Help & Feedback", fb_about_url, :selected => false, :align => "left"
