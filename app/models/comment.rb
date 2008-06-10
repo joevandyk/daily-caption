@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   belongs_to :user
-  belongs_to :caption
+  belongs_to :caption, :counter_cache => true
   validates_presence_of :user
   validates_presence_of :caption
   validates_length_of :comment, :minimum => 5

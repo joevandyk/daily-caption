@@ -46,8 +46,8 @@
           == Sort the #{@competing_captions.size} competing captions by: 
           %ul
             %li= link_to_unless_sorting_by "Time", {:sort => nil }
-            %li= link_to_unless_sorting_by "Rank", {:sort => :rank}
-            %li= link_to_unless_sorting_by "Comments", {:sort => :comments}
+            %li= link_to_unless_sorting_by "Rank", {:sort => "rank"}
+            %li= link_to_unless_sorting_by "Comments", {:sort => "comments"}
       #competing-captions
         = render :partial => "contests/caption", :collection => @competing_captions
     - else
