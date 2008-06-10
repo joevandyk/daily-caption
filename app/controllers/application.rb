@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_user
   private
 
+  def facebook_page
+     "http://apps.facebook.com#{Facebooker.facebook_path_prefix}"
+  end
+
   def set_current_user
     if facebook_session
       begin
