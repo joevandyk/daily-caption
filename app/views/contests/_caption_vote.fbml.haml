@@ -5,6 +5,9 @@
 .caption-votes
   - if caption.can_vote_for_caption? current_user
     = link_to "Vote Up", votes_url(caption)
+    - remote_form_for Vote.new, :complete => "$('vote_btn_#{dom_id(caption)}').setTextValue('Voted!')", :url => votes_url(:caption_id => caption.id, :canvas => false) do
+      = hidden_field_tag :caption_id, caption.id
+      = submit_tag "Vote Up Ajax", :id => "vote_btn_#{dom_id(caption)}"
   - elsif caption.voted_for? current_user
     %span.quiet Voted
   - else
