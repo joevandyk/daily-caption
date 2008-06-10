@@ -11,6 +11,12 @@ module ApplicationHelper
   def show_add_caption?(photo)
     photo.captioning? and params[:action] != "new"
   end
+
+  def caption_before_deadline_text caption
+    photo = caption.photo
+    time = distance_of_time_in_words caption.created_at, photo.ended_captioning_at
+    "#{ time } before the deadline"
+  end
   
   def caption_share_button(caption)
     <<-eos

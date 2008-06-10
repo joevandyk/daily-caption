@@ -89,7 +89,7 @@ class Photo < ActiveRecord::Base
   
   # Checks to see if the photo is ready for rotation
   def ready_for_rotation?
-    self.captioned_at <= 1.minute.ago
+    self.ended_captioning_at <= Time.now
   end
   
   # Checks to see if the photo is still valid from flickr.
@@ -114,6 +114,7 @@ class Photo < ActiveRecord::Base
 
   def mark_caption_start_time
     self.captioned_at = Time.now
+    self.ended_captioning_at = 1.day.from_now
   end
 
   def score_contest
