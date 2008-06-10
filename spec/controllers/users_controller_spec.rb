@@ -116,11 +116,6 @@ describe UsersController do
       do_get
     end
 
-    it "should render the found user as xml" do
-      @user.should_receive(:to_xml).and_return("XML")
-      do_get
-      response.body.should == "XML"
-    end
   end
 
   describe "handling GET /users/new" do

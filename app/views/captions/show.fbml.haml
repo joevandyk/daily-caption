@@ -4,4 +4,16 @@
   #best-caption
     = render :partial => "contests/caption", :object => @caption
 
+%h2 Create a Comment
+= facebook_messages
+- facebook_form_for Comment.new, :url => comments_url do |f| 
+  = f.text_area :comment
+  = hidden_field_tag :caption_id, @caption.id
+  = f.buttons "Add Comment!"
+
+%h2 Comments
+- for comment in @caption.comments
+  = profile_pic comment.user
+  %p= comment.comment
+
 %p= link_to "&lsaquo; Back to all captions", contest_url(@caption.photo)

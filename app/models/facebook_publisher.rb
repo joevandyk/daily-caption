@@ -28,6 +28,13 @@ class FacebookPublisher < Facebooker::Rails::Publisher
     fbml  "<fb:fbml> Hooray, you won a Daily Caption contest with #{ caption.caption } </fb:fbml>"
   end
 
+  def notify_caption_comment caption, comment
+    send_as       :notification
+    recipients    caption.facebook_user
+    from          comment.facebook_user
+    fbml          "<fb:fbml> Someone commented on your caption! #{ caption.caption } </fb:fbml>"
+  end
+
   def email_winner caption
     send_as :email
     recipients caption.facebook_user

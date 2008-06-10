@@ -1,5 +1,6 @@
 %a{:name => dom_id(caption)}
 .caption-container.clearfix
+
   .caption-info
     - if caption.photo.captioning?
       %div{:id => "spam_#{dom_id(caption)}", :class => "caption-spam"}
@@ -8,6 +9,7 @@
     %cite{:id => "author_#{dom_id(caption)}", :class => "caption-author"}
       / hide author if current user has not voted on the caption if not, it should have a default icon and a vote to find out! message
       == #{ link_to name(caption.user), "#" } wrote <span>(2 hours before the deadline)</span>
+
   .caption-with-votes
     %div{:id => "vote_#{dom_id(caption)}", :class => "caption-voting"}
       = render :partial => "contests/caption_vote", :locals => { :caption => caption }
@@ -18,7 +20,8 @@
         The DailyCaption community has marked this caption offensive or spam.
     .caption-actions
       / Edit delete actions if caption.editable?
-      / Should have delete and edit buttons with small paragraph saying "You can edit/delete your caption as long as there are no votes or comments on it."
+      / Should have delete and edit buttons with small paragraph saying 
+      / "You can edit/delete your caption as long as there are no votes or comments on it."
     %ul.caption-collab.clearfix
-      %li== #{ link_to image_tag('comments.gif'), caption_url(caption) } #{ link_to '2 Comments', caption_url(caption) }
+      %li== #{ link_to image_tag('comments.gif'), caption_url(caption) } #{ link_to pluralize(caption.comments.count, 'Comment'), caption_url(caption) }
       %li= caption_share_button(caption)
