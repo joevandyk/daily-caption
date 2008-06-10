@@ -1,5 +1,12 @@
 // JavaScript for DailyCaption
 
+function updateVotes(caption_dom_id,votes){
+  $('votes_count_' + caption_dom_id).setTextValue(votes);
+  $('votes_' + caption_dom_id).setTextValue("Voted!");
+}
+
+
+
 function update_count(str,message_id) { 
   len=str.length; 
   if (len < 200) { 

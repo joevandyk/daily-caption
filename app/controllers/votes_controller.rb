@@ -4,7 +4,8 @@ class VotesController < ApplicationController
     @caption = Caption.find params[:caption_id]
     @caption.votes.create! :user => current_user
     if request.xhr?
-      render :json => { :voted_for => @caption.id }
+      @caption.reload
+      render :json => { :votes => @caption.votes.size }
     else
       redirect_to index_url
     end

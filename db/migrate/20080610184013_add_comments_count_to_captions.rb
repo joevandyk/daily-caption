@@ -5,7 +5,6 @@ class AddCommentsCountToCaptions < ActiveRecord::Migration
       Caption.reset_column_information
       Caption.find(:all).each do |caption|
         Caption.update_counters caption.id, :comments_count => caption.comments.count
-        caption.save!
       end
     end
   end
