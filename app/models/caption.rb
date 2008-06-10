@@ -5,11 +5,11 @@ class Caption < ActiveRecord::Base
   belongs_to :user
   belongs_to :photo
   has_many   :votes
+  has_many   :comments
 
   validates_presence_of :user
-  validates_presence_of :caption
   validates_presence_of :photo
-  validates_length_of :caption, :maximum => CAPTION_LENGTH
+  validates_length_of :caption, :within => 5..CAPTION_LENGTH
 
   before_create :check_for_caption_permission
   after_create  :vote_for_it

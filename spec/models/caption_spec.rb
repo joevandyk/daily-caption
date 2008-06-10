@@ -4,8 +4,7 @@ describe Caption do
   before(:each) do
     @user = create_user
     @photo = create_photo
-    @photo.ready_for_captioning!
-    @photo.start_captioning!
+    make_captionable @photo
     @caption = Caption.new :user => @user, :caption => "My caption rules!", :photo => @photo
     @caption.save!
   end
@@ -23,7 +22,7 @@ describe Caption do
   it "should have to have a caption" do
     @caption.caption = ""
     @caption.save
-    @caption.errors.on(:caption).should == "can't be blank"
+    @caption.errors.on(:caption).should =~ /is too short/
   end
 
   it "should have to have a photo" do
