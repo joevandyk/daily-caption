@@ -287,3 +287,18 @@ div#best-caption {
       #archive-container #archive dl dd {
         margin-left: 90px;
         padding: 0; }
+
+#profile-page #profile-stats {
+  background: #F7F7F7;
+  width: 200px;
+  padding: 5px 0;
+  border-top: 1px solid #CCC;
+  border-bottom: 1px solid #CCC; }
+#profile-page #profile-info {
+  float: left;
+  width: 200px; }
+#profile-page #profile-contributions {
+  float: right;
+  width: 400px; }
+#profile-page .profile-section {
+  margin-top: 20px; }

@@ -43,9 +43,13 @@ module ApplicationHelper
   def photo_cont photo, &block
     concat(render(:partial => "contests/photo", :locals => {:body => capture(&block), :photo => photo}), block.binding)
   end
+    
+  def profile_pic(user, size=:thumb)
+    fb_profile_pic user.site_user_id, :size => size
+  end
   
-  def profile_pic(user)
-    fb_profile_pic user.site_user_id
+  def profile_section options
+    render :partial => "users/profile_section", :locals => options
   end
     
   def relative_day(datetime)

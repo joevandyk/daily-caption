@@ -18,7 +18,11 @@ class User < ActiveRecord::Base
   def recently_voted_captions
     Vote.not_for_mine(self).recent.map{ |v| v.caption }
   end
-
+  
+  def voted_captions
+    Vote.not_for_mine(self).map{ |v| v.caption }
+  end
+  
   def store_session(session_key)
     if self.session_key != session_key
       update_attribute(:session_key,session_key) 

@@ -1,4 +1,4 @@
-%p= link_to "&lsaquo; Back to all captions", contest_url(@caption.photo)
+%p= link_to "&lsaquo; Back to all captions for this contest", contest_url(@caption.photo)
 
 - photo_cont @caption.photo do
   #best-caption
@@ -12,8 +12,7 @@
   = f.buttons "Add Comment!"
 
 %h2 Comments
-- for comment in @caption.comments
-  = profile_pic comment.user
-  %p= comment.comment
+= render :partial => '/captions/comment', :collection => @caption.comments
 
-%p= link_to "&lsaquo; Back to all captions", contest_url(@caption.photo)
+
+%p= link_to "&lsaquo; Back to all captions for this contest", contest_url(@caption.photo)
