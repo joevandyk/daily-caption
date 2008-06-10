@@ -14,4 +14,14 @@ describe Comment do
     @user.   comments.should be_include(c)
   end
 
+  it "shouldn't send notification if the user who commented on it is the caption's owner" do
+    FacebookPublisher.should_not_receive(:notify_caption_comment)
+    c = Comment.create! :caption => @caption, :user => @user, :comment => "my comment"
+  end
+
+  it "should send notification if the user who commented on it isn't the caption's owner" do
+    FacebookPublisher.should_receive(:deliver_notify_caption_comment)
+    c = Comment.create! :caption => @caption, :user => create_user, :comment => "my comment"
+  end
+
 end
