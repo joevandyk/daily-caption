@@ -27,7 +27,7 @@ class Photo < ActiveRecord::Base
 
   # Finds the past photos
   named_scope :past,   :conditions => "state = 'captioned'", :order => 'captioned_at desc'
-  named_scope :recent, :limit => 3, :order => 'captioned_at desc'
+  named_scope :recent, :limit => 5, :order => 'captioned_at desc'
 
   # Finds the current photo
   def self.current
