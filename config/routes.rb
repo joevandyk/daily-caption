@@ -2,6 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:admin) do |admin|
     admin.root :controller => 'admin'
     admin.resources :photos
+    admin.resources :stats
   end
   map.resources :invitations
   map.resources :sites
