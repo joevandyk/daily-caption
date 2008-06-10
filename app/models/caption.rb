@@ -31,13 +31,22 @@ class Caption < ActiveRecord::Base
     end
   }
 
+  named_scope :by_comments, lambda { |winning_caption|
+    if winning_caption.nil?
+      { :order => 'comments_count desc' }
+    else
+      { :order => 'comments_count desc', :conditions => ["id != ?", winning_caption.id] }
+    end
+  }
+
   named_scope :recent, :limit => 2, :order => 'created_at desc'
 
   def voted_for? user
     ! self.votes.for_user(user).empty?
   end
 
-  def can_vote_for_caption? user
+  def can_vote_for_caption? user=nil
+    return false unless user
     self.photo.captioning? and !voted_for?(user)
   end
 

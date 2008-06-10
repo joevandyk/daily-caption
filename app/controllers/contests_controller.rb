@@ -4,8 +4,8 @@ class ContestsController < ApplicationController
   
   def index
     respond_to do |format|
-      format.html { redirect_to facebook_page }
       format.fbml  { render :action => :show }
+      format.html { redirect_to facebook_page }
     end
   end
   
@@ -26,7 +26,7 @@ class ContestsController < ApplicationController
       when "rank"	
         @photo.captions.by_rank(@photo.winning_caption)
       when "comments"
-        @photo.captions.by_last_added(@photo.winning_caption)
+        @photo.captions.by_comments(@photo.winning_caption)
       else #time desc by default
         @photo.captions.by_last_added(@photo.winning_caption)
     end

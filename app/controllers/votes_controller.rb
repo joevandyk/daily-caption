@@ -3,7 +3,16 @@ class VotesController < ApplicationController
   def create
     @caption = Caption.find params[:caption_id]
     @caption.votes.create! :user => current_user
-    redirect_to index_url
+    if request.xhr?
+      render :json => { :voted_for => @caption.id }
+    else
+      redirect_to index_url
+    end
+  end
+
+  def index
+    @user = User.find params[:user_id]
+    @captions = @user.voted_captions
   end
 
 end
