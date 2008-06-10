@@ -2,7 +2,10 @@
   #new-caption
     = facebook_messages
     - facebook_form_for @caption, :url => captions_url do |f| 
-      .quiet== #{ time_left } | You can post up to 3 captions per contest (# remaining).
-      = f.text_field :caption, :maxlength => Caption::CAPTION_LENGTH
-      = hidden_field_tag :photo_id, @photo.id
-      = f.buttons "Add Caption!"
+      .quiet== #{ time_left } | You can post up to 3 captions per contest (#{ @photo.number_of_captions_user_can_add current_user } remaining).
+      - if @photo.number_of_captions_user_can_add(current_user) > 0
+        = f.text_field :caption, :maxlength => Caption::CAPTION_LENGTH
+        = hidden_field_tag :photo_id, @photo.id
+        = f.buttons "Add Caption!"
+      - else
+        %h1#first-caption-message.title== Sorry, you are out of captions for today's contest! How about #{ link_to 'voting up some captions', index_url } to pass the time?
