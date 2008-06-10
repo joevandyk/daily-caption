@@ -12,6 +12,7 @@ class Caption < ActiveRecord::Base
   validates_length_of :caption, :maximum => CAPTION_LENGTH
 
   before_create :check_for_caption_permission
+  after_create  :vote_for_it
   after_create  :send_notification
 
   named_scope :by_last_added, lambda { |winning_caption|
@@ -68,6 +69,10 @@ class Caption < ActiveRecord::Base
     rescue StandardError
       nil
     end
+  end
+
+  def vote_for_it
+    self.votes.create! :user => self.user
   end
 
 end

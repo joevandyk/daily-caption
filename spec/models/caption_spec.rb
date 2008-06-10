@@ -3,7 +3,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Caption do
   before(:each) do
     @user = create_user
-    @caption = Caption.new :user => @user, :caption => "My caption rules!", :photo => create_photo
+    @photo = create_photo
+    @photo.ready_for_captioning!
+    @photo.start_captioning!
+    @caption = Caption.new :user => @user, :caption => "My caption rules!", :photo => @photo
     @caption.save!
   end
 
@@ -11,6 +14,10 @@ describe Caption do
     @caption.user = nil
     @caption.save
     @caption.errors.on(:user).should == "can't be blank"
+  end
+
+  it "should automatically vote for a caption that you make" do
+    @caption.should be_voted_for(@user)
   end
 
   it "should have to have a caption" do

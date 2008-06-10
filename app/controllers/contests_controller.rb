@@ -3,7 +3,10 @@ class ContestsController < ApplicationController
   before_filter :setup_contest, :only => [:index,:show]
   
   def index
-    render :action => :show
+    respond_to do |format|
+      format.html { redirect_to facebook_page }
+      format.fbml  { render :action => :show }
+    end
   end
   
   def show    

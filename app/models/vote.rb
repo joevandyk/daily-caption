@@ -5,6 +5,11 @@ class Vote < ActiveRecord::Base
   validates_presence_of :user
   validate :user_can_vote
   named_scope :for_user, lambda { |user| { :conditions => { :user_id => user.id } } }
+  named_scope :not_for_mine, 
+              lambda { |user|
+                { :conditions => "caption_id not in (select id from captions where user_id = #{user.id}) and user_id = #{user.id}" }
+              }
+  named_scope :recent, :limit => 2, :order => 'created_at desc'
 
   private
 
@@ -14,3 +19,5 @@ class Vote < ActiveRecord::Base
     end
   end
 end
+
+
