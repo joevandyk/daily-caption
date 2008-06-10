@@ -1,0 +1,12 @@
+%h1.title <span>PAST</span> Contests 
+== All #{pluralize @photos.size, 'contests'} along with winning caption for each contest.
+
+#archive-container.clearfix
+  #archive-sponsors
+    =# image_tag "ad-160x600.jpg"
+  #archive
+    - for photo in @photos
+      %h4.archive-date== #{ link_to photo.captioned_at.to_s(:long_date), contest_url(photo) } <span>(#{photo.captions.size} captions)</span>
+      %dl
+        %dt= link_to show_media(photo, :square), contest_url(photo)
+        %dd= render :partial => "contests/caption", :object => photo.winning_caption

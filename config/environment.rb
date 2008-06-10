@@ -52,6 +52,7 @@ Rails::Initializer.run do |config|
 end
 
 require 'flickr'
+require_dependency 'date_extensions'
 
 ActionController::AbstractRequest.class_eval do
   def request_method_with_facebook_overrides

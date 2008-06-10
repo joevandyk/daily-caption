@@ -1,18 +1,24 @@
-/ Piggy backing on Facebook's CSS
-.wallkit_post
-  .wallkit_profilepic
-    = fb_profile_pic caption.user.site_user_id
-  .wallkit_postcontent
-    %h4
-      = link_to "Joe Van Dyk", "#"
-      == wrote<span class="wall_time">#{ caption.created_at } </span>
-
-      - if caption.voted_for? current_user
-        You voted for this one!
-      - elsif caption.can_vote_for_caption? current_user
-        = link_to "Vote it up!", votes_path(caption) 
-
-      == This has #{ caption.votes_count } votes.
-
-    %div= link_to caption.caption, caption_path(caption)
-    
+%a{:name => dom_id(caption)}
+.caption-container.clearfix
+  .caption-info
+    - if caption.photo.captioning?
+      %div{:id => "spam_#{dom_id(caption)}", :class => "caption-spam"}
+        / Should be an AJAX SPAM Vote returns "SPAM vote submitted." Which should also show if user already flagged or caption deleted
+        This is SPAM
+    %cite{:id => "author_#{dom_id(caption)}", :class => "caption-author"}
+      / hide author if current user has not voted on the caption if not, it should have a default icon and a vote to find out! message
+      == #{ link_to name(caption.user), "#" } wrote <span>(2 hours before the deadline)</span>
+  .caption-with-votes
+    %div{:id => "vote_#{dom_id(caption)}", :class => "caption-voting"}
+      = render :partial => "contests/caption_vote", :locals => { :caption => caption }
+    .caption
+      - unless caption.deleted?
+        = link_to caption.caption, caption_path(caption)
+      - else
+        The DailyCaption community has marked this caption offensive or spam.
+    .caption-actions
+      / Edit delete actions if caption.editable?
+      / Should have delete and edit buttons with small paragraph saying "You can edit/delete your caption as long as there are no votes or comments on it."
+    %ul.caption-collab.clearfix
+      %li== #{ link_to image_tag('comments.gif'), caption_url(caption) } #{ link_to '2 Comments', caption_url(caption) }
+      %li= caption_share_button(caption)

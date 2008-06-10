@@ -8,5 +8,12 @@ class CaptionsController < ApplicationController
   
   def show
     @caption = Caption.find(params[:id])
+    @current_tab = (@caption.photo.captioning?) ? :contest : :archive
+  end
+  
+  def new
+    @caption = Caption.new
+    @photo = Photo.current
+    @current_tab = :contest
   end
 end
