@@ -85,7 +85,7 @@ module ApplicationHelper
   end
   
   def time_until_next_contest
-    distance_of_time_in_words(Time.now, Time.now.tomorrow.at_beginning_of_day, include_seconds = true)
+    distance_of_time_in_words(Time.now, Photo.current.ended_captioning_at, include_seconds = true)
   end
   
 end
