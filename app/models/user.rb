@@ -39,4 +39,5 @@ class User < ActiveRecord::Base
   def facebook_user
     facebook_session.user
   end
+
 end

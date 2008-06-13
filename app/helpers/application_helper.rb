@@ -43,7 +43,7 @@ module ApplicationHelper
   end
 
   def name(user,options={})
-    fb_name(user.site_user_id,{:ifcantsee=>"a hidden ninja"}.merge(options))
+    fb_name(user.site_user_id,{:ifcantsee=>"A Hidden User"}.merge(options))
   end
   
   def photo_cont photo, &block
