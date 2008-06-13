@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def avg_received_votes_per_caption
+    (votes_received.size / captions.size) rescue 0
+  end
+  
   def recently_created_captions
     self.captions.recent
   end
@@ -19,7 +23,11 @@ class User < ActiveRecord::Base
     Vote.not_for_mine(self).recent.map{ |v| v.caption }
   end
   
-  def voted_captions
+  def votes_received
+    Vote.for_user(self).map{ |v| v.caption }
+  end
+  
+  def votes_given
     Vote.not_for_mine(self).map{ |v| v.caption }
   end
   

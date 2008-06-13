@@ -3,17 +3,20 @@
     = profile_pic @user, :normal
     %table#profile-stats.profileTable{ :cellspacing=>"0", :border=>"0" }
       %tr
-        %td.label Total Wins:
+        %td.label.strong Total Wins:
         %td.data Coming Soon
       %tr
         %td.label Total Captions:
         %td.data= @user.captions.size
       %tr
-        %td.label Total Votes:
-        %td.data= @user.voted_captions.size
+        %td.label Total Votes Received
+        %td.data= @user.votes_received.size
       %tr
-        %td.label Avg. Votes/Caption
-        %td.data Coming Soon
+        %td.label Avg. Received Votes/Caption
+        %td.data= number_with_precision(@user.avg_received_votes_per_caption, 1)
+      %tr
+        %td.label Total Votes Given
+        %td.data= @user.votes_given.size
       %tr
         %td.label Total Comments:
         %td.data= @user.comments.size
