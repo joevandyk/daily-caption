@@ -80,7 +80,7 @@ class Photo < ActiveRecord::Base
   end
   
   def previous
-    Photo.find(:first, :conditions => ['captioned_at < ?', self.captioned_at], :order => "captioned_at")    
+    Photo.find(:first, :conditions => ['captioned_at < ?', self.captioned_at], :order => "captioned_at desc")    
   end
 
   def number_of_captions_user_can_add user
