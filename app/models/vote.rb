@@ -6,6 +6,10 @@ class Vote < ActiveRecord::Base
   validate :user_can_vote
   named_scope :for_user, lambda { |user| { :conditions => { :user_id => user.id } } }
 
+  def facebook_user
+    user.facebook_user
+  end
+
   private
 
   def user_can_vote

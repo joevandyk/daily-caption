@@ -108,5 +108,8 @@ class Photo < ActiveRecord::Base
     FacebookPublisher.deliver_email_winner winner rescue StandardError
     FacebookPublisher.deliver_notify_winner winner rescue StandardError
     FacebookPublisher.deliver_winning_caption_action winner rescue StandardError
+    winner.votes.each do |vote|
+      FacebookPublisher.deliver_winning_voters winner, vote.user rescue StandardError
+    end
   end
 end
