@@ -6,4 +6,4 @@
     =# image_tag "ad-160x600.jpg"
   #archive
     - for photo in @photos
-      = render :partial => "contests/photo_caption", :locals => {:photo => photo, :caption => photo.winning_caption}
+      = render :partial => "contests/photo_caption", :locals => {:photo => photo, :caption => photo.winning_caption, :show_date => true}
