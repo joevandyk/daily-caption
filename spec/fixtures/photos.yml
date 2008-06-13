@@ -1,0 +1,6 @@
+current:
+  id: 1
+  flickr_id: 1234567890
+  captioned_at: <%= Time.now %>
+  ended_captioning_at: <%= 1.day.from_now %>
+  state: captioning

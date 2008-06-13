@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  before_filter :ensure_current_photo
   helper :all # include all helpers, all the time
   attr_accessor :current_user
   helper_attr :current_user
@@ -32,5 +33,11 @@ class ApplicationController < ActionController::Base
 
   def ensure_installed
     ensure_application_is_installed_by_facebook_user
+  end
+
+  def ensure_current_photo
+    if Photo.current.nil?
+      raise "Uh oh, there is no current photo!" 
+    end
   end
 end
