@@ -13,7 +13,7 @@ class VotesController < ApplicationController
 
   def index
     @user = User.find params[:user_id]
-    @captions = @user.voted_captions
+    @captions = @user.votes_given_captions
   end
 
 end
