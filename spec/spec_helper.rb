@@ -15,7 +15,8 @@ def make_captionable photo
 end
 
 def create_user
-  User.create! :site_id => 1, :username => "Joe Van Dyk", :profile_url => "http://facebook.com/joevandyk", :profile_image_url => "http://facebook.com/joevandyk/profile.png"
+  username = Faker::Name.name
+  User.create! :site_id => 1, :username => username, :profile_url => "http://facebook.com/#{username}", :profile_image_url => "http://facebook.com/#{username}/profile.png"
 end
 
 def create_photo

@@ -9,7 +9,11 @@ class Caption < ActiveRecord::Base
 
   validates_presence_of :user
   validates_presence_of :photo
-  validates_length_of :caption, :within => 5..CAPTION_LENGTH
+  validates_uniqueness_of :caption, :scope => :photo_id, :case_sensitive => false,
+    :message => "has already been taken for today's photo."
+  validates_length_of :caption, :within => 5..CAPTION_LENGTH,
+    :too_short => "must be at least 5 characters long.", 
+    :too_long => "can't exceed #{CAPTION_LENGTH} characters."
 
   before_create :check_for_caption_permission
   after_create  :vote_for_it
