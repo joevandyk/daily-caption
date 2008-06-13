@@ -52,6 +52,7 @@ Rails::Initializer.run do |config|
 end
 
 require 'flickr'
+require_dependency 'object'
 require_dependency 'date_extensions'
 
 ActionController::AbstractRequest.class_eval do

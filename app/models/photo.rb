@@ -84,7 +84,7 @@ class Photo < ActiveRecord::Base
   end
   
   def previous_winner
-    self.previous.winning_caption.user
+    self.previous.try(:winning_caption).try(:user)
   end
 
   def number_of_captions_user_can_add user
