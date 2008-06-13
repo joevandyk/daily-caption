@@ -19,29 +19,9 @@ class Caption < ActiveRecord::Base
   after_create  :vote_for_it
   after_create  :send_notification
 
-  named_scope :by_last_added, lambda { |winning_caption|
-    if winning_caption.nil?
-      { :order => 'created_at desc' }
-    else
-      { :order => 'created_at desc', :conditions => ["id != ?", winning_caption.id] }
-    end
-  }
-
-  named_scope :by_rank, lambda { |winning_caption|
-    if winning_caption.nil?
-      { :order => 'votes_count desc' }
-    else
-      { :order => 'votes_count desc', :conditions => ["id != ?", winning_caption.id] }
-    end
-  }
-
-  named_scope :by_comments, lambda { |winning_caption|
-    if winning_caption.nil?
-      { :order => 'comments_count desc' }
-    else
-      { :order => 'comments_count desc', :conditions => ["id != ?", winning_caption.id] }
-    end
-  }
+  named_scope :by_last_added, lambda { |*args| find_captions :created_at,     args }
+  named_scope :by_rank,       lambda { |*args| find_captions :votes_count,    args }
+  named_scope :by_comments,   lambda { |*args| find_captions :comments_count, args }
 
   named_scope :recent, :limit => 2, :order => 'created_at desc'
 
@@ -68,6 +48,15 @@ class Caption < ActiveRecord::Base
   end
 
   private
+
+  def self.find_captions sort_by, args
+    caption_to_ignore = args.first
+    if caption_to_ignore.nil?
+      { :order => "#{sort_by} desc" }
+    else
+      { :order => "#{sort_by} desc", :conditions => ["id != ?", caption_to_ignore.id] }
+    end
+  end
 
   def check_for_caption_permission
     unless self.photo.number_of_captions_user_can_add(self.user) > 0

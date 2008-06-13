@@ -19,6 +19,21 @@ describe Caption do
     @caption.should be_voted_for(@user)
   end
 
+  it "should be able to find captions by the last one added" do
+    Caption.by_last_added.should == [@caption]
+    Caption.by_last_added(@caption).should be_empty
+  end
+
+  it "should be able to find captions by rank" do
+    Caption.by_rank.should == [@caption]
+    Caption.by_rank(@caption).should be_empty
+  end
+
+  it "should be able to find captions by number of comments" do
+    Caption.by_comments.should == [@caption]
+    Caption.by_comments(@caption).should be_empty
+  end
+
   it "should have to have a caption" do
     @caption.caption = ""
     @caption.save
