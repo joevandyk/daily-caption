@@ -25,7 +25,7 @@
 
 .lists .list {
      background:white none repeat scroll 0%;
-     border-color:-moz-use-text-color #BBBBBB;
+     border-color: #BBBBBB;
      border-style:none solid;
      border-width:medium 1px;
 }
@@ -35,7 +35,7 @@
 
 .lists .see_all {
      background:white none repeat scroll 0%;
-     border-color:-moz-use-text-color #BBBBBB rgb(187, 187, 187);
+     border-color: #BBBBBB;
      border-style:none solid solid;
      border-width:medium 1px 1px;
      text-align:left;

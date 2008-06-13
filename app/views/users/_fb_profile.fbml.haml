@@ -1,0 +1,16 @@
+= render :partial => "shared/canvas_sass"
+
+%fb:subtitle
+  %fb:action{:href=>"#{update_profile_url(user)}"} Refresh
+  %fb:action{:href=>"#{index_url}"} Profile Settings
+  %fb:action{:href=>"#{new_caption_url}"} Add New Caption
+
+- fb_wide do
+  #dailycaption-fb-wide
+    %h4 Most Recent Caption
+    - if user.most_recent_caption
+      = render :partial => "contests/photo_caption", :locals => {:photo => user.most_recent_caption.photo, :caption => user.most_recent_caption, :show_date => false}
+  
+  
+- fb_narrow do
+  == Narrow FB profile for #{name user}

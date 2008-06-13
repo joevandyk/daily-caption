@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     Vote.for_user(self).map{ |v| v.caption }
   end
   
+  def most_recent_caption
+    Caption.find(:first, :conditions => ["user_id = ?", self.id], :order => "created_at desc")
+  end
+  
   def votes_given_captions
     Vote.not_for_mine(self).map{ |v| v.caption }
   end

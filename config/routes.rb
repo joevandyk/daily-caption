@@ -12,9 +12,10 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :captions
     user.resources :votes
   end
-
+  map.update_profile '/users/:id/update_profile', :controller => 'users', :action => 'update_profile'
   map.resources :contests, :collection => { :archive => :get }
   
+
   map.votes '/votes/:caption_id', :controller => 'votes', :action => 'create', :method => 'post'
   map.comments '/comments', :controller => 'comments', :action => 'create', :method => 'post'
 

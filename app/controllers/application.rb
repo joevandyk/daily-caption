@@ -3,6 +3,8 @@
 
 class ApplicationController < ActionController::Base
   before_filter :ensure_current_photo
+  include FacebookActions
+  
   helper :all # include all helpers, all the time
   attr_accessor :current_user
   helper_attr :current_user

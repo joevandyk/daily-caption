@@ -2,10 +2,11 @@
 .caption-container.clearfix
 
   .caption-info
-    - if caption.photo.captioning?
-      %div{:id => "spam_#{dom_id(caption)}", :class => "caption-spam"}
-        / Should be an AJAX SPAM Vote returns "SPAM vote submitted." Which should also show if user already flagged or caption deleted
-        This is SPAM
+    /
+      -# if caption.photo.captioning?
+        %div{:id => "spam_#{dom_id(caption)}", :class => "caption-spam"}
+          Should be an AJAX SPAM Vote returns "SPAM vote submitted." Which should also show if user already flagged or caption deleted
+          This is SPAM
     %cite{:id => "author_#{dom_id(caption)}", :class => "caption-author"}
       / hide author if current user has not voted on the caption if not, it should have a default icon and a vote to find out! message
       == #{ name(caption.user) } wrote <span>(#{ caption_before_deadline_text(caption)})</span>
@@ -15,7 +16,7 @@
       = render :partial => "contests/caption_vote", :locals => { :caption => caption }
     .caption
       - unless caption.deleted?
-        = link_to caption.caption, caption_path(caption)
+        = link_to caption.caption, caption_url(caption)
       - else
         The DailyCaption community has marked this caption offensive or spam.
     .caption-actions
