@@ -43,7 +43,7 @@ module ApplicationHelper
   end
 
   def name(user,options={})
-    link_to(fb_name(user.site_user_id,{:ifcantsee=>"A Hidden User", :linked => false}.merge(options)), user_url(user))
+    link_to_unless_current(fb_name(user.site_user_id,{:ifcantsee=>"A Hidden User", :linked => false}.merge(options)), user_url(user))
   end
   
   def photo_cont photo, &block
@@ -51,7 +51,7 @@ module ApplicationHelper
   end
     
   def profile_pic(user, size=:thumb)
-    link_to(fb_profile_pic(user.site_user_id, :size => size, :linked => false), user_url(user))
+    link_to_unless_current(fb_profile_pic(user.site_user_id, :size => size, :linked => false), user_url(user))
   end
   
   def profile_section options

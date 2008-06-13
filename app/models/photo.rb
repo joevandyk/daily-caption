@@ -82,6 +82,10 @@ class Photo < ActiveRecord::Base
   def previous
     Photo.find(:first, :conditions => ['captioned_at < ?', self.captioned_at], :order => "captioned_at desc")    
   end
+  
+  def previous_winner
+    self.previous.winning_caption.user
+  end
 
   def number_of_captions_user_can_add user
     Caption::CAPTION_LIMIT - self.captions.count(:conditions => "user_id = #{user.id}") 
