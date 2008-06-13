@@ -1,0 +1,4 @@
+%h4.archive-date== #{ link_to photo.captioned_at.to_s(:long_date), contest_url(photo) } <span>(#{photo.captions.size} captions)</span>
+%dl.photo-caption
+  %dt= link_to show_media(photo, :square), contest_url(photo)
+  %dd= render :partial => "contests/caption", :object => caption

@@ -2,6 +2,8 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  include FacebookActions
+  
   helper :all # include all helpers, all the time
   attr_accessor :current_user
   helper_attr :current_user
@@ -21,7 +23,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  
+    
   def show_errors_for_object object
     object.errors.full_messages.to_sentence
   end

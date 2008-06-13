@@ -245,6 +245,25 @@ div#best-caption {
           font-size: 11px;
           color: #CCC; }
 
+dl.photo-caption {
+  margin: 0;
+  padding: 0; }
+  dl.photo-caption dt {
+    margin: 0;
+    padding: 0;
+    float: left; }
+    dl.photo-caption dt img {
+      border: 1px solid #CCC;
+      padding: 4px; }
+      dl.photo-caption dt img:hover {
+        border-color: #3B5998; }
+        dl.photo-caption dt img:hover a {
+          color: #3B5998;
+          text-decoration: underline; }
+  dl.photo-caption dd {
+    margin-left: 90px;
+    padding: 0; }
+
 .notice {
   background: #FFC4BF url("http://dailycaption.com:4007/images/error.png") no-repeat 5px 5px;
   border: 3px solid #BC0F00;
@@ -275,24 +294,6 @@ div#best-caption {
     text-align: right; }
   #archive-container #archive {
     width: 450px; }
-    #archive-container #archive dl {
-      margin: 0;
-      padding: 0; }
-      #archive-container #archive dl dt {
-        margin: 0;
-        padding: 0;
-        float: left; }
-        #archive-container #archive dl dt img {
-          border: 1px solid #CCC;
-          padding: 4px; }
-          #archive-container #archive dl dt img:hover {
-            border-color: #3B5998; }
-            #archive-container #archive dl dt img:hover a {
-              color: #3B5998;
-              text-decoration: underline; }
-      #archive-container #archive dl dd {
-        margin-left: 90px;
-        padding: 0; }
 
 #profile-page #profile-stats {
   background: #F7F7F7;

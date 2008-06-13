@@ -246,6 +246,26 @@ div#best-caption
           :font-size 11px
           :color #CCC
       .caption-votes
+      
+dl.photo-caption
+  :margin 0
+  :padding 0
+  dt
+    :margin 0
+    :padding 0
+    :float left
+    img
+      :border 1px solid #CCC
+      :padding 4px
+      &:hover
+        :border-color #3B5998
+        a
+          :color #3B5998
+          :text-decoration underline
+  dd
+    :margin-left 90px
+    :padding 0
+
   
 // Notices
 .notice
@@ -279,24 +299,6 @@ div#best-caption
     :text-align right
   #archive
     :width 450px
-    dl
-      :margin 0
-      :padding 0
-      dt
-        :margin 0
-        :padding 0
-        :float left
-        img
-          :border 1px solid #CCC
-          :padding 4px
-          &:hover
-            :border-color #3B5998
-            a
-              :color #3B5998
-              :text-decoration underline
-      dd
-        :margin-left 90px
-        :padding 0
         
 // DC Profile
 #profile-page
