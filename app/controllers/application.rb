@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
+  def show_errors_for_object object
+    object.errors.full_messages.to_sentence
+  end
 
   def facebook_session
     session[:facebook_session]

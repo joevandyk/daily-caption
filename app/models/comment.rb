@@ -4,6 +4,7 @@ class Comment < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :caption
   validates_length_of :comment, :minimum => 5
+  validates_uniqueness_of :comment, :scope => :caption_id, :case_sensitive => false
   after_create :send_notification
   delegate :facebook_user, :to => :user
 

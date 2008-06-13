@@ -318,3 +318,6 @@ div#best-caption {
     width: 170px;
     float: right;
     text-align: right; }
+
+#caption-page h1.title {
+  margin-bottom: 10px; }

@@ -2,7 +2,7 @@ class CaptionsController < ApplicationController
   before_filter :ensure_installed
   def create
     c = Caption.create :photo => Photo.find(params[:photo_id]), :user => current_user, :caption => params[:caption][:caption]
-    flash[:error] = c.errors.full_messages.to_sentence if c.new_record?
+    flash[:error] = show_errors_for_object(c) if c.new_record?
     redirect_to new_caption_url
   end
 
