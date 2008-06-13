@@ -70,3 +70,5 @@ ActionController::AbstractRequest.class_eval do
   end
   alias_method_chain :request_method, :facebook_overrides
 end
+
+ExceptionNotifier.exception_recipients = %w( joe@pinkpucker.net jordanisip@yahoo.com )

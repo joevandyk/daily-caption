@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   before_filter :ensure_current_photo
   include FacebookActions
+  include ExceptionNotifiable
   
   helper :all # include all helpers, all the time
   attr_accessor :current_user
