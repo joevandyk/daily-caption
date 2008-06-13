@@ -8,7 +8,7 @@
         This is SPAM
     %cite{:id => "author_#{dom_id(caption)}", :class => "caption-author"}
       / hide author if current user has not voted on the caption if not, it should have a default icon and a vote to find out! message
-      == #{ link_to name(caption.user), "#" } wrote <span>(#{ caption_before_deadline_text(caption)})</span>
+      == #{ name(caption.user) } wrote <span>(#{ caption_before_deadline_text(caption)})</span>
 
   .caption-with-votes
     %div{:id => "vote_#{dom_id(caption)}", :class => "caption-voting"}
