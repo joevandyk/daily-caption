@@ -23,6 +23,16 @@ def create_photo
   Photo.create! :flickr_id => "1234567890"
 end
 
+def create_caption options={}
+  default = { :user => create_user, :caption => Faker::Lorem.sentence(5) }
+  Caption.create default.update(options)
+end
+
+def create_comment options={}
+  default = { :user => create_user, :caption => create_caption, :comment => Faker::Lorem.sentence(10) }
+  Comment.create default.update(options)
+end
+
 def login user, pass
   @request.env['HTTP_AUTHORIZATION'] = 'Basic ' + Base64::encode64("#{user}:#{pass}")
 end
