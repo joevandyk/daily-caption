@@ -26,8 +26,8 @@ class Photo < ActiveRecord::Base
   end
 
   # Finds the past photos
-  named_scope :past,   :conditions => "state = 'captioning' or state = 'captioned'", :order => 'captioned_at desc'
-  named_scope :recent, :limit => 3, :order => 'captioned_at desc'
+  named_scope :past,   :conditions => "state = 'captioned'", :order => 'captioned_at desc'
+  named_scope :recent, :limit => 4, :order => 'captioned_at desc'
 
   # Finds the current photo
   def self.current
@@ -37,7 +37,7 @@ class Photo < ActiveRecord::Base
   # Processes all new photos (grabs flickr data)
   def self.process_new_photos
     Photo.find_in_state(:all, :submitted).each do |photo|
-      photo.grab_flickr_data
+      photo.process_flickr_photo
     end
   end
 
@@ -75,13 +75,34 @@ class Photo < ActiveRecord::Base
     self.captions.find :first, :order => 'votes_count desc'
   end
 
-  # Checks to see if the photo is ready for rotation
-  def ready_for_rotation?
-    self.captioned_at <= 1.minute.ago
+  def next
+    Photo.find(:first, :conditions => ['captioned_at > ?', self.captioned_at], :order => "captioned_at")
+  end
+  
+  def previous
+    Photo.find(:first, :conditions => ['captioned_at < ?', self.captioned_at], :order => "captioned_at desc")    
+  end
+  
+  def previous_winner
+    self.previous.winning_caption.user
   end
 
-
+  def number_of_captions_user_can_add user
+    Caption::CAPTION_LIMIT - self.captions.count(:conditions => "user_id = #{user.id}") 
+  end
+  
+  # Checks to see if the photo is ready for rotation
+  def ready_for_rotation?
+    self.ended_captioning_at <= Time.now
+  end
+  
   # Checks to see if the photo is still valid from flickr.
+  def process_flickr_photo
+    grab_flickr_data
+    ready_for_captioning!
+    save!
+  end
+    
   def grab_flickr_data
     flickr_photo = Flickr::Photo.new(self.flickr_id)
     flickr_photo.sizes.each do |size|
@@ -89,8 +110,6 @@ class Photo < ActiveRecord::Base
     end
     self.author = flickr_photo.owner.username.to_s.strip
     self.photostream = flickr_photo.url
-    ready_for_captioning!
-    save!
   rescue RuntimeError
     flickr_failure!
   end
@@ -99,6 +118,7 @@ class Photo < ActiveRecord::Base
 
   def mark_caption_start_time
     self.captioned_at = Time.now
+    self.ended_captioning_at = 1.day.from_now
   end
 
   def score_contest

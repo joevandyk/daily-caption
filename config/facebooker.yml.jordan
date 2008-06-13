@@ -6,32 +6,32 @@ development:
   api_key: a61a72dfdc67ad34ec65b1f675b7b938
   secret_key: d115289bacc6384de4c339f3dfa1f4cf
   canvas_page_name: dailycaptionjordan
-  callback_url: http://localhost:3000/
+  callback_url: http://www.dailycaption.com:4007/
+  tunnel:
+    public_host_username: jordan
+    public_host: dailycaption.com
+    public_port: 4007
+    local_port: 3000
+
+test:
+  api_key: a61a72dfdc67ad34ec65b1f675b7b938
+  secret_key: d115289bacc6384de4c339f3dfa1f4cf
+  canvas_page_name: dailycaptionjordan
+  callback_url: http://www.dailycaption.com:4007/
   tunnel:
     public_host_username: jordan
     public_host: dailycaption.com
     public_port: 4008
     local_port: 3000
 
-test:
-  api_key: d8cc86c5fd7e4d5419de2bf927423410
-  secret_key:     9a7d864d9541c7dd5c05bf30b7278e79
-  canvas_page_name: dailycaptionjoe
-  callback_url:
-  tunnel:
-    public_host_username:
-    public_host:
-    public_port: 4008
-    local_port: 3000
-
 production:
-  api_key: d8cc86c5fd7e4d5419de2bf927423410
-  secret_key:     9a7d864d9541c7dd5c05bf30b7278e79
+  api_key: a61a72dfdc67ad34ec65b1f675b7b938
+  secret_key: d115289bacc6384de4c339f3dfa1f4cf
   canvas_page_name: dailycaptionjoe
-  callback_url:
+  callback_url: http://www.dailycaption.com:4007/
   tunnel:
-    public_host_username: joe
+    public_host_username: jordan
     public_host: dailycaption.com
-    public_port: 4008
+    public_port: 4007
     local_port: 3000
 

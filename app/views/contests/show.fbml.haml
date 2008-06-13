@@ -1,0 +1,63 @@
+- unless @photo.captioning?
+  .notice
+    %h1 Note: This contest is over!
+    %p== New captions and voting are disabled. If you want to be cool #{ link_to "go to the current contest", index_url } and post a caption! (You do want to be cool right?)
+
+#contests.clearfix
+  #contest
+    #contest-header
+      - if @photo.captioning?
+        #contest-time-left.quiet
+          = time_left
+      #contest-nav
+        - if previous_photo = @photo.previous
+          = link_to image_tag("left.gif", :alt => "Previous"), contest_url(previous_photo)
+        - else
+          = image_tag("left-off.gif", :alt => "Previous")
+    
+        %h1.title== #{@photo.captioned_at.to_s(:long_date)}
+        
+        - if next_photo = @photo.next
+          = link_to image_tag("right.gif", :alt => "Next"), contest_url(next_photo)
+        - else
+          = image_tag("right-off.gif", :alt => "Next")
+          
+    - photo_cont @photo do
+      - if @photo.winning_caption
+        #best-caption= render :partial => "contests/caption", :object => @photo.winning_caption if @photo.winning_caption
+      - else
+        %h1#first-caption-message.title= link_to "Quick, nobody has captioned yet! Be the first to caption!", new_caption_url
+  #past-contests
+    %b Past Contests
+    - for photo in Photo.past.recent
+      %dl
+        %dt= link_to show_media(photo, :square), contest_url(photo)
+        %dd= link_to relative_day(photo.captioned_at), contest_url(photo)
+      
+    .more= link_to "View all past contests", archive_contests_url
+    
+#competition.clearfix
+  #competing-captions-container
+    = add_caption_link
+    %h2.title <span>COMPETING</span> Captions
+    - unless @competing_captions.empty?
+      - if sortable_captions?(@competing_captions)
+        #sort
+          == Sort the #{@competing_captions.size} competing captions by: 
+          %ul
+            %li= link_to_unless_sorting_by "Time", {:sort => nil }
+            %li= link_to_unless_sorting_by "Rank", {:sort => "rank"}
+            %li= link_to_unless_sorting_by "Comments", {:sort => "comments"}
+      #competing-captions
+        = render :partial => "contests/caption", :collection => @competing_captions
+    - else
+      - if @photo.captioning?
+        %p== Nobody has stepped up to compete yet, man up and #{ link_to "post a caption", new_caption_url }!
+      - else
+        %p== No captions were posted for this contest! Help us out and post a caption on the #{ link_to 'currest contest', index_url }!
+
+    = add_caption_link
+
+  #contest-sidebar
+    #sponsor-1
+      = image_tag("ad-205x180.gif")

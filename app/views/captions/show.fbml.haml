@@ -1,1 +1,32 @@
-= @caption.caption 
+#caption-page
+  %h1.title== #{ link_to @caption.photo.captioned_at.to_s(:long_date), contest_url(@caption.photo) } &rsaquo; Caption
+  - photo_cont @caption.photo do
+    #best-caption
+      = render :partial => "contests/caption", :object => @caption
+
+  #comments-container.clearfix
+    #comments
+      %a{:name=>"comments"}
+      %h2.title== <span>#{ pluralize @caption.comments.size, 'Comment' }</span> from the peanut gallery so far...
+      .box
+        - if @caption.comments.empty?
+          %p What do you think about this caption? Add your comment below!
+        - else
+          - fb_wall do
+            = render :partial => '/captions/comment', :collection => @caption.comments
+
+      %h2.title <span>ADD</span> a comment
+      .box
+        = facebook_messages
+        - facebook_form_for Comment.new, :url => comments_url do |f| 
+          = f.text_area :comment
+          = hidden_field_tag :caption_id, @caption.id
+          = f.buttons "Add Comment!"
+
+
+      %p= link_to "&lsaquo; Back to all captions for this contest", contest_url(@caption.photo)
+    
+    #comments-sidebar
+      #sponsor
+        = image_tag("ad-160x600.jpg")
+    

@@ -9,8 +9,14 @@ Spec::Runner.configure do |config|
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 end
 
+def make_captionable photo
+  photo.ready_for_captioning!
+  photo.start_captioning!
+end
+
 def create_user
-  User.create! :site_id => 1, :username => "Joe Van Dyk", :profile_url => "http://facebook.com/joevandyk", :profile_image_url => "http://facebook.com/joevandyk/profile.png"
+  username = Faker::Name.name
+  User.create! :site_id => 1, :username => username, :profile_url => "http://facebook.com/#{username}", :profile_image_url => "http://facebook.com/#{username}/profile.png"
 end
 
 def create_photo

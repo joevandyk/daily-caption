@@ -1,160 +1,22 @@
-%style
-  :sass
-    #canvas
-      :background #F7F7F7 url(http://dailycaption.com:4007/images/polaroid.png) no-repeat 350px -30px
-      :padding 1.8em 0.5em
-    #hd
-      #logo
-        :padding-bottom 0.5em
-    #bd
-      :background #FFFFFF
-      :border-left 1px solid #CCC
-      :border-right 1px solid #CCC
-      :border-bottom 1px solid #898989
-      :padding 1em 0.5em
-    #ft
-      ul
-        :padding 0
-        :margin 0.3em 0 0 0.5em
-        li
-          :display inline
-          :list-style none
-          :margin-right 0.3em
-          :color #AAA
-          a
-            &:link, &:visited
-              :color #888
-            &:hover
-              :color #3B5998
-              
-    // Util Classes
-    .float-right
-      :float right
-    .float-left
-      :float left
-    .hidden
-      :display none
-    .quiet
-      :color #999
-      
-    // Contest Page
-    .add-caption-link
-      :margin-top 2px
-      :float right
-    div#competition
-      :margin-top 10px
-      div#competing-captions
-        :float left
-        :width 400px
-      div#contest-sidebar
-        :float right
-        :width 205px
-    div#contests
-      :margin-top 5px
-      #contest
-        :background #E8F0F6 url(http://dailycaption.com:4007/images/fold.gif) no-repeat right bottom
-        :border 1px solid #CCC
-        :padding 10px 5px 40px
-        :text-align center
-        :float left
-        div#new-caption,div#photo,div#photo p
-          :width 500px
-          :padding 5px
-        div#new-caption
-          :background #D1D9DF
-        div#photo
-          :background #3A3A3A
-          :border 1px solid #CCC
-          :margin auto
-          :position relative
-          p#tagline
-            :position absolute
-            :top 0
-            :left 0
-            :filter alpha(opacity=80) 
-            :opacity 0.80
-            -moz-opacity 0.80
-            :margin 0
-            :padding-top 2px 
-            :padding-bottom 2px
-            :background #3A3A3A
-            :color #FFF
-            :text-align center
-            a:link, a:visited,a:hover
-              :color #FFF
-              :text-decoration underline
-          #add-caption-overlay
-            :position absolute
-            :bottom 0
-            :right 0
-            :width 77px
-            :height 81px            
-        div#best-caption
-          :background url(http://dailycaption.com:4007/images/quote.gif) no-repeat left top
-          :margin-top 10px
-          :text-align left
-          :padding 10px 10px 10px 20px
-          :font-size 1.3em
-          :font-weight bold
-          :color #3A3A3A
-          .wallkit_post
-            :float none !important
-            :margin-left 0 !important
-              
-      #past-contests
-        :float right
-        :width 90px
-        b
-          :color #3A3A3A
-        dl
-          :margin 0
-          :padding 0
-          :margin-top 5px
-          :border 1px solid #CCC
-          img
-            :padding 4px 4px 0 4px
-          a:link, a:visited
-            :padding 0
-            :color #AAA
-            :display block
-            :padding-bottom 3px
-          a:hover
-            :color #3B5998
-          &:hover
-            :border-color #3B5998
-            a
-              :color #3B5998
-              :text-decoration underline
-          dt,dd,dd p
-            :margin 0
-            :padding 0
-            :text-align center
-    
-    // Caption
-    
-
-
-= javascript_include_tag "http://dailycaption.com:4007/javascripts/facebooker"
+= stylesheet_link_tag "canvas", "facebook"
+= javascript_include_tag "facebooker", "application"
 
 #canvas
   #hd
-    #logo= link_to image_tag("dc_logo.png", :alt => "DailyCaption"), index_path
+    #logo= link_to image_tag("/images/dc_logo.png", :alt => "DailyCaption"), index_path
 
     - fb_tabs do
       = fb_tab_item "Help & Feedback", fb_about_url, :selected => false, :align => "left"
-      = fb_tab_item "Current Contest", "#", :selected => true, :align => "right"
-      = fb_tab_item "Past Contests", "#", :selected => false, :align => "right"
-      = fb_tab_item "Profile", "#", :selected => false, :align => "right"
-      = fb_tab_item "Friends/Invites", new_invitation_url, :selected => false, :align => "right"
+      = fb_tab_item "Current Contest", index_url, :selected => current_tab?(:contest), :align => "right"
+      = fb_tab_item "Past Contests", archive_contests_url, :selected => current_tab?(:archive), :align => "right"
+      = fb_tab_item "Profile", user_url(current_user), :selected => current_tab?(:profile), :align => "right"
+      = fb_tab_item "Invites", new_invitation_url, :selected => current_tab?(:friends), :align => "right"
 
   #bd
-    = facebook_messages    
     = yield
 
   #ft
     %ul
-      %li== #{ link_to "About", fb_about_url } -
-      %li== #{ link_to "Current Contest", "#" } -
-      %li== #{ link_to "Terms", "#" } -
-      %li== #{ link_to "Privacy", "#" } -
+      %li.strong== #{ link_to "A Fixie Production", "http://www.fixieconsulting.com" } - 
+      %li== #{ link_to "News", "http://www.facebook.com/board.php?uid=5139054553" } -
       %li== #{ link_to "Help & Feedback", fb_about_url }

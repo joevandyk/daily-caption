@@ -1,0 +1,16 @@
+.caption-points
+  %div{:id =>"points_#{dom_id(caption)}"} 
+    %span.count{:id =>"votes_count_#{dom_id(caption)}"}= caption.votes_count
+    %span votes
+.caption-votes{:id =>"votes_#{dom_id(caption)}"}
+  - fb_if_user_has_added_app(current_user.facebook_user) do
+    - if caption.can_vote_for_caption? current_user
+      - remote_form_for Vote.new, :success => "updateVotes('#{dom_id(caption)}',request['votes'])", :url => votes_url(:caption_id => caption.id, :canvas => false) do
+        = hidden_field_tag :caption_id, caption.id
+        = submit_tag "Vote Up", :id => "vote_btn_#{dom_id(caption)}"
+    - elsif caption.voted_for? current_user
+      %span.quiet Voted
+    - else
+      %span.quiet Closed
+    - fb_else do
+      = link_to 'Vote Up!', votes_url(caption)
