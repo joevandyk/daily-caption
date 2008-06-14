@@ -84,7 +84,7 @@ class Photo < ActiveRecord::Base
   end
   
   def previous_winner
-    self.previous.winning_caption.user
+    self.previous.try(:winning_caption).try(:user)
   end
 
   def number_of_captions_user_can_add user
@@ -128,5 +128,8 @@ class Photo < ActiveRecord::Base
     FacebookPublisher.deliver_email_winner winner rescue StandardError
     FacebookPublisher.deliver_notify_winner winner rescue StandardError
     FacebookPublisher.deliver_winning_caption_action winner rescue StandardError
+    winner.votes.each do |vote|
+      FacebookPublisher.deliver_winning_voters winner, vote.user rescue StandardError
+    end
   end
 end

@@ -2,7 +2,9 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  before_filter :ensure_current_photo
   include FacebookActions
+  include ExceptionNotifiable
   
   helper :all # include all helpers, all the time
   attr_accessor :current_user
@@ -23,16 +25,26 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-    
+
   def show_errors_for_object object
     object.errors.full_messages.to_sentence
   end
 
   def facebook_session
-    session[:facebook_session]
+    if session[:facebook_session] 
+      session[:facebook_session]
+    elsif params[:fb_sig_user]
+      set_facebook_session
+    end
   end
 
   def ensure_installed
     ensure_application_is_installed_by_facebook_user
+  end
+
+  def ensure_current_photo
+    if Photo.current.nil?
+      raise "Uh oh, there is no current photo!" 
+    end
   end
 end

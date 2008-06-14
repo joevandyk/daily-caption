@@ -52,6 +52,7 @@ Rails::Initializer.run do |config|
 end
 
 require 'flickr'
+require_dependency 'object'
 require_dependency 'date_extensions'
 
 ActionController::AbstractRequest.class_eval do
@@ -69,3 +70,5 @@ ActionController::AbstractRequest.class_eval do
   end
   alias_method_chain :request_method, :facebook_overrides
 end
+
+ExceptionNotifier.exception_recipients = %w( joe@pinkpucker.net jordanisip@yahoo.com )

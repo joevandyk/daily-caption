@@ -11,6 +11,10 @@ class Vote < ActiveRecord::Base
               }
   named_scope :recent, :limit => 2, :order => 'created_at desc'
 
+  def facebook_user
+    user.facebook_user
+  end
+
   private
 
   def user_can_vote

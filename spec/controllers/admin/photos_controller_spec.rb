@@ -8,7 +8,7 @@ describe Admin::PhotosController do
   it "should create photos based off input" do
     post :create, "photos" => ["123", "456", "789"]
     flash[:notice].should == "3 photos created"
-    Photo.count.should == 3
+    Photo.count.should == 4
     assert_redirected_to new_admin_photo_path
   end
 end

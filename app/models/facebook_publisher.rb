@@ -42,5 +42,13 @@ class FacebookPublisher < Facebooker::Rails::Publisher
     title "Congratulations on winning a Daily Caption contest!"
     fbml  "<fb:fbml> Woohoo! Here is your caption that won: #{ caption.caption } </fb:fbml>"
   end
+
+  def winning_voters_action caption, user
+    send_as :action
+    from user
+    title "<fb:fbml> #{ name(user)} voted for the winning photo in a DailyCaption contest!   #{ link_to 'captioning contest!', caption_url(:id => caption.id) }</fb:fbml>"
+    body  "<fb:fbml> #{ caption.caption } </fb:fbml>"
+    add_image caption.photo.medium, caption_url(:id => caption.id)
+  end
 end
 
