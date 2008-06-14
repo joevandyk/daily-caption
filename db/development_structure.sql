@@ -28,6 +28,25 @@ CREATE TABLE bj_config (
 
 
 --
+-- Name: bj_config_bj_config_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bj_config_bj_config_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: bj_config_bj_config_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE bj_config_bj_config_id_seq OWNED BY bj_config.bj_config_id;
+
+
+--
 -- Name: bj_job; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -79,6 +98,44 @@ CREATE TABLE bj_job_archive (
 
 
 --
+-- Name: bj_job_archive_bj_job_archive_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bj_job_archive_bj_job_archive_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: bj_job_archive_bj_job_archive_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE bj_job_archive_bj_job_archive_id_seq OWNED BY bj_job_archive.bj_job_archive_id;
+
+
+--
+-- Name: bj_job_bj_job_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bj_job_bj_job_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: bj_job_bj_job_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE bj_job_bj_job_id_seq OWNED BY bj_job.bj_job_id;
+
+
+--
 -- Name: captions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -89,8 +146,27 @@ CREATE TABLE captions (
     user_id integer,
     votes_count integer DEFAULT 0,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    comments_count integer DEFAULT 0 NOT NULL
 );
+
+
+--
+-- Name: captions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE captions_id_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: captions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE captions_id_seq OWNED BY captions.id;
 
 
 --
@@ -108,6 +184,24 @@ CREATE TABLE comments (
 
 
 --
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE comments_id_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
+
+
+--
 -- Name: photos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -120,13 +214,33 @@ CREATE TABLE photos (
     medium text,
     large text,
     original text,
-    state character varying(255) DEFAULT NULL::character varying,
+    state character varying(255),
     author text,
     photostream text,
     captioned_at timestamp without time zone,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    ended_captioning_at timestamp without time zone,
+    winner_id integer
 );
+
+
+--
+-- Name: photos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE photos_id_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: photos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE photos_id_seq OWNED BY photos.id;
 
 
 --
@@ -152,147 +266,6 @@ CREATE TABLE sessions (
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE users (
-    id integer NOT NULL,
-    site_id integer,
-    site_user_id bigint,
-    session_key character varying(255) DEFAULT NULL::character varying,
-    username character varying(255) DEFAULT NULL::character varying,
-    email character varying(255) DEFAULT NULL::character varying,
-    profile_url character varying(255) DEFAULT NULL::character varying,
-    profile_image_url character varying(255) DEFAULT NULL::character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: votes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE votes (
-    id integer NOT NULL,
-    user_id integer,
-    caption_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: bj_config_bj_config_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE bj_config_bj_config_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
---
--- Name: bj_config_bj_config_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE bj_config_bj_config_id_seq OWNED BY bj_config.bj_config_id;
-
-
---
--- Name: bj_job_archive_bj_job_archive_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE bj_job_archive_bj_job_archive_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
---
--- Name: bj_job_archive_bj_job_archive_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE bj_job_archive_bj_job_archive_id_seq OWNED BY bj_job_archive.bj_job_archive_id;
-
-
---
--- Name: bj_job_bj_job_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE bj_job_bj_job_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
---
--- Name: bj_job_bj_job_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE bj_job_bj_job_id_seq OWNED BY bj_job.bj_job_id;
-
-
---
--- Name: captions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE captions_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
---
--- Name: captions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE captions_id_seq OWNED BY captions.id;
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE comments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
-
-
---
--- Name: photos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE photos_id_seq
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
---
--- Name: photos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE photos_id_seq OWNED BY photos.id;
-
-
---
 -- Name: sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -311,6 +284,24 @@ ALTER SEQUENCE sessions_id_seq OWNED BY sessions.id;
 
 
 --
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    site_id integer,
+    site_user_id integer,
+    session_key character varying(255),
+    username character varying(255),
+    email character varying(255),
+    profile_url character varying(255),
+    profile_image_url character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -326,6 +317,19 @@ CREATE SEQUENCE users_id_seq
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: votes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE votes (
+    id integer NOT NULL,
+    user_id integer,
+    caption_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
 
 
 --
@@ -485,7 +489,14 @@ ALTER TABLE ONLY votes
 -- Name: index_bj_config_on_hostname_and_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_bj_config_on_hostname_and_key ON bj_config USING btree (hostname, key);
+CREATE UNIQUE INDEX index_bj_config_on_hostname_and_key ON bj_config USING btree (hostname, "key");
+
+
+--
+-- Name: index_captions_on_created_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_captions_on_created_at ON captions USING btree (created_at);
 
 
 --
@@ -510,6 +521,34 @@ CREATE INDEX index_captions_on_votes_count ON captions USING btree (votes_count)
 
 
 --
+-- Name: index_comments_on_caption_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_comments_on_caption_id ON comments USING btree (caption_id);
+
+
+--
+-- Name: index_comments_on_created_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_comments_on_created_at ON comments USING btree (created_at);
+
+
+--
+-- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_comments_on_user_id ON comments USING btree (user_id);
+
+
+--
+-- Name: index_photos_on_captioned_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_photos_on_captioned_at ON photos USING btree (captioned_at);
+
+
+--
 -- Name: index_sessions_on_session_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -521,13 +560,6 @@ CREATE INDEX index_sessions_on_session_id ON sessions USING btree (session_id);
 --
 
 CREATE INDEX index_sessions_on_updated_at ON sessions USING btree (updated_at);
-
-
---
--- Name: index_users_on_session_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_users_on_session_key ON users USING btree (session_key);
 
 
 --
@@ -582,3 +614,11 @@ INSERT INTO schema_migrations (version) VALUES ('20080530215253');
 INSERT INTO schema_migrations (version) VALUES ('20080531002147');
 
 INSERT INTO schema_migrations (version) VALUES ('20080610175358');
+
+INSERT INTO schema_migrations (version) VALUES ('20080610184013');
+
+INSERT INTO schema_migrations (version) VALUES ('20080610224239');
+
+INSERT INTO schema_migrations (version) VALUES ('20080613223213');
+
+INSERT INTO schema_migrations (version) VALUES ('20080614221812');

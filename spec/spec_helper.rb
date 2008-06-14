@@ -20,8 +20,9 @@ def create_user
   User.create! :site_id => 1, :username => username, :profile_url => "http://facebook.com/#{username}", :profile_image_url => "http://facebook.com/#{username}/profile.png"
 end
 
-def create_photo
-  Photo.create! :flickr_id => "1234567890"
+def create_photo options={}
+  default = { :flickr_id => "1234567890" }
+  Photo.create! default.update(options)
 end
 
 def create_caption options={}
