@@ -46,6 +46,10 @@ module ApplicationHelper
     link_to_unless_current(fb_name(user.site_user_id,{:ifcantsee=>"A Hidden User", :linked => false}.merge(options)), user_url(user))
   end
   
+  def first_name user,options={}
+    fb_name(user.site_user_id,{:possessive => true, :firstnameonly => true, :linked => false, :useyou => false}.merge(options))
+  end
+  
   def photo_cont photo, &block
     concat(render(:partial => "contests/photo", :locals => {:body => capture(&block), :photo => photo}), block.binding)
   end

@@ -1,16 +1,33 @@
-= render :partial => "shared/canvas_sass"
-
 %fb:subtitle
   %fb:action{:href=>"#{update_profile_url(user)}"} Refresh
-  %fb:action{:href=>"#{index_url}"} Profile Settings
+  %fb:action{:href=>"#{user_url(user)}"} Full Profile
   %fb:action{:href=>"#{new_caption_url}"} Add New Caption
 
-- fb_wide do
-  #dailycaption-fb-wide
-    %h4 Most Recent Caption
+#dailycaption-fb-profile
+  - fb_wide do
+    = render :partial => "shared/canvas_sass"
+    %h4== #{first_name user} most recent caption
     - if user.most_recent_caption
       = render :partial => "contests/photo_caption", :locals => {:photo => user.most_recent_caption.photo, :caption => user.most_recent_caption, :show_date => false}
+    - else
+      %p== #{first_name user, :possessive => false} has not created any captions yet!
   
+    #dailycaption-overview.clearfix
+      #stats
+        %h4== #{first_name user} stats
+        = render :partial => "stats"
+      #voted-captions
+        %h4 Voted up captions
+        = render :partial => "contests/simple_caption", :collection => user.recently_voted_captions
+            
+  - fb_narrow do
+    #narrow
+      = render :partial => "shared/canvas_sass"
+      %h4.first== #{first_name user} most recent caption
+      = render :partial => "contests/simple_caption", :object => user.most_recent_caption
   
-- fb_narrow do
-  == Narrow FB profile for #{name user}
+      %h4== #{first_name user} stats
+      = render :partial => "stats"
+  
+      %h4== #{first_name user} voted up captions
+      = render :partial => "contests/simple_caption", :collection => user.recently_voted_captions
