@@ -3,7 +3,7 @@
 
 #archive-container.clearfix
   #archive-sponsors
-    =# image_tag "ad-160x600.jpg"
+    = iframe_ad "2865229586", "160", "600"
   #archive
     - for photo in @photos
       = render :partial => "contests/photo_caption", :locals => {:photo => photo, :caption => photo.winning_caption, :show_date => true}
