@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users do |user|
     user.resources :captions
     user.resources :votes
+    user.resources :comments    
   end
   
   map.ad_server '/ad_server', :controller => 'ad_server', :action => 'ad'

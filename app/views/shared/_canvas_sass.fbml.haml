@@ -82,6 +82,7 @@
         div#competing-captions
           :margin-top 10px
       div#contest-sidebar
+        :text-align right
         :float right
         :width 180px
     div#contests
@@ -194,9 +195,11 @@
         :padding 3px
         :vertical-align middle
         .caption-spam
+          :position relative
           :float right
           :font-size 9px
         cite.caption-author
+          :height 1%
           :font-style normal
           span
             :font-size 9px
@@ -249,7 +252,8 @@
               :margin-top 2px
               :font-size 11px
               :color #CCC
-          .caption-votes
+          .vote-button
+            :margin-top 2px
 
     dl.photo-caption
       :margin 0
@@ -323,6 +327,8 @@
 
 
     // Comments
+    .comment
+      :margin 0px 10px
     #comments-container
       :margin-top 20px
       #comments

@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
     self.captions.recent
   end
   
+  def recently_created_comments
+    self.comments.recent
+  end
+  
   def recently_voted_captions
     Vote.not_for_mine(self).recent.map{ |v| v.caption }
   end

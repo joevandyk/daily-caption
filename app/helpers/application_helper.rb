@@ -15,14 +15,18 @@ module ApplicationHelper
   end
   
   def iframe_ad ad_slot,width,height
-    "<fb:iframe src='#{ad_server_url(:ad_slot => ad_slot, :width => width, :height => height, :canvas => false, :only_path => false)}' width='#{width}' height='#{height}' border='0' scrolling='no' frameborder=0></fb:iframe>"
+    if should_show_ads?
+      "<fb:iframe src='#{ad_server_url(:ad_slot => ad_slot, :width => width, :height => height, :canvas => false, :only_path => false)}' width='#{width}' height='#{height}' border='0' scrolling='no' frameborder=0></fb:iframe>"
+    end
   end
   
   def ad_social_media
-    <<-eos
-    <fb:iframe src='http://ads.socialmedia.com/facebook/monetize.php?width=645&height=60&pubid=7a1b13d3bfc36c4f0792887fff11c541&pop=1&bgcolor=F7F7F7&textcolor=000&bordercolor=F6F6F6&linkcolor=3B5998&fb_sig_user=#{current_user.facebook_user.id}' border='0' width='645' height='60' resizable='false' name='socialmedia_ad' scrolling='no' frameborder='0'></fb:iframe>
-    <fb:iframe src='http://adtracker.socialmedia.com/track/' width='1' height='1' style='display:none;' />
-    eos
+    if should_show_ads?
+      <<-eos
+      <fb:iframe src='http://ads.socialmedia.com/facebook/monetize.php?width=645&height=60&pubid=7a1b13d3bfc36c4f0792887fff11c541&pop=1&bgcolor=F7F7F7&textcolor=000&bordercolor=F6F6F6&linkcolor=3B5998&fb_sig_user=#{current_user.facebook_user.id}' border='0' width='645' height='60' resizable='false' name='socialmedia_ad' scrolling='no' frameborder='0'></fb:iframe>
+      <fb:iframe src='http://adtracker.socialmedia.com/track/' width='1' height='1' style='display:none;' />
+      eos
+    end
   end
   
   def google_analytics
@@ -119,6 +123,16 @@ module ApplicationHelper
   
   def time_until_next_contest
     distance_of_time_in_words(Time.now, Photo.current.ended_captioning_at, include_seconds = true)
+  end
+  
+  def on_profile_page?
+    params[:controller] == "users" and params[:action] == "show"
+  end
+  
+  private
+  
+  def should_show_ads?
+    RAILS_ENV == "production"
   end
   
 end

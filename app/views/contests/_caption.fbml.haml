@@ -1,6 +1,5 @@
 %a{:name => dom_id(caption)}
-.caption-container.clearfix
-
+.caption-container
   .caption-info
     /
       -# if caption.photo.captioning?
@@ -16,7 +15,7 @@
       = render :partial => "contests/caption_vote", :locals => { :caption => caption }
     .caption
       - unless caption.deleted?
-        = link_to caption.caption, caption_url(caption)
+        = link_to h(caption.caption), caption_url(caption)
       - else
         The DailyCaption community has marked this caption offensive or spam.
     .caption-actions
@@ -26,3 +25,4 @@
     %ul.caption-collab.clearfix
       %li== #{ link_to image_tag('comments.gif'), caption_url(caption, :anchor => "comments") } #{ link_to pluralize(caption.comments.count, 'Comment'), caption_url(caption,:anchor => "comments") }
       %li= caption_share_button(caption)
+  %div{:style => "clear:both"}

@@ -23,7 +23,7 @@ class Caption < ActiveRecord::Base
   named_scope :by_rank,       lambda { |*args| find_captions :votes_count,    args }
   named_scope :by_comments,   lambda { |*args| find_captions :comments_count, args }
 
-  named_scope :recent, :limit => 2, :order => 'created_at desc'
+  named_scope :recent, :limit => 4, :order => 'created_at desc'
 
   def voted_for? user
     ! self.votes.for_user(user).empty?

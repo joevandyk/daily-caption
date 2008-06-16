@@ -2,14 +2,15 @@ class CaptionsController < ApplicationController
   before_filter :ensure_installed
   
   def create
-    c = Caption.create :photo => Photo.find(params[:photo_id]), :user => current_user, :caption => params[:caption][:caption]
-    if c.new_record?
-      flash[:error] = show_errors_for_object(c) 
-      render :action => "show"
+    @photo = Photo.current
+    @caption = Caption.create :photo => @photo, :user => current_user, :caption => params[:caption][:caption]
+    if @caption.new_record?
+      flash[:error] = show_errors_for_object(@caption) 
+      render :action => "new"
     else
       update_fb_profile(current_user)
+      redirect_to index_url
     end
-    redirect_to index_url
   end
 
   def index

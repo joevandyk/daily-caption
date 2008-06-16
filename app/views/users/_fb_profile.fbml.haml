@@ -15,7 +15,7 @@
     #dailycaption-overview.clearfix
       #stats
         %h4== #{first_name user} stats
-        = render :partial => "stats"
+        = render :partial => "/users/stats", :locals => {:user => user}
       #voted-captions
         %h4 Voted up captions
         = render :partial => "contests/simple_caption", :collection => user.recently_voted_captions
@@ -27,7 +27,7 @@
       = render :partial => "contests/simple_caption", :object => user.most_recent_caption
   
       %h4== #{first_name user} stats
-      = render :partial => "stats"
+      = render :partial => "/users/stats", :locals => {:user => user}
   
       %h4== #{first_name user} voted up captions
       = render :partial => "contests/simple_caption", :collection => user.recently_voted_captions

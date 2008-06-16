@@ -31,8 +31,8 @@
     %b Past Contests
     - for photo in Photo.past.recent
       %dl
-        %dt= link_to show_media(photo, :square), contest_url(photo)
-        %dd= link_to relative_day(photo.captioned_at), contest_url(photo)
+        %dt= link_to show_media(photo, :square), contest_url(photo), :title => photo.winning_caption.caption
+        %dd= link_to relative_day(photo.captioned_at), contest_url(photo), :title => photo.winning_caption.caption
       
     .more= link_to "View all past contests", archive_contests_url
     

@@ -7,6 +7,8 @@ class Comment < ActiveRecord::Base
   validates_uniqueness_of :comment, :scope => :caption_id, :case_sensitive => false
   after_create :send_notification
   delegate :facebook_user, :to => :user
+  
+  named_scope :recent, :limit => 3, :order => 'created_at desc'
 
   private
 

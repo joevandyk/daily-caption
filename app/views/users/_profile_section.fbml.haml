@@ -9,7 +9,12 @@
         - if collection.empty?
           .list_item== No #{title} have been created yet :(
         - else
-          = render :partial => partial, :collection => collection
+          - #ugh, ugly
+          - if title == "Comments"
+            - fb_wall do
+              = render :partial => partial, :collection => collection
+          - else
+            = render :partial => partial, :collection => collection
     %tr
       %td.see_all
         %div
