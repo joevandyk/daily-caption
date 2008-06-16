@@ -19,4 +19,14 @@ describe Photo do
     @photo.ready_for_captioning! and @photo.start_captioning!
     @photo.captions.create! :caption => "This one sucks", :user => create_user
   end
+
+  it "once it's scored, should assign the winning id" do
+    make_captionable @photo
+    @user = create_user
+    create_caption :photo => @photo, :user => @user
+
+    @photo.score_and_rotate!
+
+    @photo.winner_id.should == @user.id
+  end
 end

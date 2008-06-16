@@ -1,7 +1,7 @@
 %table#profile-stats.profileTable{ :cellspacing=>"0", :border=>"0" }
   %tr
     %td.label.strong Total Wins:
-    %td.data #
+    %td.data= @user.number_of_wins
   %tr
     %td.label Total Captions:
     %td.data= @user.captions.size

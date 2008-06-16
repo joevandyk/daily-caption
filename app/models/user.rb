@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def number_of_wins
+    Photo.count :conditions => "winner_id = #{self.id}"
+  end
+
   def avg_received_votes_per_caption
     (votes_received_captions.size / captions.size) rescue 0
   end
