@@ -1,7 +1,7 @@
 #profile-page.clearfix
   #profile-info
     = profile_pic @user, :normal
-    = render :partial => "stats"
+    = render :partial => "/users/stats", :locals => {:user => @user}
 
   #profile-contributions
     %h1= name @user

@@ -1,19 +1,19 @@
 %table#profile-stats.profileTable{ :cellspacing=>"0", :border=>"0" }
   %tr
     %td.label.strong Total Wins:
-    %td.data= @user.number_of_wins
+    %td.data= user.number_of_wins
   %tr
     %td.label Total Captions:
-    %td.data= @user.captions.size
+    %td.data= user.captions.size
   %tr
     %td.label Total Votes Received
-    %td.data= @user.votes_received_captions.size
+    %td.data= user.votes_received_captions.size
   %tr
     %td.label Avg. Received Votes/Caption
-    %td.data= number_with_precision(@user.avg_received_votes_per_caption, 1)
+    %td.data= number_with_precision(user.avg_received_votes_per_caption, 1)
   %tr
     %td.label Total Votes Given
-    %td.data= @user.votes_given_captions.size
+    %td.data= user.votes_given_captions.size
   %tr
     %td.label Total Comments:
-    %td.data= @user.comments.size
+    %td.data= user.comments.size
