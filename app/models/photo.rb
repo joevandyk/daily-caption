@@ -72,7 +72,7 @@ class Photo < ActiveRecord::Base
 
   # Find the winning caption for the photo
   def winning_caption
-    self.captions.find :first, :order => 'votes_count desc'
+    self.captions.find :first, :order => 'votes_count desc, created_at asc'
   end
 
   def next
