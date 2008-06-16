@@ -9,7 +9,7 @@ class Vote < ActiveRecord::Base
               lambda { |user|
                 { :conditions => "caption_id not in (select id from captions where user_id = #{user.id}) and user_id = #{user.id}" }
               }
-  named_scope :recent, :limit => 2, :order => 'created_at desc'
+  named_scope :recent, :limit => 3, :order => 'created_at desc'
 
   def facebook_user
     user.facebook_user

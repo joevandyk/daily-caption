@@ -8,4 +8,4 @@
     %p.quiet== DailyCaption user since #{ @user.created_at.to_s :short_date }
     = profile_section :title => "Captions", :link => user_captions_path(@user), :partial => 'contests/caption', :collection => @user.recently_created_captions
     = profile_section :title => "Voted on Captions", :link => user_votes_path(@user), :partial => 'contests/caption', :collection => @user.recently_voted_captions
-    = profile_section :title => "Comments", :link => "#", :partial => 'captions/comment', :collection => @user.comments
+    = profile_section :title => "Comments", :link => "#", :partial => 'captions/comment', :collection => @user.comments.recent

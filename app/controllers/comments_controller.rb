@@ -11,4 +11,9 @@ class CommentsController < ApplicationController
     end
     redirect_to caption_url(caption, :anchor => "comments")
   end
+  
+  def index
+    @user = User.find params[:user_id]
+    @comments = @user.comments
+  end
 end

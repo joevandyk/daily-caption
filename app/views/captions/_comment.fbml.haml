@@ -8,6 +8,7 @@
     %h4== #{ name comment.user } wrote<span class="wall_time">at #{ comment.created_at.to_s(:long_date_and_time)}</span>
     %div
       = simple_format(auto_link(h(comment.comment)))
-    - if current_user == comment.user
-      .wallactions
-        %small Delete
+    /
+      -# if current_user == comment.user
+        .wallactions
+          %small Delete
