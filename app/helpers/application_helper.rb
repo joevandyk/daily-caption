@@ -15,7 +15,11 @@ module ApplicationHelper
   end
   
   def iframe_ad ad_slot,width,height
-    "<fb:iframe src='#{ad_server_url(:ad_slot => ad_slot, :width => width, :height => height, :canvas => false, :only_path => false)}' width='#{width}' height='#{height}' border='0' scrolling='no' frameborder=0></fb:iframe>"
+    if RAILS_ENV == "production"
+      "<fb:iframe src='#{ad_server_url(:ad_slot => ad_slot, :width => width, :height => height, :canvas => false, :only_path => false)}' width='#{width}' height='#{height}' border='0' scrolling='no' frameborder=0></fb:iframe>"
+    else
+      "Ads hidden in Development mode"
+    end
   end
   
   def ad_social_media
