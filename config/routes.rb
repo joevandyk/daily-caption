@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :votes
   end
   
-  map.advertisement '/advertisement', :controller => 'contests', :action => 'ad'
+  map.ad_server '/ad_server', :controller => 'ad_server', :action => 'ad'
   map.update_profile '/users/:id/update_profile', :controller => 'users', :action => 'update_profile'
   map.resources :contests, :collection => { :archive => :get }
   
