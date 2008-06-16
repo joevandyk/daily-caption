@@ -125,6 +125,10 @@ module ApplicationHelper
     distance_of_time_in_words(Time.now, Photo.current.ended_captioning_at, include_seconds = true)
   end
   
+  def on_profile_page?
+    params[:controller] == "users" and params[:action] == "show"
+  end
+  
   private
   
   def should_show_ads?

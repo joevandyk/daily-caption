@@ -15,7 +15,7 @@
       = render :partial => "contests/caption_vote", :locals => { :caption => caption }
     .caption
       - unless caption.deleted?
-        = link_to caption.caption, caption_url(caption)
+        = link_to h(caption.caption), caption_url(caption)
       - else
         The DailyCaption community has marked this caption offensive or spam.
     .caption-actions
