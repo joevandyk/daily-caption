@@ -1,7 +1,9 @@
 #profile-page.clearfix
   #profile-info
     = profile_pic @user, :normal
-    = render :partial => "/users/stats", :locals => {:user => @user}
+    = render :partial => "/users/stats", :locals => {:user => @user}    
+    #profile-ad
+      = iframe_ad "2865229586", "160", "600"
 
   #profile-contributions
     %h1= name @user
