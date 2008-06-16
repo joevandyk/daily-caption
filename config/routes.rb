@@ -12,6 +12,8 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :captions
     user.resources :votes
   end
+  
+  map.advertisement '/advertisement', :controller => 'contests', :action => 'ad'
   map.update_profile '/users/:id/update_profile', :controller => 'users', :action => 'update_profile'
   map.resources :contests, :collection => { :archive => :get }
   

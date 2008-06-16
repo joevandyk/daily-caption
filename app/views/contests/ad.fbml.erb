@@ -1,0 +1,3 @@
+<!-- Called from IFRAME since FB does not allow direct JS -->
+<p><%= params[:ad_slot] %>:<%= params[:width] %>:<%= params[:height]%></p>
+<%= advertisement params[:ad_slot], params[:width], params[:height] %>
