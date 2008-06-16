@@ -5,8 +5,9 @@
     !alt_font = "arial,helvetica,clean,sans-serif"
     #canvas
       :background #F7F7F7 url(http://dailycaption.com:4007/images/polaroid.png) no-repeat 350px -30px
-      :padding 1.8em 0.5em
+      :padding 1.8em 0.5em 0.5em 0.5em
       :color #3A3A3A
+      :border-bottom 1px dashed #DDD
     #hd
       #logo
         :padding-bottom 0.5em
@@ -30,7 +31,8 @@
               :color #888
             &:hover
               :color #3B5998
-
+    #banner-ad
+      :text-align center
     // Util Classes
     .box
       :background url(http://dailycaption.com:4007/images/background_section.gif) repeat-x top
@@ -66,7 +68,7 @@
       :margin-top 30px
       div#competing-captions-container
         :float left
-        :width 400px
+        :width 425px
         #sort
           :color #999
           ul
@@ -81,7 +83,7 @@
           :margin-top 10px
       div#contest-sidebar
         :float right
-        :width 205px
+        :width 180px
     div#contests
       :margin-top 15px
       #contest-header

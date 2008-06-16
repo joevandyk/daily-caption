@@ -15,6 +15,7 @@
       = fb_tab_item "Invites", new_invitation_url, :selected => current_tab?(:friends), :align => "right"
 
   #bd
+    -# #banner-ad= iframe_ad "6692508527", "468", "60"
     = yield
 
   #ft
@@ -22,3 +23,6 @@
       %li.strong== #{ link_to "A Fixie Production", "http://www.fixieconsulting.com" } - 
       %li== #{ link_to "News", "http://www.facebook.com/board.php?uid=5139054553" } -
       %li== #{ link_to "Help & Feedback", fb_about_url }
+
+= ad_social_media
+= google_analytics

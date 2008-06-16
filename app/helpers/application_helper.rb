@@ -1,5 +1,34 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def advertisement ad_slot,width,height
+    <<-eos
+    <script type="text/javascript"><!--
+    google_ad_client = "pub-2921896918877269";
+    google_ad_slot = "#{ad_slot}";
+    google_ad_width = #{width};
+    google_ad_height = #{height};
+    //-->
+    </script>
+    <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+    </script>
+    eos
+  end
+  
+  def iframe_ad ad_slot,width,height
+    "<fb:iframe src='#{ad_server_url(:ad_slot => ad_slot, :width => width, :height => height, :canvas => false, :only_path => false)}' width='#{width}' height='#{height}' border='0' scrolling='no' frameborder=0></fb:iframe>"
+  end
+  
+  def ad_social_media
+    <<-eos
+    <fb:iframe src='http://ads.socialmedia.com/facebook/monetize.php?width=645&height=60&pubid=7a1b13d3bfc36c4f0792887fff11c541&pop=1&bgcolor=F7F7F7&textcolor=000&bordercolor=F6F6F6&linkcolor=3B5998&fb_sig_user=#{current_user.facebook_user.id}' border='0' width='645' height='60' resizable='false' name='socialmedia_ad' scrolling='no' frameborder='0'></fb:iframe>
+    <fb:iframe src='http://adtracker.socialmedia.com/track/' width='1' height='1' style='display:none;' />
+    eos
+  end
+  
+  def google_analytics
+    "<fb:google-analytics uacct='UA-887439-9'' />"
+  end
+  
   def add_caption_link
   "<div class='add-caption-link'>[ #{link_to "Add your own caption", new_caption_url} ]</div>"
   end
