@@ -20,3 +20,11 @@ config.action_view.cache_template_loading            = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
+
+ActionMailer::Base.smtp_settings = {
+	:domain             => "dailycaption.com",
+	:perform_deliveries => true,
+	:address            => 'smtp.ey03.engineyard.com',
+	:port               => 25 }
+
+

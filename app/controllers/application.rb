@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_current_photo
-    if Photo.current.nil?
+    if !self.kind_of?(Admin::AdminController) and  Photo.current.nil?
       raise "Uh oh, there is no current photo!" 
     end
   end
