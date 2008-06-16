@@ -5,8 +5,10 @@ function updateVotes(caption_dom_id,votes){
   $('votes_' + caption_dom_id).setTextValue("Voted!");
 }
 
-
-
+function votingIndicator(caption_dom_id, message){
+  $('votes_' + caption_dom_id).setInnerXHTML(message);
+}
+/*
 function update_count(str,message_id) { 
   len=str.length; 
   if (len < 200) { 
@@ -18,7 +20,7 @@ function update_count(str,message_id) {
   } 
 }
 
-/*
+
 pg 141
 // use Dialog.DIALOG_POP for a popup 
 var d = new Dialog(Dialog.DIALOG_CONTEXTUAL ); 
