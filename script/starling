@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+$: << File.dirname(__FILE__) + '/../vendor/lib'
+require 'starling/runner'
+StarlingServer::Runner.run

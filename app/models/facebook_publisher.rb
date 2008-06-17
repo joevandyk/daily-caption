@@ -2,6 +2,10 @@
 class FacebookPublisher < Facebooker::Rails::Publisher
   include ApplicationHelper
 
+  def self.queue action, args
+    STARLING.set "facebook_actions", { :action => action, :args => args }
+  end
+
   def caption_action caption
     caption_url = caption_url(:id => caption.id)
     send_as :action

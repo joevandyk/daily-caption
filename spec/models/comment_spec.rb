@@ -15,13 +15,14 @@ describe Comment do
   end
 
   it "shouldn't send notification if the user who commented on it is the caption's owner" do
-    FacebookPublisher.should_not_receive(:notify_caption_comment)
+    FacebookPublisher.should_not_receive(:queue)
     create_comment :caption => @caption, :user => @user
   end
 
   it "should send notification if the user who commented on it isn't the caption's owner" do
-    FacebookPublisher.should_receive(:deliver_notify_caption_comment)
-    create_comment :caption => @caption, :user => create_user
+    user = create_user
+    FacebookPublisher.should_receive(:queue) # TODO add arguments
+    create_comment :caption => @caption, :user => user
   end
 
 end

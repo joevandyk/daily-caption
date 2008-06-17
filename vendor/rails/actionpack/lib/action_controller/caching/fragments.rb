@@ -30,7 +30,7 @@ module ActionController #:nodoc:
         base.class_eval do
           class << self
             def fragment_cache_store=(store_option) #:nodoc:
-              ActiveSupport::Deprecation.warn('The fragment_cache_store= method is now use cache_store=')
+              #ActiveSupport::Deprecation.warn('The fragment_cache_store= method is now use cache_store=')
               self.cache_store = store_option
             end
           

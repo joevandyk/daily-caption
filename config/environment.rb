@@ -54,6 +54,7 @@ end
 require 'flickr'
 require_dependency 'object'
 require_dependency 'date_extensions'
+require 'memcache'
 
 ActionController::AbstractRequest.class_eval do
   def request_method_with_facebook_overrides

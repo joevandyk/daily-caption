@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'daemons'
+require File.dirname(__FILE__) + "/../config/environment"
+
+class FacebookDaemon
+
+  def self.update
+    loop do
+      begin
+        result = STARLING.get("facebook_actions")
+        return unless result
+        puts "got #{ result }"
+        action, args = result[:action], result[:args]
+        puts "running FacebookPublisher.#{action} with #{ args.inspect}"
+        Timeout.timeout(5) do
+          FacebookPublisher.send action, *args
+        end
+      rescue Exception => e
+        puts e
+      end
+    end
+  end
+end
+
+
+ActiveRecord::Base.logger = Logger.new STDOUT
+
+Daemons.run_proc("facebook_daemon") do
+  loop do
+    FacebookDaemon.update
+    sleep 1
+  end
+end
