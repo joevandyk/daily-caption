@@ -1,6 +1,7 @@
 class InvitationsController < ApplicationController
+  ensure_authenticated_to_facebook
   def new
-    @from_user_id = session[:facebook_session].user.to_s
+    @from_user_id = current_user.to_s
     update_fb_profile(current_user)
     @current_tab = :invites
   end
