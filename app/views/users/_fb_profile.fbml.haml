@@ -23,8 +23,10 @@
   - fb_narrow do
     #narrow
       = render :partial => "shared/canvas_sass"
-      %h4.first== #{first_name user} most recent caption
-      = render :partial => "contests/simple_caption", :object => user.most_recent_caption
+
+      - if user.most_recent_caption
+        %h4.first== #{first_name user} most recent caption
+        = render :partial => "contests/simple_caption", :object => user.most_recent_caption
   
       %h4== #{first_name user} stats
       = render :partial => "/users/stats", :locals => {:user => user}
