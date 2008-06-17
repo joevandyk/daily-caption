@@ -19,9 +19,9 @@ class Caption < ActiveRecord::Base
   after_create  :vote_for_it
   after_create  :send_notification
 
-  named_scope :by_last_added, lambda { |*args| find_captions :created_at,     args }
-  named_scope :by_rank,       lambda { |*args| find_captions :votes_count,    args }
-  named_scope :by_comments,   lambda { |*args| find_captions :comments_count, args }
+  named_scope :by_last_added, lambda { |*args| find_captions 'created_at desc',                     args }
+  named_scope :by_rank,       lambda { |*args| find_captions 'votes_count desc, created_at asc',    args }
+  named_scope :by_comments,   lambda { |*args| find_captions 'comments_count desc',                 args }
 
   named_scope :recent, :limit => 4, :order => 'created_at desc'
 
@@ -52,9 +52,9 @@ class Caption < ActiveRecord::Base
   def self.find_captions sort_by, args
     caption_to_ignore = args.first
     if caption_to_ignore.nil?
-      { :order => "#{sort_by} desc" }
+      { :order => sort_by }
     else
-      { :order => "#{sort_by} desc", :conditions => ["id != ?", caption_to_ignore.id] }
+      { :order => sort_by, :conditions => ["id != ?", caption_to_ignore.id] }
     end
   end
 
