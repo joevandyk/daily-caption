@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :captions, :dependent => :destroy
   has_many :votes, :dependent => :destroy
   has_many :comments, :dependent => :destroy
+  has_many :winning_photos, :class_name => 'Photo', :foreign_key => :winner_id
 
   def self.for(facebook_id,facebook_session=nil)
     returning find_or_create_by_site_user_id(facebook_id) do |user|
@@ -12,16 +13,20 @@ class User < ActiveRecord::Base
   end
   
   def number_of_wins
-    Photo.count :conditions => "winner_id = #{self.id}"
+    self.winning_photos.count
   end
 
   # Subtract one from the votes count, cuz we don't wanna count the automatically generated vote (right?)
-  def avg_received_votes_per_caption
+  def average_number_of_votes_received_per_caption
     self.captions.average('votes_count - 1') || 0
   end
   
   def recently_created_captions
     self.captions.recent
+  end
+
+  def number_of_captions
+    self.captions.count
   end
   
   def recently_created_comments
@@ -32,16 +37,22 @@ class User < ActiveRecord::Base
     Vote.not_for_mine(self).recent.map{ |v| v.caption }
   end
   
-  def votes_received_captions_size
-    self.captions.sum(:votes_count)
+  # Subtract the automatically generated votes 
+  def number_of_votes_received
+    self.captions.sum('votes_count - 1')
   end
   
   def most_recent_caption
-    Caption.find(:first, :conditions => ["user_id = ?", self.id], :order => "created_at desc")
+    self.captions.find :first, :order => 'created_at desc'
   end
   
   def votes_given_captions
     Vote.not_for_mine(self).map{ |v| v.caption }
+  end
+
+  # Number of times voted == Total number of votes - Total number of captions
+  def number_of_votes_given
+    self.votes.count - self.captions.count
   end
   
   def store_session(session_key)
