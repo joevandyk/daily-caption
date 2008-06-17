@@ -63,7 +63,7 @@ class Photo < ActiveRecord::Base
   # Rotate the current photo if it's ready to be rotated
   def self.rotate_if_ready
     if !Photo.current
-      Photo.upcoming_photo.start_captioning!
+      Photo.upcoming_photo.start_captioning! and return
     end
     if Photo.current and Photo.current.ready_for_rotation?
       Photo.current.score_and_rotate!
@@ -118,7 +118,7 @@ class Photo < ActiveRecord::Base
 
   def mark_caption_start_time
     self.captioned_at = Time.now
-    self.ended_captioning_at = 1.day.from_now
+    self.ended_captioning_at = 1.day.from_now.at_beginning_of_day
   end
 
   def score_contest
