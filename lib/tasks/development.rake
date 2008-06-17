@@ -23,7 +23,7 @@ end
 namespace(:db) do
   task :fill do
     num_users  = 10_0
-    num_photos = 3_0
+    num_photos = 30
     flickr = Flickr.new
     photos = flickr.photos
     num_photos.downto(1) do |i|
@@ -44,6 +44,16 @@ namespace(:db) do
     p = Photo.create! :flickr_id => photos.last.id, :captioned_at => Time.now, :ended_captioning_at => 1.hour.from_now
     p.update_attribute :state, 'captioning'
     p.process_flickr_photo
+    User.find(:all).each do |user|
+      caption = Caption.create :photo => p, :user => user, :caption => Faker::Lorem.sentence(5)
+    end
+    p.captions.each do |caption|
+      User.find(:all, :limit => 100).each do |user|
+        Vote.create :user => user, :caption => caption
+      end
+    end
+    Caption.connection.execute "update captions set votes_count = (select count(*) from votes where caption_id = captions.id)"
+    Caption.connection.execute "update captions set comments_count = (select count(*) from comments where caption_id = captions.id)"
   end
 end
 

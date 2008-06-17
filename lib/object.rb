@@ -5,6 +5,13 @@ class Object
   end
 
   def queue_up category, *args
-    STARLING.set category, args
+    begin
+      Timeout.timeout(2) do
+        STARLING.set category, args
+      end
+    rescue Exception => e
+      puts "Exception when queing up for #{category}"
+      puts e
+    end
   end
 end

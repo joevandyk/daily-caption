@@ -43,13 +43,15 @@
     - unless @competing_captions.empty?
       - if sortable_captions?(@competing_captions)
         #sort
-          == Sort the #{@competing_captions.size} competing captions by: 
+          == Sort the #{@photo.captions.count } competing captions by: 
           %ul
             %li= link_to_unless_sorting_by "Time", {:sort => nil }
             %li= link_to_unless_sorting_by "Rank", {:sort => "rank"}
             %li= link_to_unless_sorting_by "Comments", {:sort => "comments"}
       #competing-captions
+        = will_paginate @competing_captions
         = render :partial => "contests/caption", :collection => @competing_captions
+        = will_paginate @competing_captions
     - else
       - if @photo.captioning?
         %p== Nobody has stepped up to compete yet, man up and #{ link_to "post a caption", new_caption_url }!

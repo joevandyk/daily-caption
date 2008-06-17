@@ -23,6 +23,6 @@
       / Should have delete and edit buttons with small paragraph saying 
       / "You can edit/delete your caption as long as there are no votes or comments on it."
     %ul.caption-collab.clearfix
-      %li== #{ link_to image_tag('comments.gif'), caption_url(caption, :anchor => "comments") } #{ link_to pluralize(caption.comments.count, 'Comment'), caption_url(caption,:anchor => "comments") }
+      %li== #{ link_to image_tag('comments.gif'), caption_url(caption, :anchor => "comments") } #{ link_to pluralize(caption.comments_count, 'Comment'), caption_url(caption,:anchor => "comments") }
       %li= caption_share_button(caption)
   .clear-both
