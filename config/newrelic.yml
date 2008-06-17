@@ -10,7 +10,7 @@ common: &default_settings
   # You must specify the licence key sent to you by New Relic for your agent to
   # communicate with the New Relic RPM service.  Paste the license key in the
   # line below
-  license_key: 'script/plugin install http://svn.newrelic.com/rpm/agent/newrelic_rpm'
+  license_key: '6782847ac6d277832ce20293ab930fadf92c7412'
     
   # the 'enabled' setting is used to turn on the NewRelic Agent.  When false,
   # your application is not instrumented and the Agent does not start up or
