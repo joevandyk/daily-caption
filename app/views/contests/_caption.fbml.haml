@@ -25,4 +25,4 @@
     %ul.caption-collab.clearfix
       %li== #{ link_to image_tag('comments.gif'), caption_url(caption, :anchor => "comments") } #{ link_to pluralize(caption.comments.count, 'Comment'), caption_url(caption,:anchor => "comments") }
       %li= caption_share_button(caption)
-  %div{:style => "clear:both"}
+  .clear-both

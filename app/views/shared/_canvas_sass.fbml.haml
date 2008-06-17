@@ -152,6 +152,7 @@
         :background #3A3A3A
         :border 1px solid #555
         :margin auto
+        :height 1%
         :position relative
         p#tagline
           :width 94%
@@ -184,8 +185,9 @@
     div#best-caption
       :text-align left
       .caption-container
-        :background transparent
-        :border none
+        .caption-with-votes
+          :background transparent
+          :border none
         .caption-info
           :background #D1D9DF
           :border 1px solid #CCC
@@ -193,28 +195,31 @@
           :font-size 18px
 
     .caption-container
-      :background #F7F7F7
-      :border 1px solid #CCC
       :margin-bottom 10px
       .caption-info
         :background #E7E7E7
-        :border-bottom 1px solid #CCC
+        :border-left 1px solid #CCC
+        :border-top 1px solid #CCC
+        :border-right 1px solid #CCC
         :padding 3px
         :vertical-align middle
+        :height 1%
         .caption-spam
           :position relative
           :float right
           :font-size 9px
         cite.caption-author
-          :height 1%
           :font-style normal
           span
             :font-size 9px
 
-      .caption-with-votes      
+      .caption-with-votes   
         :background url(http://dailycaption.com/images/quote.gif) no-repeat left top
         :padding 7px 5px 5px 15px
+        :background #F7F7F7
+        :border 1px solid #CCC
         .caption
+          :height 1%
           :padding-top 7px
           :font-weight bold
           :font-family = !alt_font
