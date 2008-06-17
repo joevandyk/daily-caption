@@ -4,8 +4,8 @@ class Caption < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :photo
-  has_many   :votes
-  has_many   :comments
+  has_many   :votes, :dependent => :destroy
+  has_many   :comments, :dependent => :destroy
 
   validates_presence_of :user
   validates_presence_of :photo
@@ -67,7 +67,7 @@ class Caption < ActiveRecord::Base
   def send_notification
     begin
       logger.info "Publishing feed for caption"
-      FacebookPublisher.queue(:deliver_caption_action, self) if RAILS_ENV != 'test'
+      #FacebookPublisher.queue(:deliver_caption_action, self) if RAILS_ENV != 'test'
     rescue StandardError
       nil
     end
