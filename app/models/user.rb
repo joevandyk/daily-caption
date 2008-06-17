@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   end
 
   def avg_received_votes_per_caption
-    (votes_received_captions.size / captions.size) rescue 0
+    self.captions.average(:votes_count)
   end
   
   def recently_created_captions
