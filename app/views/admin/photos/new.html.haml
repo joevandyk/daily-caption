@@ -2,6 +2,8 @@
   Add some photos!  or
   = link_to "view upcoming photos", admin_photos_path
 
+%h2
+  = link_to "Find Creative Commons Photos", "http://www.flickr.com/creativecommons/by-2.0/"
 - form_tag admin_photos_path  do
   - 10.times  do
     = text_field_tag "photos[]"

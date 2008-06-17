@@ -132,7 +132,8 @@ module ApplicationHelper
   private
   
   def should_show_ads?
-    RAILS_ENV == "production"
+    true
+    #RAILS_ENV == "production"
   end
   
 end
