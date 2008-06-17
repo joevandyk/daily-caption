@@ -13,7 +13,7 @@ class ContestsController < ApplicationController
   end
   
   def archive
-    @photos = Photo.past.find(:all)
+    @photos = Photo.past.paginate :page => params[:page]
     @current_tab = :archive
   end
   
