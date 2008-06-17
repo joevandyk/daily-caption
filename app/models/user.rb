@@ -15,8 +15,9 @@ class User < ActiveRecord::Base
     Photo.count :conditions => "winner_id = #{self.id}"
   end
 
+  # Subtract one from the votes count, cuz we don't wanna count the automatically generated vote (right?)
   def avg_received_votes_per_caption
-    self.captions.average(:votes_count)
+    self.captions.average('votes_count - 1') || 0
   end
   
   def recently_created_captions
