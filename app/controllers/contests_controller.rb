@@ -24,11 +24,11 @@ class ContestsController < ApplicationController
     @current_tab = (@photo == Photo.current) ? :contest : :archive
     @competing_captions = case params[:sort]
       when "rank"	
-        @photo.captions.by_rank(@photo.winning_caption)
+        @photo.captions.by_rank(@photo.winning_caption).paginate :page => params[:page]
       when "comments"
-        @photo.captions.by_comments(@photo.winning_caption)
+        @photo.captions.by_comments(@photo.winning_caption).paginate :page => params[:page]
       else #time desc by default
-        @photo.captions.by_last_added(@photo.winning_caption)
+        @photo.captions.by_last_added(@photo.winning_caption).paginate :page => params[:page]
     end
   end
 end
