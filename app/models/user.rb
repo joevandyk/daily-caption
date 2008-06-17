@@ -32,8 +32,8 @@ class User < ActiveRecord::Base
     Vote.not_for_mine(self).recent.map{ |v| v.caption }
   end
   
-  def votes_received_captions
-    Vote.for_user(self).map{ |v| v.caption }
+  def votes_received_captions_size
+    self.captions.sum(:votes_count)
   end
   
   def most_recent_caption

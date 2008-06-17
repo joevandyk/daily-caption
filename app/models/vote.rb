@@ -4,7 +4,9 @@ class Vote < ActiveRecord::Base
   validates_presence_of :caption
   validates_presence_of :user
   validate :user_can_vote
+  #votes given on user's own captions
   named_scope :for_user, lambda { |user| { :conditions => { :user_id => user.id } } }
+  #votes given on other user's captions
   named_scope :not_for_mine, 
               lambda { |user|
                 { :conditions => "caption_id not in (select id from captions where user_id = #{user.id}) and user_id = #{user.id}" }
