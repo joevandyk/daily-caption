@@ -7,7 +7,7 @@
   #comments-container.clearfix
     #comments
       %a{:name=>"comments"}
-      %h2.title== <span>#{ pluralize @caption.comments.size, 'Comment' }</span> from the peanut gallery so far...
+      %h2.title== <span>#{ pluralize @caption.comments.size, 'Comment' }</span> so far...
       .box
         - if @caption.comments.empty?
           %p What do you think about this caption? Add your comment below!
@@ -18,7 +18,7 @@
       %h2.title <span>ADD</span> a comment
       .box
         = facebook_messages
-        - facebook_form_for Comment.new, :url => comments_url do |f| 
+        - facebook_form_for Comment.new, {:url => comments_url}, {:labelwidth => 50, :width => 250} do |f| 
           = f.text_area :comment
           = hidden_field_tag :caption_id, @caption.id
           = f.buttons "Add Comment!"
@@ -28,5 +28,5 @@
     
     #comments-sidebar
       #sponsor
-        = iframe_ad "2865229586", "160", "600"
+        = ad_social_media "300", "250"
     
