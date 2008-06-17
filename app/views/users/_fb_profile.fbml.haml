@@ -16,9 +16,10 @@
       #stats
         %h4== #{first_name user} stats
         = render :partial => "/users/stats", :locals => {:user => user}
-      #voted-captions
-        %h4 Voted up captions
-        = render :partial => "contests/simple_caption", :collection => user.recently_voted_captions
+      - unless user.recently_voted_captions.empty? 
+        #voted-captions
+          %h4 Voted up captions
+          = render :partial => "contests/simple_caption", :collection => user.recently_voted_captions
             
   - fb_narrow do
     #narrow
