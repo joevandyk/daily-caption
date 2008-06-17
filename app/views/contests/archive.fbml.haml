@@ -1,9 +1,10 @@
 %h1.title <span>PAST</span> Contests 
 == All #{pluralize @photos.size, 'contests'} along with its winning caption.
 
-#archive-container.clearfix
+#archive-container
   #archive-sponsors
     = iframe_ad "2865229586", "160", "600"
   #archive
     - for photo in @photos
       = render :partial => "contests/photo_caption", :locals => {:photo => photo, :caption => photo.winning_caption, :show_date => true}
+  .clear-both
