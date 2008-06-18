@@ -1,5 +1,5 @@
 %a{:name => dom_id(caption)}
-.caption-container
+.caption-container.clearfix
   .caption-info
     /
       -# if caption.photo.captioning?
@@ -10,19 +10,21 @@
       / hide author if current user has not voted on the caption if not, it should have a default icon and a vote to find out! message
       == #{ name(caption.user) } wrote <span>(#{ caption_before_deadline_text(caption)})</span>
 
-  .caption-with-votes
-    %div{:id => "vote_#{dom_id(caption)}", :class => "caption-voting"}
+  .caption-with-votes.clearfix
+    %div.caption-voting{:id => "vote_#{dom_id(caption)}"}
       = render :partial => "contests/caption_vote", :locals => { :caption => caption }
     .caption
-      - unless caption.deleted?
-        = link_to h(caption.caption), caption_url(caption)
-      - else
-        The DailyCaption community has marked this caption offensive or spam.
-    .caption-actions
-      / Edit delete actions if caption.editable?
-      / Should have delete and edit buttons with small paragraph saying 
-      / "You can edit/delete your caption as long as there are no votes or comments on it."
-    %ul.caption-collab.clearfix
-      %li== #{ link_to image_tag('comments.gif'), caption_url(caption, :anchor => "comments") } #{ link_to pluralize(caption.comments_count, 'Comment'), caption_url(caption,:anchor => "comments") }
-      %li= caption_share_button(caption)
-  .clear-both
+      .caption-body
+        - unless caption.deleted?
+          = link_to h(caption.caption), caption_url(caption)
+        - else
+          The DailyCaption community has marked this caption offensive or spam.
+
+      .caption-actions
+        / Edit delete actions if caption.editable?
+        / Should have delete and edit buttons with small paragraph saying 
+        / "You can edit/delete your caption as long as there are no votes or comments on it."
+      %ul.caption-collab.clearfix
+        %li== #{ link_to image_tag('comments.gif'), caption_url(caption, :anchor => "comments") } #{ link_to pluralize(caption.comments_count, 'Comment'), caption_url(caption,:anchor => "comments") }
+        %li= caption_share_button(caption)
+

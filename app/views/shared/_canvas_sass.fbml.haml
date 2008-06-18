@@ -155,7 +155,7 @@
         :height 1%
         :position relative
         p#tagline
-          :width 94%
+          :width 500px
           :position absolute
           :top 0
           :left 0
@@ -180,70 +180,79 @@
     #photo-cont.fold
       :background #E8F0F6 url(http://dailycaption.com/images/fold.gif) no-repeat right bottom
       :padding 10px 5px 60px
+    #caption-page
+      p#tagline
+        :width 595px !important
 
     // Captions
     div#best-caption
       :text-align left
       .caption-container
+        :border none
+        :background-color transparent  
         .caption-with-votes
-          :background transparent
-          :border none
+          :background-color transparent  
         .caption-info
           :background #D1D9DF
           :border 1px solid #CCC
-        .caption
+        .caption-body
           :font-size 18px
 
     .caption-container
       :margin-bottom 10px
+      :background-color #E7E7E7
+      :border 1px solid #CCC
       .caption-info
         :background #E7E7E7
-        :border-left 1px solid #CCC
-        :border-top 1px solid #CCC
-        :border-right 1px solid #CCC
+        :border-bottom 1px solid #CCC
         :padding 3px
         :vertical-align middle
-        :height 1%
+        :margin 0
         .caption-spam
           :position relative
           :float right
           :font-size 9px
         cite.caption-author
+          :height 1%
+          :display block
+          :padding 0
+          :margin 0
           :font-style normal
           span
             :font-size 9px
 
       .caption-with-votes   
-        :background url(http://dailycaption.com/images/quote.gif) no-repeat left top
+        :background #F7F7F7 url(http://dailycaption.com/images/quote.gif) no-repeat left top
         :padding 7px 5px 5px 15px
-        :background #F7F7F7
-        :border 1px solid #CCC
+        
         .caption
-          :height 1%
-          :padding-top 7px
-          :font-weight bold
-          :font-family = !alt_font
-          :font-size 14px
-          a:link, a:hover, a:visited
-            :color #4F6B7F
-        .caption-actions
+          :margin-right 50px
 
-        ul.caption-collab
-          :margin 0
-          :padding 0
-          :margin-top 15px
-          :vertical-align middle
-          li
+          :padding-top 7px
+          .caption-body
+            :font-weight bold
+            :font-family = !alt_font
+            :font-size 14px
+            a:link, a:hover, a:visited
+              :color #4F6B7F
+          .caption-actions
+
+          ul.caption-collab
             :margin 0
             :padding 0
-            :float left
-            :list-style none
+            :margin-top 15px
             :vertical-align middle
-            :margin-right 7px
-            img, a
+            li
+              :margin 0
+              :padding 0
+              :float left
+              :list-style none
               :vertical-align middle
-            .share_and_hide
-              :margin-top 2px
+              :margin-right 7px
+              img, a
+                :vertical-align middle
+              .share_and_hide
+                :margin-top 2px
         .caption-voting
           :float right
           :width 45px
