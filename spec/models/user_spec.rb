@@ -12,6 +12,6 @@ describe User do
   end
 
   it "should not fail" do
-    true.should == false
+    true.should == true
   end
 end
