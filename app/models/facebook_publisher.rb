@@ -3,7 +3,7 @@ class FacebookPublisher < Facebooker::Rails::Publisher
   include ApplicationHelper
 
   def self.queue action, args
-    STARLING.set "facebook_actions", { :action => action, :args => args }
+    STARLING.set "facebook_actions", [action, *args]
   end
 
   def caption_action caption

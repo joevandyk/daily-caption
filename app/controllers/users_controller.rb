@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_filter :find_user
+  ensure_authenticated_to_facebook
+
   def show
     @current_tab = :profile
   end

@@ -3,26 +3,46 @@ require 'rubygems'
 require 'daemons'
 require File.dirname(__FILE__) + "/../config/environment"
 
+Caption
+User
+Vote
+Comment
+Photo
+
 class FacebookDaemon
+  TIMEOUT = 5
+
+  def self.do_publisher_things args
+    puts "Running FB publisher"
+    puts args.inspect
+    action = args.first
+    args = args[1..-1]
+    Timeout.timeout(TIMEOUT) { FacebookPublisher.send action, *args}
+  end
+
+  def self.do_profile_updates args
+    puts "Doing profile update"
+    puts args.inspect
+    fb_user, content, action = args
+    Timeout.timeout(TIMEOUT) { fb_user.set_profile_fbml content, nil, action }
+  end
 
   def self.update
     loop do
       begin
-        result = STARLING.get("facebook_actions")
-        return unless result
-        puts "got #{ result }"
-        action, args = result[:action], result[:args]
-        puts "running FacebookPublisher.#{action} with #{ args.inspect}"
-        Timeout.timeout(5) do
-          FacebookPublisher.send action, *args
+        while fetch = STARLING.get("facebook_actions")         
+          do_publisher_things(fetch) 
         end
-      rescue Exception => e
+        while fetch = STARLING.get("facebook_profile_update") 
+          do_profile_updates(fetch)  
+        end
+      rescue StandardError => e
+        puts "**** EXCEPTION!!! *** "
         puts e
       end
     end
   end
 end
-
 
 ActiveRecord::Base.logger = Logger.new STDOUT
 
