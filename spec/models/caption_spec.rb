@@ -67,6 +67,6 @@ describe Caption do
   end
   
   it "should fail" do
-    flunk
+    flunk 
   end
 end
