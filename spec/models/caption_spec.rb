@@ -66,7 +66,4 @@ describe Caption do
     caption.errors.on(:caption).should =~ /already been taken for today/
   end
   
-  it "should fail" do
-    flunk 
-  end
 end
