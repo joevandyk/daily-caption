@@ -72,7 +72,7 @@ module ApplicationHelper
   
   def link_to_unless_sorting_by(name, options, html_options = {}, *parameters_for_method_reference, &block)
       options.merge(:anchor => "captions")
-      link_to_unless params[:sort] == options[:sort], name, options, html_options, *parameters_for_method_reference, &block
+      link_to_unless @sort == options[:sort], name, options, html_options, *parameters_for_method_reference, &block
   end
 
   def name(user,options={})

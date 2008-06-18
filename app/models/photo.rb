@@ -91,6 +91,10 @@ class Photo < ActiveRecord::Base
     Caption::CAPTION_LIMIT - self.captions.count(:conditions => "user_id = #{user.id}") 
   end
   
+  def current?
+    self == Photo.current
+  end
+  
   # Checks to see if the photo is ready for rotation
   def ready_for_rotation?
     self.ended_captioning_at <= Time.now
