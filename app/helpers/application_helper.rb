@@ -76,7 +76,11 @@ module ApplicationHelper
   end
 
   def name(user,options={})
-    link_to_unless_current(fb_name(user.site_user_id,{:ifcantsee=>"A Hidden User", :linked => false}.merge(options)), user_url(user))
+    link_to_unless_current(name_only(user, options), user_url(user))
+  end
+
+  def name_only user, options={}
+    fb_name(user.site_user_id, { :ifcantsee => "A Hidden User", :linked => false }.merge(options))
   end
   
   def first_name user,options={}

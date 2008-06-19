@@ -14,6 +14,7 @@ class Comment < ActiveRecord::Base
 
   def send_notification
     unless self.user_id == self.caption.user_id
+      FacebookPublisher.queue(:deliver_comment_action, self)
       FacebookPublisher.queue(:deliver_notify_caption_comment, self.caption, self)
     end
   rescue StandardError

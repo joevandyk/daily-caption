@@ -7,22 +7,31 @@ class FacebookPublisher < Facebooker::Rails::Publisher
   end
 
   def caption_action caption
-    caption_url = caption_url(:id => caption.id)
+    url = caption_url(:id => caption.id)
     send_as :action
     from caption.facebook_user
-    title "<fb:fbml> #{ name(caption.user.facebook_session.user)} captioned a #{ link_to 'photo', caption_url }</fb:fbml>"
-    body  "<fb:fbml> #{ link_to caption.caption, caption_url(caption) } - Help vote up this caption on #{link_to "DailyCaption", index_url}!</fb:fbml>"
-    add_image caption.photo.medium, caption_url
-  rescue StandardError
-    nil
+    title "<fb:fbml> #{ name_only(caption.user)} captioned a #{ link_to 'photo', url }</fb:fbml>"
+    body  "<fb:fbml> #{ link_to caption.caption, url } - Help vote up this caption on #{link_to "DailyCaption", index_url}!</fb:fbml>"
+    add_image caption.photo.medium, url
+  end
+
+  def comment_action comment
+    caption = comment.caption
+    url = caption_url(:id => caption.id)
+    send_as :action
+    from comment.facebook_user
+    title "<fb:fbml> #{name_only comment.user } commented on a #{ link_to 'caption', url }</fb:fbml>"
+    body  "<fb:fbml> \"#{ link_to comment.comment, url }\" - Help vote up this caption on #{link_to "DailyCaption", index_url}!</fb:fbml>"
+    add_image caption.photo.medium, url
   end
 
   def winning_caption_action caption
     send_as :action
     from caption.facebook_user
-    title "<fb:fbml> #{ name(caption.user.facebook_session.user)} won a #{ link_to 'DailyCaption contest!', caption_url(:id => caption.id) }</fb:fbml>"
+    url = caption_url(:id => caption.id)
+    title "<fb:fbml> #{ name_only(caption.user)} won a #{ link_to 'DailyCaption contest!', url }</fb:fbml>"
     body  "<fb:fbml> Winning caption: #{ caption.caption } </fb:fbml>"
-    add_image caption.photo.medium, caption_url(:id => caption.id)
+    add_image caption.photo.medium, url
   end
 
   def notify_winner caption
@@ -50,9 +59,10 @@ class FacebookPublisher < Facebooker::Rails::Publisher
   def winning_voters_action caption, user
     send_as :action
     from user
-    title "<fb:fbml> #{ name(user)} voted for the winning photo in a DailyCaption contest!   #{ link_to 'captioning contest!', caption_url(:id => caption.id) }</fb:fbml>"
+    url = caption_url(:id => caption.id)
+    title "<fb:fbml> #{ name_only(user)} voted for the winning photo in a DailyCaption contest!   #{ link_to 'captioning contest!', url }</fb:fbml>"
     body  "<fb:fbml> #{ caption.caption } </fb:fbml>"
-    add_image caption.photo.medium, caption_url(:id => caption.id)
+    add_image caption.photo.medium, url
   end
 end
 

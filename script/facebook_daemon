@@ -22,7 +22,6 @@ class FacebookDaemon
 
   def self.do_profile_updates args
     puts "Doing profile update"
-    puts args.inspect
     fb_user, content, action = args
     Timeout.timeout(TIMEOUT) { fb_user.set_profile_fbml content, nil, action }
   end
@@ -37,8 +36,9 @@ class FacebookDaemon
           do_profile_updates(fetch)  
         end
       rescue StandardError => e
-        puts "**** EXCEPTION!!! *** "
+        puts "**** EXCEPTION!!! fetch = #{ fetch.inspect } *** "
         puts e
+        puts e.backtrace.inspect
       end
     end
   end
