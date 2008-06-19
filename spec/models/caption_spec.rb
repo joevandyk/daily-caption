@@ -65,4 +65,5 @@ describe Caption do
     caption = create_caption :caption => @caption.caption, :photo => @caption.photo
     caption.errors.on(:caption).should =~ /already been taken for today/
   end
+  
 end
