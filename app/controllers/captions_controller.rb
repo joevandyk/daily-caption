@@ -9,7 +9,7 @@ class CaptionsController < ApplicationController
       render :action => "new"
     else
       update_fb_profile(current_user)
-      redirect_to index_url
+      redirect_to index_url(:anchor => dom_id(@caption))
     end
   end
 

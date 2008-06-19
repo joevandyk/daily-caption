@@ -1,5 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+
   def advertisement ad_slot,width,height
     <<-eos
     <script type="text/javascript"><!--

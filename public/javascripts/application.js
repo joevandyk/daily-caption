@@ -1,5 +1,13 @@
 // JavaScript for DailyCaption
 
+function newCaptionDialog(){
+  var dialog = new Dialog(Dialog.DIALOG_CONTEXTUAL);
+  var context = $('add-caption-image');
+  dialog.setContext()
+  dialog.showMessage('Add your own caption!', newCaptionPartial, 'Cancel');
+  return false;
+}
+
 function updateVotes(caption_dom_id,votes){
   $('votes_count_' + caption_dom_id).setTextValue(votes);
   $('votes_' + caption_dom_id).setTextValue("Voted!");

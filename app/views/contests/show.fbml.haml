@@ -1,3 +1,6 @@
+%fb:js-string{ :var=>"newCaptionPartial" }
+  =# render :partial => 'captions/new_caption', :object => Caption.new, :locals => {:form_size => 280}
+  
 - unless @photo.captioning?
   .notice
     %h1 Note: This contest is over!
