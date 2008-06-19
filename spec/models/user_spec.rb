@@ -11,7 +11,4 @@ describe User do
     @loser. number_of_wins.should == 0
   end
 
-  it "should not fail" do
-    true.should == true
-  end
 end
