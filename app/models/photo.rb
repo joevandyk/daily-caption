@@ -129,7 +129,7 @@ class Photo < ActiveRecord::Base
     winner = self.winning_caption
     Photo.upcoming_photo.start_captioning! if Photo.upcoming_photo
 
-    self.winner_id = winner.user_id
+    self.update_attribute :winner_id, winner.user_id
 
     FacebookPublisher.queue(:deliver_email_winner, winner) rescue StandardError
     FacebookPublisher.queue(:deliver_notify_winner, winner) rescue StandardError
