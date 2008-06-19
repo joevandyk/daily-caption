@@ -8,7 +8,7 @@ class VotesController < ApplicationController
         render :json => { :votes => @caption.votes.size }
         return false
       else
-        redirect_to index_url
+        redirect_to index_url(:anchor => dom_id(@caption))
         return false
       end
       update_fb_profile(current_user)
