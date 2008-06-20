@@ -1,9 +1,9 @@
 class InvitationsController < ApplicationController
   before_filter :ensure_installed
   def new
-
+    
     if current_user.nil?
-      redirect_to new_invitations_url and return
+      redirect_to new_invitation_url and return
     end
 
     @from_user_id = current_user.to_s

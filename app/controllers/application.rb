@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   attr_accessor :current_user
   helper_attr :current_user
-  before_filter :set_current_user
   private
 
   def facebook_page
@@ -32,6 +31,7 @@ class ApplicationController < ActionController::Base
 
   def ensure_installed
     ensure_application_is_installed_by_facebook_user
+    set_current_user
   end
 
   def ensure_current_photo
