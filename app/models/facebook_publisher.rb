@@ -59,7 +59,7 @@ class FacebookPublisher < Facebooker::Rails::Publisher
     send_as       :notification
     recipients    caption.facebook_user
     from          comment.facebook_user
-    fbml          "<fb:fbml> #{ name_only(comment.facebook_user, :linked => true) } commented on your caption: #{ link_to caption.caption, caption_url(:id => caption.id) }! </fb:fbml>"
+    fbml          "<fb:fbml> #{ name_only(comment.user, :linked => true) } commented on your caption: #{ link_to caption.caption, caption_url(:id => caption.id) }! </fb:fbml>"
   end
 
   def email_winner caption
