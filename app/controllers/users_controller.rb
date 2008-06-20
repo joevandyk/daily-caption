@@ -7,7 +7,6 @@ class UsersController < ApplicationController
   end
   
   def friends
-    @fb_friends = current_user.facebook_user.friends_with_this_app
   end
 
   def update_profile

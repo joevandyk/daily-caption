@@ -71,5 +71,8 @@ class User < ActiveRecord::Base
   def facebook_user
     facebook_session.user
   end
-
+  
+  def friends
+    self.facebook_user.friends_with_this_app
+  end
 end

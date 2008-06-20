@@ -20,6 +20,12 @@
         #voted-captions
           %h4 Voted up captions
           = render :partial => "contests/simple_caption", :collection => user.recently_voted_captions
+
+    - unless user.friends.empty?
+      #friends
+        %h4== #{first_name user} friends who caption
+        - for friend in user.friends
+          = fb_profile_pic friend, :size => :square, :title => "#{friend.name}"
             
   - fb_narrow do
     #narrow
