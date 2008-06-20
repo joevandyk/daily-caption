@@ -7,8 +7,8 @@ class UsersController < ApplicationController
   end
   
   def friends
-    @fb_friends = current_user.facebook_user.friends_with_this_app
   end
+  
   def update_profile
     update_fb_profile(@user)
     redirect_to "http://www.facebook.com/profile.php?id=#{@user.facebook_user.id}"
