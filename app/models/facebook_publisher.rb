@@ -1,7 +1,8 @@
 
 class FacebookPublisher < Facebooker::Rails::Publisher
   include ApplicationHelper
-
+  include ActionController::RecordIdentifier
+  
   def self.queue action, args
     STARLING.set "facebook_actions", [action, *args]
   end

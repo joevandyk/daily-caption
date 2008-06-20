@@ -10,7 +10,10 @@ describe FacebookPublisher do
 
   it "an action for making a caption should work" do
     action = FacebookPublisher.create_caption_action(@caption)
-    puts action
   end
 
+  it "should be able to send a comment action" do
+    comment = create_comment(:caption => @caption)
+    action = FacebookPublisher.create_comment_action(comment)
+  end
 end

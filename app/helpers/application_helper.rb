@@ -88,7 +88,7 @@ module ApplicationHelper
     fb_name(user.site_user_id,{:possessive => true, :firstnameonly => true, :linked => false, :useyou => false}.merge(options))
   end
   
-  def first_name_linked user, options
+  def first_name_linked user, options={}
     fb_name(user.site_user_id,{:firstnameonly => true, :useyou => false}.merge(options))
   end
   
