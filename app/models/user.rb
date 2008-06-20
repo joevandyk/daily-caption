@@ -73,7 +73,6 @@ class User < ActiveRecord::Base
   end
   
   def friends
-    # get DC user array
     self.facebook_user.friends_with_this_app
   end
 end

@@ -22,12 +22,13 @@ module ApplicationHelper
   end
   
   def ad_social_media width='645', height='60'
-    return false if current_user.nil?
-    if should_show_ads?
-      <<-eos
-      <fb:iframe src='http://ads.socialmedia.com/facebook/monetize.php?width=#{width}&height=#{height}&pubid=7a1b13d3bfc36c4f0792887fff11c541&pop=1&bgcolor=F7F7F7&textcolor=000&bordercolor=F6F6F6&linkcolor=3B5998&fb_sig_user=#{current_user.facebook_user.id}' border='0' width='#{width}' height='#{height}' resizable='false' name='socialmedia_ad' scrolling='no' frameborder='0'></fb:iframe>
-      <fb:iframe src='http://adtracker.socialmedia.com/track/' width='1' height='1' style='display:none;' />
-      eos
+    unless current_user.nil?
+      if should_show_ads?
+        <<-eos
+        <fb:iframe src='http://ads.socialmedia.com/facebook/monetize.php?width=#{width}&height=#{height}&pubid=7a1b13d3bfc36c4f0792887fff11c541&pop=1&bgcolor=F7F7F7&textcolor=000&bordercolor=F6F6F6&linkcolor=3B5998&fb_sig_user=#{current_user.facebook_user.id}' border='0' width='#{width}' height='#{height}' resizable='false' name='socialmedia_ad' scrolling='no' frameborder='0'></fb:iframe>
+        <fb:iframe src='http://adtracker.socialmedia.com/track/' width='1' height='1' style='display:none;' />
+        eos
+      end
     end
   end
   
