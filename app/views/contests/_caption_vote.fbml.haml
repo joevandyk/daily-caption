@@ -3,21 +3,22 @@
     %span.count{:id =>"votes_count_#{dom_id(caption)}"}= caption.votes_count
     %span votes
 .caption-votes{:id =>"votes_#{dom_id(caption)}"}
-  - if current_user and fb_if_user_has_added_app(current_user.facebook_user) do
-    - if caption.can_vote_for_caption? current_user
-      %div.vote-button
-        %fb:user-agent{ :excludes => "ie 6" }
-          - remote_form_for Vote.new, :success => "updateVotes('#{dom_id(caption)}',request['votes'])", :url => votes_url(:caption_id => caption.id, :canvas => false) do        
-            = hidden_field_tag :caption_id, caption.id
-            = image_submit_tag("vote.png", :alt => "Vote Up!", :id =>"vote_button_#{dom_id(caption)}", :width => 45, :height => 20, :onclick => "votingIndicator('#{dom_id(caption)}', '#{image_tag "loading.gif", :alt => 'Loading...'}');")
+  - if current_user
+    - fb_if_user_has_added_app(current_user.facebook_user) do
+      - if caption.can_vote_for_caption? current_user
+        %div.vote-button
+          %fb:user-agent{ :excludes => "ie 6" }
+            - remote_form_for Vote.new, :success => "updateVotes('#{dom_id(caption)}',request['votes'])", :url => votes_url(:caption_id => caption.id, :canvas => false) do        
+              = hidden_field_tag :caption_id, caption.id
+              = image_submit_tag("vote.png", :alt => "Vote Up!", :id =>"vote_button_#{dom_id(caption)}", :width => 45, :height => 20, :onclick => "votingIndicator('#{dom_id(caption)}', '#{image_tag "loading.gif", :alt => 'Loading...'}');")
 
-        %fb:user-agent{ :includes => "ie 6"}
-          = link_to image_tag("vote.png", :alt => "Vote Up!"), votes_url(caption)
-          
-    - elsif caption.voted_for? current_user
-      %span.quiet Voted
-    - else
-      %span.quiet Closed
-      
-    - fb_else do
-      = link_to image_tag("vote.png", :alt => "Vote Up!"), votes_url(caption)
+          %fb:user-agent{ :includes => "ie 6"}
+            = link_to image_tag("vote.png", :alt => "Vote Up!"), votes_url(caption)
+            
+      - elsif caption.voted_for? current_user
+        %span.quiet Voted
+      - else
+        %span.quiet Closed
+        
+      - fb_else do
+        = link_to image_tag("vote.png", :alt => "Vote Up!"), votes_url(caption)
