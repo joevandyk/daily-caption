@@ -23,7 +23,7 @@ end
 
 def create_user
   username = Faker::Name.name
-  User.create! :site_id => 1, :username => username, :profile_url => "http://facebook.com/#{username}", :profile_image_url => "http://facebook.com/#{username}/profile.png"
+  User.create! :site_id => 1, :site_user_id => 34234234, :username => username, :profile_url => "http://facebook.com/#{username}", :profile_image_url => "http://facebook.com/#{username}/profile.png"
 end
 
 def create_photo options={}
