@@ -47,10 +47,10 @@ end
 ActiveRecord::Base.logger = Logger.new STDOUT
 
 options = {
-  :app_name => "acebook_daemon",
+  :app_name => "facebook_daemon",
   :ARGV => ARGV,
   :dir_mode => :normal,
-  :dir => File.expand(File.dirname(__FILE__) + '/../log'),
+  :dir => File.expand_path(File.dirname(__FILE__) + '/../log'),
   :multiple => false,
   :backtrace => true,
   :monitor => false
