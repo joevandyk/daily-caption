@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_user
+    facebook_session || set_facebook_session
     if facebook_session
       begin
         self.current_user = User.for(facebook_session.user.to_i, facebook_session)
@@ -32,6 +33,7 @@ class ApplicationController < ActionController::Base
 
   def ensure_installed
     ensure_application_is_installed_by_facebook_user
+    set_current_user
   end
 
   def ensure_current_photo
