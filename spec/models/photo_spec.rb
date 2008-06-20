@@ -29,4 +29,18 @@ describe Photo do
 
     @photo.winner_id.should == @user.id
   end
+  
+  it "should not be viewable if it is a future photo" do
+    @photo.should_not be_viewable
+  end
+  
+  it "should be viewable if it is currently being captioned" do
+    make_captionable @photo
+    @photo.should be_viewable
+  end
+  
+  it "should be viewable if it was captioned in the past" do
+    make_captioned @photo
+    @photo.should be_viewable
+  end
 end

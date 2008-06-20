@@ -118,6 +118,12 @@ class Photo < ActiveRecord::Base
     flickr_failure!
   end
   
+  def viewable?
+    return true if self.captioning?
+    return true if self.captioned?
+    return false
+  end
+  
   private
 
   def mark_caption_start_time
@@ -127,6 +133,7 @@ class Photo < ActiveRecord::Base
 
   def score_contest
     winner = self.winning_caption
+    return false if !winner
     Photo.upcoming_photo.start_captioning! if Photo.upcoming_photo
 
     self.update_attribute :winner_id, winner.user_id

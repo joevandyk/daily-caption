@@ -21,7 +21,7 @@ class ContestsController < ApplicationController
   
   def setup_contest
     @photo = Photo.find(params[:id]) rescue Photo.current
-    redirect_to index_url and return false if !@photo.captioning? or !@photo.captioned?
+    redirect_to index_url and return false if !@photo.viewable?
 
     @current_tab = @photo.current? ? :contest : :archive
     
