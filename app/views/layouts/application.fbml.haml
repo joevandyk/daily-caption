@@ -11,7 +11,7 @@
       = fb_tab_item "Help & Feedback", fb_about_url, :selected => false, :align => "left"
       = fb_tab_item "Current Contest", index_url, :selected => current_tab?(:contest), :align => "right"
       = fb_tab_item "Past Contests", archive_contests_url, :selected => current_tab?(:archive), :align => "right"
-      = fb_tab_item "Profile", user_url(current_user), :selected => current_tab?(:profile), :align => "right"
+      = fb_tab_item "Profile", user_url(current_user), :selected => current_tab?(:profile), :align => "right" if current_user
       = fb_tab_item "Invites", new_invitation_url, :selected => current_tab?(:invites), :align => "right"
 
   #bd

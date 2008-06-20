@@ -25,7 +25,8 @@ class Caption < ActiveRecord::Base
 
   named_scope :recent, :limit => 4, :order => 'created_at desc'
 
-  def voted_for? user
+  def voted_for? user=nil
+    return false if user.nil?
     ! self.votes.for_user(user).empty?
   end
 

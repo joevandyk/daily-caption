@@ -1,5 +1,4 @@
 class ContestsController < ApplicationController
-  ensure_authenticated_to_facebook
   before_filter :setup_contest, :only => [:index,:show]
     
   def index

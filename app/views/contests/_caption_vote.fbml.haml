@@ -3,7 +3,7 @@
     %span.count{:id =>"votes_count_#{dom_id(caption)}"}= caption.votes_count
     %span votes
 .caption-votes{:id =>"votes_#{dom_id(caption)}"}
-  - fb_if_user_has_added_app(current_user.facebook_user) do
+  - if current_user and fb_if_user_has_added_app(current_user.facebook_user) do
     - if caption.can_vote_for_caption? current_user
       %div.vote-button
         %fb:user-agent{ :excludes => "ie 6" }
