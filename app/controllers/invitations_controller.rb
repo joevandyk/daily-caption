@@ -1,5 +1,5 @@
 class InvitationsController < ApplicationController
-  ensure_authenticated_to_facebook
+  before_filter :ensure_installed
   def new
     @from_user_id = current_user.to_s
     update_fb_profile(current_user)
