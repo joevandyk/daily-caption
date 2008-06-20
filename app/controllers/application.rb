@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   attr_accessor :current_user
   helper_attr :current_user
+  before_filter :set_current_user
   private
 
   def facebook_page
@@ -16,6 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_user
+    facebook_session || set_facebook_session
     if facebook_session
       begin
         self.current_user = User.for(facebook_session.user.to_i, facebook_session)
