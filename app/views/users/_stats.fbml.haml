@@ -10,7 +10,7 @@
     %td.data= user.number_of_votes_given
   %tr
     %td.label Avg. Received Votes/Caption
-    %td.data= user.average_number_of_votes_received_per_caption
+    %td.data= number_with_precision(user.average_number_of_votes_received_per_caption,2)
   %tr
     %td.label Total Votes Given
     %td.data= user.number_of_votes_given
