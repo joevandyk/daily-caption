@@ -33,7 +33,7 @@
   #past-contests
     %b Past Contests
     - for photo in Photo.past.recent
-      %dl
+      %dl.photo-caption-top-bottom
         %dt= link_to show_media(photo, :square), contest_url(photo), :title => photo.winning_caption.caption
         %dd= link_to relative_day(photo.captioned_at), contest_url(photo), :title => photo.winning_caption.caption
       

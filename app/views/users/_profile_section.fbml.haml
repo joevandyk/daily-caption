@@ -7,7 +7,7 @@
     %tr
       %td.list
         - if collection.empty?
-          .list_item== No #{title} have been created yet :(
+          .list_item== No #{title.downcase} yet :(
         - else
           - #ugh, ugly
           - if title == "Comments"
