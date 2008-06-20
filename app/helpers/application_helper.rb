@@ -15,6 +15,10 @@ module ApplicationHelper
     eos
   end
   
+  def fb_profile_url(user)
+    "http://www.facebook.com/profile.php?id=#{user.facebook_user.id}"
+  end
+  
   def iframe_ad ad_slot,width,height
     if should_show_ads?
       "<fb:iframe src='#{ad_server_url(:ad_slot => ad_slot, :width => width, :height => height, :canvas => false, :only_path => false)}' width='#{width}' height='#{height}' border='0' scrolling='no' frameborder=0></fb:iframe>"
