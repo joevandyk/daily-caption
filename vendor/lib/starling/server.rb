@@ -65,6 +65,8 @@ module StarlingServer
 
       @timeout = @opts[:timeout]
 
+p @opts[:port]
+p @opts[:host]
       @socket = TCPServer.new(@opts[:host], @opts[:port])
       @socket.setsockopt(Socket::IPPROTO_TCP, Socket::TCP_NODELAY, 1)
       @socket.setsockopt(Socket::SOL_SOCKET, Socket::SO_KEEPALIVE, true)

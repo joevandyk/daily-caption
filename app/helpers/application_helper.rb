@@ -88,6 +88,10 @@ module ApplicationHelper
     fb_name(user.site_user_id,{:possessive => true, :firstnameonly => true, :linked => false, :useyou => false}.merge(options))
   end
   
+  def first_name_linked user, options
+    fb_name(user.site_user_id,{:firstnameonly => true, :useyou => false}.merge(options))
+  end
+  
   def photo_cont photo, &block
     concat(render(:partial => "contests/photo", :locals => {:body => capture(&block), :photo => photo}), block.binding)
   end
