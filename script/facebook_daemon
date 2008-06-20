@@ -46,9 +46,20 @@ end
 
 ActiveRecord::Base.logger = Logger.new STDOUT
 
-Daemons.run_proc("facebook_daemon") do
+options = {
+  :app_name => "facebook_daemon",
+  :ARGV => ARGV,
+  :dir_mode => :normal,
+  :dir => File.expand_path(File.dirname(__FILE__) + '/../log'),
+  :multiple => false,
+  :backtrace => true,
+  :monitor => false
+}
+
+Daemons.run_proc("facebook_daemon", options) do
   loop do
     FacebookDaemon.update
     sleep 1
   end
 end
+

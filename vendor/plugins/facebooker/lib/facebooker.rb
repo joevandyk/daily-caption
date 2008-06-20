@@ -22,6 +22,9 @@ require 'facebooker/models/cookie'
 require 'facebooker/models/applicationproperties'
 require 'facebooker/models/tag'
 require 'facebooker/models/user'
+require 'facebooker/models/info_section'
+require 'facebooker/models/info_field'
+require 'facebooker/models/info_item'
 
 module Facebooker
   class << self
@@ -42,7 +45,7 @@ module Facebooker
     def with_asset_path_for_canvas
       original_asset_host = ActionController::Base.asset_host
       begin
-        ActionController::Base.asset_host = "http://apps.facebook.com"
+        ActionController::Base.asset_host = ENV["FACEBOOKER_API"] == "new" ? "http://apps.new.facebook.com" : "http://apps.facebook.com"
         request_for_canvas(true) do
           yield
         end

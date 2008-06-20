@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :find_user
-  ensure_authenticated_to_facebook
+  before_filter :ensure_installed, :only => [:friends, :update_profile]
 
   def show
     @current_tab = :profile
@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   
   def friends
   end
-  
+
   def update_profile
     update_fb_profile(@user)
     redirect_to "http://www.facebook.com/profile.php?id=#{@user.facebook_user.id}"

@@ -30,14 +30,6 @@ class ApplicationController < ActionController::Base
     object.errors.full_messages.to_sentence
   end
 
-  def facebook_session
-    if session[:facebook_session] 
-      session[:facebook_session]
-    elsif params[:fb_sig_user]
-      set_facebook_session
-    end
-  end
-
   def ensure_installed
     ensure_application_is_installed_by_facebook_user
   end
