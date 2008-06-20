@@ -46,10 +46,10 @@ module Facebooker
     class MissingOrInvalidImageFile < StandardError; end
     class TooManyUnapprovedPhotosPending < StandardError; end
     class ExtendedPermissionRequired < StandardError; end
-  
-    API_SERVER_BASE_URL       = "api.facebook.com"
+
+    API_SERVER_BASE_URL       = ENV["FACEBOOKER_API"] == "new" ? "api.new.facebook.com" : "api.facebook.com"
     API_PATH_REST             = "/restserver.php"
-    WWW_SERVER_BASE_URL       = "www.facebook.com"
+    WWW_SERVER_BASE_URL       = ENV["FACEBOOKER_API"] == "new" ? "www.new.facebook.com" : "www.facebook.com"
     WWW_PATH_LOGIN            = "/login.php"
     WWW_PATH_ADD              = "/add.php"
     WWW_PATH_INSTALL          = "/install.php"
@@ -116,7 +116,7 @@ module Facebooker
       optional_parameters << "&canvas=true" if options[:canvas]
       optional_parameters.join
     end
-  
+
     def default_login_url_options
       {}
     end
@@ -205,7 +205,6 @@ module Facebooker
       end
     end
     
-    
     #
     # Returns a proxy object for handling calls to Facebook cached items
     # such as images and FBML ref handles
@@ -283,10 +282,29 @@ module Facebooker
 
     ##
     # Send email to as many as 100 users at a time
-	  def send_email(user_ids, subject, text, fbml = nil) 			
-		  user_ids = Array(user_ids)
+    def send_email(user_ids, subject, text, fbml = nil)
+      user_ids = Array(user_ids)
       params = {:fbml => fbml, :recipients => user_ids.map{ |id| User.cast_to_facebook_id(id)}.join(','), :text => text, :subject => subject} 
       post 'facebook.notifications.sendEmail', params
+    end
+
+    # Sets the profile FBML for whichever user is given.
+    # Accepts a hash of values.
+    # :uid is required. :profile_main, :profile, :mobile_profile and :profile_action are optional.
+    def set_fbml(parameters)
+      post('facebook.profile.setFBML', parameters)
+    end
+
+    # *** NEW PROFILE DESIGN ***
+    # Set profile info options
+    def set_profile_info_options(field, options)
+      post('facebook.profile.setInfoOptions', :field => field, :options => options.to_json)
+    end
+
+    # *** NEW PROFILE DESIGN ***
+    # Get profile info options
+    def profile_info_options(field)
+      post('facebook.profile.getInfoOptions', :field => field)
     end
 
     # Only serialize the bare minimum to recreate the session.
@@ -402,9 +420,9 @@ module Facebooker
       BatchRun.current_batch=nil
     end
     
-    def post(method, params = {},&proc)
+    def post(method, params = {},use_session_key=true,&proc)
       add_facebook_params(params, method)
-      @session_key && params[:session_key] ||= @session_key
+      use_session_key && @session_key && params[:session_key] ||= @session_key
       final_params=params.merge(:sig => signature_for(params))
       if batch_request?
         add_to_batch(final_params,&proc)
@@ -437,27 +455,27 @@ module Facebooker
         hash[:call_id] = Time.now.to_f.to_s unless method == 'facebook.auth.getSession'
         hash[:v] = "1.0"
       end
-    
+
       def self.extract_key_from_environment(key_name)
         val = ENV["FACEBOOK_" + key_name.to_s.upcase + "_KEY"]
       end
-    
+
       def self.extract_key_from_configuration_file(key_name)
         read_configuration_file[key_name]
       end
-    
+
       def self.report_inability_to_find_key(key_name)
         raise ConfigurationMissing, "Could not find configuration information for #{key_name}"
       end
-    
+
       def self.read_configuration_file
         eval(File.read(configuration_file_path))
       end
-    
+
       def service
         @service ||= Service.new(API_SERVER_BASE_URL, API_PATH_REST, @api_key)      
       end
-    
+
       def uid
         @uid || (secure!; @uid)
       end
@@ -468,7 +486,7 @@ module Facebooker
           collection
         end.sort.join
         Digest::MD5.hexdigest([raw_string, secret_for_method(params[:method])].join)
-      end        
+      end
   end
   
   class CanvasSession < Session
