@@ -35,7 +35,7 @@ class FacebookPublisher < Facebooker::Rails::Publisher
     send_as :action
     from comment.facebook_user
     title "<fb:fbml> #{name_only comment.user, :linked => true } wrote a #{ link_to 'comment', url } on a caption</fb:fbml>"
-    body  "<fb:fbml> \"#{ link_to comment.comment, url }\" - on the caption \"#{ comment.caption.caption }\".</fb:fbml>"
+    body  "<fb:fbml> \"#{ link_to comment.comment, url }\" - on the caption \"#{ link_to comment.caption.caption, caption_url(comment.caption) }\" by #{ name_only(comment.caption.user, :linked => true) }.</fb:fbml>"
     add_image caption.photo.medium, url
   end
 
