@@ -23,9 +23,9 @@
 
     - unless user.friends.empty?
       #friends
-        %h4== #{first_name user} friends who caption
+        %h4== #{first_name user} friends who captionsaf
         - for friend in user.friends
-          = fb_profile_pic friend, :size => :square, :title => "#{friend.name}"
+          = link_to fb_profile_pic(friend.site_user_id, :size => :square, :linked => false, :title => "#{friend.facebook_user.name}"), user_url(friend)
             
   - fb_narrow do
     #narrow
