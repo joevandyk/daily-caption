@@ -171,7 +171,7 @@ module Facebooker
 
     ##
     # Set all profile FBML items
-    def set_profile_fbml(profile_fbml, mobile_fbml, profile_action_fbml, profile_main)
+    def set_profile_fbml(profile_fbml, mobile_fbml=nil, profile_action_fbml=nil, profile_main=nil)
       parameters = {:uid => @id}
       parameters[:profile] = profile_fbml if profile_fbml
       parameters[:profile_action] = profile_action_fbml if profile_action_fbml
