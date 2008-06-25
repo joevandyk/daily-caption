@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_filter :ensure_installed
+  before_filter :ensure_installed, :except => [:index]
   
   def create
     caption = Caption.find params[:caption_id]

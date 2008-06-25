@@ -1,5 +1,5 @@
 class CaptionsController < ApplicationController
-  before_filter :ensure_installed
+  before_filter :ensure_installed, :except => [:show, :index]
   
   def create
     @photo = Photo.current
