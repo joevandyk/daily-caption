@@ -22,8 +22,8 @@ class FacebookDaemon
 
   def self.do_profile_updates args
     puts "Doing profile update"
-    fb_user, content, action = args
-    Timeout.timeout(TIMEOUT) { fb_user.set_profile_fbml content, nil, action }
+    fb_user, content = args
+    Timeout.timeout(TIMEOUT) { fb_user.profile_fbml = content }
   end
 
   def self.update
