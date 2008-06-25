@@ -4,9 +4,12 @@
 
 %h2
   = link_to "Find Creative Commons Photos", "http://www.flickr.com/creativecommons/by-2.0/"
+  
 - form_tag admin_photos_path  do
+  - counter = 0
   - 10.times  do
-    = text_field_tag "photos[]"
-    Flickr ID
+    - counter += 1
+    = text_field_tag "photos[]", flickr_id_if_first_text_field(counter)
+    Flickr Id
     %br
   = submit_tag
