@@ -25,7 +25,7 @@ class FacebookPublisher < Facebooker::Rails::Publisher
     send_as :action
     from caption.facebook_user
     title "<fb:fbml> #{ name_only(caption.user, :linked => true) } wrote a #{ link_to 'caption', url }</fb:fbml>"
-    body  "<fb:fbml> \"#{ link_to caption.caption, url }\" - Help #{ first_name_linked(caption.user) } by voting up this caption on the #{link_to "Daily Caption contest", index_url}! Think you can do better? #{ link_to "Write your own caption!", new_caption_url } </fb:fbml>"
+    body  "<fb:fbml> \"#{ link_to caption.caption, url }\". Think you can do better? #{ link_to "Write your own caption!", new_caption_url } </fb:fbml>"
     add_image caption.photo.medium, url
   end
 
@@ -35,7 +35,7 @@ class FacebookPublisher < Facebooker::Rails::Publisher
     send_as :action
     from comment.facebook_user
     title "<fb:fbml> #{name_only comment.user, :linked => true } wrote a #{ link_to 'comment', url } on a caption</fb:fbml>"
-    body  "<fb:fbml> \"#{ link_to comment.comment, url }\" - on the caption \"#{ comment.caption.caption }\".</fb:fbml>"
+    body  "<fb:fbml> \"#{ link_to comment.comment, url }\" - on the caption \"#{ link_to comment.caption.caption, caption_url(comment.caption) }\" by #{ name_only(comment.caption.user, :linked => true) }.</fb:fbml>"
     add_image caption.photo.medium, url
   end
 

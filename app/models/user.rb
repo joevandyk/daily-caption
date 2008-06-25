@@ -73,6 +73,7 @@ class User < ActiveRecord::Base
   end
   
   def friends
-    self.facebook_user.friends_with_this_app
+    fb_friend_ids = self.facebook_user.friends_with_this_app.map{ |f| f.id }
+    User.find :all, :conditions => { :site_user_id => fb_friend_ids }
   end
 end
