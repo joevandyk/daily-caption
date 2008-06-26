@@ -4,6 +4,10 @@ class UsersController < ApplicationController
 
   def show
     @current_tab = :profile
+    respond_to do |format|
+      format.fbml  { render :action => :show }
+      format.html  { redirect_to facebook_page }
+    end
   end
   
   def friends

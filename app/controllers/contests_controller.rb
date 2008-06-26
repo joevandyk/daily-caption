@@ -1,14 +1,18 @@
 class ContestsController < ApplicationController
-  before_filter :setup_contest, :only => [:index,:show]
+  before_filter :setup_contest, :only => [:index, :show]
     
   def index
     respond_to do |format|
       format.fbml  { render :action => :show }
-      format.html { redirect_to facebook_page }
+      format.html  { redirect_to facebook_page }
     end
   end
   
   def show    
+    respond_to do |format|
+      format.fbml  { render :action => :show }
+      format.html  { redirect_to facebook_page }
+    end
   end
   
   def archive
