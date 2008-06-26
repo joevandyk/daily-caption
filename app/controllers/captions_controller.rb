@@ -15,7 +15,7 @@ class CaptionsController < ApplicationController
 
   def index
     @user = User.find params[:user_id]
-    @captions = @user.captions
+    @captions = @user.captions.paginate :page => params[:page]
   end
   
   def show

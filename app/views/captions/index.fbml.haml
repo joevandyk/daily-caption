@@ -1,3 +1,5 @@
 %h1== Captions by #{ name @user }
 
+= will_paginate @captions
 = render :collection => @captions, :partial => 'contests/caption'
+= will_paginate @captions
