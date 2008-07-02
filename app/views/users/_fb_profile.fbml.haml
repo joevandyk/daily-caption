@@ -16,10 +16,12 @@
       #stats
         %h4== #{first_name user} stats
         = render :partial => "/users/stats", :locals => {:user => user}
-      - unless user.recently_voted_captions.empty? 
-        #voted-captions
-          %h4 Voted up captions
+      #voted-captions
+        %h4 Voted up captions
+        - unless user.recently_voted_captions.empty? 
           = render :partial => "contests/simple_caption", :collection => user.recently_voted_captions
+        -else
+          %p== #{first_name user, :possessive => false} has not voted up any captions yet!
 
     - unless user.friends.empty?
       #friends
