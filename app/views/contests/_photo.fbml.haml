@@ -7,7 +7,7 @@
 
     %p#tagline 
       Flickr photo by: 
-      = link_to photo.author, photo.photostream 
+      = link_to photo.author, photo.photostream, :target => :blank
       - if photo.previous_winner
         | Yesterday's Winner: 
         = name photo.previous_winner 
