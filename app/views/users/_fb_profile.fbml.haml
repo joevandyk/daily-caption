@@ -27,7 +27,7 @@
       #friends
         %h4== #{first_name user} friends who caption
         - for friend in user.friends
-          = link_to fb_profile_pic(friend.site_user_id, :size => :square, :linked => false, :title => "#{friend.facebook_user.name}"), user_url(friend)
+          = link_to fb_profile_pic(friend.site_user_id, :size => :square, :linked => false, :title => "#{name(friend)}"), user_url(friend)
             
   - fb_narrow do
     #narrow
