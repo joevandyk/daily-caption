@@ -27,19 +27,17 @@ class FacebookDaemon
   end
 
   def self.update
-    loop do
-      begin
-        while fetch = STARLING.get("facebook_actions")         
-          do_publisher_things(fetch) 
-        end
-        while fetch = STARLING.get("facebook_profile_update") 
-          do_profile_updates(fetch)  
-        end
-      rescue StandardError => e
-        puts "**** EXCEPTION!!! fetch = #{ fetch.inspect } *** "
-        puts e
-        puts e.backtrace.inspect
+    begin
+      while fetch = STARLING.get("facebook_actions")         
+        do_publisher_things(fetch) 
       end
+      while fetch = STARLING.get("facebook_profile_update") 
+        do_profile_updates(fetch)  
+      end
+    rescue StandardError => e
+      puts "**** EXCEPTION!!! fetch = #{ fetch.inspect } *** "
+      puts e
+      puts e.backtrace.inspect
     end
   end
 end
