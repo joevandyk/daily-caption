@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :invitations
   map.resources :sites
-  map.resources :captions
+  map.resources :captions, :member => { :share => :get }
 
   map.resources :users, :member => { :friends => :get } do |user|
     user.resources :captions

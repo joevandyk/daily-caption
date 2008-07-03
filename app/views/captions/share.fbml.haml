@@ -1,0 +1,22 @@
+#share-caption-page
+  .float-right= link_to "Skip &raquo;", contest_url(@caption.photo), :class => :button
+  %h1.title <span>GET</span> the word out!
+  %p Select which friends you would like to notify about your newly created caption! This will send a notification asking them for help voting up your caption.
+  
+  - facebook_form_for Caption.new do |f|
+    #DC-friends.clearfix
+      %h3.title Your Friends on DailyCaption:
+      - unless @friends.empty?
+        = render :partial => "users/friend", :collection => @friends
+      - else
+        %p.quiet== Sad, looks like your friends have not jumped on the bandwagon with you (yet).  Feel free to #{ link_to "invite your friends", new_invitation_url }!
+  
+    #FB-friends.clearfix
+      %h3.title Your Friends that aren't on DailyCaption:
+      %p.quiet Start typing to find the names of your friends:
+      = fb_multi_friend_input :exclude_ids => @friends.map{ |friend| friend.site_user_id }.join(',')
+
+    = facebook_messages
+    %fb:editor-buttonset
+      %fb:editor-button{ :value => "Send Notifications!" }
+      %fb:editor-cancel{ :value =>"Skip &raquo;", :href=> index_url }
