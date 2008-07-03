@@ -5,7 +5,7 @@ class Caption < ActiveRecord::Base
   belongs_to :user
   belongs_to :photo
   has_many   :votes, :dependent => :destroy
-  has_many   :comments, :dependent => :destroy
+  has_many   :comments, :dependent => :destroy, :order => 'created_at'
 
   validates_presence_of :user
   validates_presence_of :photo

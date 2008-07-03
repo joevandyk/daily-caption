@@ -39,6 +39,7 @@
       
     .more= link_to "View all past contests", archive_contests_url
     
+%a{:name => "competition"}
 #competition.clearfix
   #competing-captions-container
     = add_caption_link
@@ -52,9 +53,9 @@
             %li= link_to_unless_sorting_by "Rank", {:sort => "rank"}
             %li= link_to_unless_sorting_by "Comments", {:sort => "comments"}
       #competing-captions
-        = will_paginate @competing_captions
+        = will_paginate @competing_captions, :params => {:anchor => "competition"}
         = render :partial => "contests/caption", :collection => @competing_captions
-        = will_paginate @competing_captions
+        = will_paginate @competing_captions, :params => {:anchor => "competition"}
     - else
       - if @photo.captioning?
         %p== Nobody has stepped up to compete yet, man up and #{ link_to "post a caption", new_caption_url }!

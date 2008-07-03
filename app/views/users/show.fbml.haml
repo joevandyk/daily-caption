@@ -1,6 +1,6 @@
 #profile-page.clearfix
   #profile-info
-    = profile_pic @user, :normal
+    = fb_profile_pic @user.facebook_user, :size => :normal
     = render :partial => "/users/stats", :locals => {:user => @user}    
     #profile-ad
       = iframe_ad "2865229586", "160", "600"

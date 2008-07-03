@@ -12,6 +12,11 @@ class CaptionsController < ApplicationController
       redirect_to index_url(:anchor => dom_id(@caption))
     end
   end
+  
+  def share
+    @caption = Caption.find(params[:id])
+    @friends = current_user.friends
+  end
 
   def index
     @user = User.find params[:user_id]
