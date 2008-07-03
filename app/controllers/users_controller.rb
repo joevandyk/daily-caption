@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :find_user
-  before_filter :ensure_installed, :only => [:friends, :update_profile]
+  before_filter :ensure_installed, :only => [:friends, :update_profile, :show]
 
   def show
     @current_tab = :profile
