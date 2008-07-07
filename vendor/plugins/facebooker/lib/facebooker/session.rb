@@ -402,6 +402,7 @@ module Facebooker
     end
     
     def post(method, params = {},use_session_key=true,&proc)
+      puts "posting '#{method}' with #{params.inspect}"
       add_facebook_params(params, method)
       use_session_key && @session_key && params[:session_key] ||= @session_key
       final_params=params.merge(:sig => signature_for(params))
