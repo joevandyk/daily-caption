@@ -3,6 +3,7 @@ require 'rubygems'
 require 'daemons'
 require File.dirname(__FILE__) + "/../config/environment"
 
+UserFriend
 Caption
 User
 Vote
@@ -22,8 +23,10 @@ class FacebookDaemon
 
   def self.do_profile_updates args
     puts "Doing profile update"
-    fb_user, content = args
+    puts args.inspect
+    user, fb_user, content = args
     Timeout.timeout(TIMEOUT) { fb_user.profile_fbml = content }
+    Timeout.timeout(TIMEOUT) { user.update_friends! }
   end
 
   def self.update

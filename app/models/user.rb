@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :votes, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :winning_photos, :class_name => 'Photo', :foreign_key => :winner_id
+  has_one  :user_friend
 
   def self.for(facebook_id,facebook_session=nil)
     returning find_or_create_by_site_user_id(facebook_id) do |user|
@@ -71,9 +72,15 @@ class User < ActiveRecord::Base
   def facebook_user
     facebook_session.user
   end
+
+  def update_friends!
+    self.create_user_friend if self.user_friend.blank?
+    self.user_friend.update_attribute :friend_ids, Marshal.dump(self.facebook_user.friends_with_this_app.map{ |f| f.id })
+  end
   
   def friends
-    fb_friend_ids = self.facebook_user.friends_with_this_app.map{ |f| f.id }
-    User.find :all, :conditions => { :site_user_id => fb_friend_ids }
+    return [] if user_friend.try(:friend_ids).blank?
+    friend_ids = Marshal.load(self.user_friend.friend_ids)
+    User.find :all, :conditions => { :site_user_id => friend_ids }
   end
 end
