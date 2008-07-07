@@ -11,11 +11,10 @@ module Facebooker
       include Model
       attr_accessor :message, :time
     end
-
     FIELDS = [:status, :political, :pic_small, :name, :quotes, :is_app_user, :tv, :profile_update_time, :meeting_sex, :hs_info, :timezone, :relationship_status, :hometown_location, :about_me, :wall_count, :significant_other_id, :pic_big, :music, :uid, :work_history, :sex, :religion, :notes_count, :activities, :pic_square, :movies, :has_added_app, :education_history, :birthday, :first_name, :meeting_for, :last_name, :interests, :current_location, :pic, :books, :affiliations]
     attr_accessor :id, :session
-    attr_reader :affiliations
     populating_attr_accessor *FIELDS
+    attr_reader :affiliations
     populating_hash_settable_accessor :current_location, Location
     populating_hash_settable_accessor :hometown_location, Location
     populating_hash_settable_accessor :hs_info, EducationInfo::HighschoolInfo
@@ -23,7 +22,7 @@ module Facebooker
     populating_hash_settable_list_accessor :affiliations, Affiliation
     populating_hash_settable_list_accessor :education_history, EducationInfo
     populating_hash_settable_list_accessor :work_history, WorkInfo
-
+    
     # Can pass in these two forms:
     # id, session, (optional) attribute_hash
     # attribute_hash
@@ -50,7 +49,7 @@ module Facebooker
         Event.from_hash(event)
       end
     end
-
+    
     # 
     # Set the list of friends, given an array of User objects.  If the list has been retrieved previously, will not set
     def friends=(list_of_friends)
@@ -114,7 +113,7 @@ module Facebooker
     def publish_action(action)
       publish(action)
     end
-
+    
     def publish_templatized_action(action)
       publish(action)
     end
@@ -138,7 +137,7 @@ module Facebooker
     def upload_photo(multipart_post_file)
       Photo.from_hash(session.post_file('facebook.photos.upload', {nil => multipart_post_file}))
     end
-
+    
     def profile_fbml
       session.post('facebook.profile.getFBML', :uid => @id)  
     end    
@@ -156,63 +155,33 @@ module Facebooker
     def mobile_fbml=(markup)
       set_profile_fbml(nil, markup, nil)
     end
-
-    ##
-    # Set profile actions
+    
     def profile_action=(markup)
       set_profile_fbml(nil, nil, markup)
     end
     
-    ## *** NEW PROFILE DESIGN ***
-    # Set main profile FBML
-    def profile_main_fbml=(markup)
-      set_profile_fbml(nil, nil, nil, markup)
-    end
-
-    ##
-    # Set all profile FBML items
-    def set_profile_fbml(profile_fbml, mobile_fbml=nil, profile_action_fbml=nil, profile_main=nil)
+    def set_profile_fbml(profile_fbml, mobile_fbml=nil, profile_action_fbml=nil)
       parameters = {:uid => @id}
       parameters[:profile] = profile_fbml if profile_fbml
       parameters[:profile_action] = profile_action_fbml if profile_action_fbml
       parameters[:mobile_profile] = mobile_fbml if mobile_fbml
-      parameters[:profile_main] = profile_main if profile_main
       session.post('facebook.profile.setFBML', parameters)
     end
     
     ## ** NEW PROFILE DESIGN ***
     # Set a info section for this user
     #
-    # info_fields should be an array of Facebooker::InfoField objects.
-    # Facebooker::InfoField should contain an array of Facebooker::InfoItem objects.
-    #
-    # Example:
-    # fields = [
-    #   Facebooker::InfoField.new(:field => "First Field", :items => [
-    #     Facebooker::InfoItem.new(:label => "first item", :link => "http://first_link.com"),
-    #     Facebooker::InfoItem.new(:label => "second_item", :link => "http://second_link.com")
-    #   ] ),
-    #   Facebooker::InfoField.new(:field => "Second Field", :items => [
-    #     Facebooker::InfoItem.new(:label => "a new item", :link => "http://foo.bar"),
-    #     Facebooker::InfoItem.new(:label => "another item", :link => "http://blog.dnite.org"),
-    #     Facebooker::InfoItem.new(:label => "one more item", :link => "http://yaaaay.com")
-    #   ] )
-    # ]
-    # facebook_session.user.set_profile_info("Section Title", fields)
+    # Note: using set_profile_info as I feel using user.set_info could be confused with the user.getInfo facebook method.
+    #       Also, I feel it fits in line with user.set_profile_fbml.
     def set_profile_info(title, info_fields, format = :text)
-      session.post('facebook.profile.setInfo', :title => title, :uid => @id,
+      session.post('facebook.profile.setInfo', :title => title, :uid => @id, 
         :type => format.to_s == "text" ? 1 : 5, :info_fields => info_fields.to_json)
     end
-
-    # *** NEW PROFILE DESIGN ***
-    # This populates the user object with their profile info section.
-    # The info section consists of an InfoField object which contains InfoItem objects.
-    def profile_info
-      @profile_info ||= @session.post('facebook.profile.getInfo', :uid => self.id) do |section|
-        InfoSection.from_hash(section)
-      end
+    
+    def get_profile_info
+      session.post('facebook.profile.getInfo', :uid => @id)
     end
-
+    
     ##
     # Set the status of the user
     #

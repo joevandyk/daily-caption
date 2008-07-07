@@ -1,4 +1,10 @@
-require 'json' 
+begin
+  unless ActiveSupport.const_defined?("JSON")
+    require 'json' 
+  end 
+rescue
+  require 'json' 
+end
 require 'facebooker/batch_request'
 require 'facebooker/feed'
 require 'facebooker/model'
@@ -22,9 +28,8 @@ require 'facebooker/models/cookie'
 require 'facebooker/models/applicationproperties'
 require 'facebooker/models/tag'
 require 'facebooker/models/user'
-require 'facebooker/models/info_section'
-require 'facebooker/models/info_field'
 require 'facebooker/models/info_item'
+require 'facebooker/models/info_section'
 
 module Facebooker
   class << self

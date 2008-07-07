@@ -3,7 +3,7 @@
 facebook_config = "#{RAILS_ROOT}/config/facebooker.yml"
 
 if File.exist?(facebook_config)
-  FACEBOOKER = YAML.load_file(facebook_config)[RAILS_ENV]
+  FACEBOOKER = YAML.load_file(facebook_config)[RAILS_ENV] 
   ENV['FACEBOOK_API_KEY'] = FACEBOOKER['api_key']
   ENV['FACEBOOK_SECRET_KEY'] = FACEBOOKER['secret_key']
   ENV['FACEBOOKER_RELATIVE_URL_ROOT'] = FACEBOOKER['canvas_page_name']

@@ -468,6 +468,13 @@ class RailsHelperTest < Test::Unit::TestCase
     assert_equal "<fb:photo align=\"right\" pid=\"1234\" />",@h.fb_photo("1234", :align => :right)
   end
 
+  def test_fb_photo_with_class
+    assert_equal "<fb:photo class=\"picky\" pid=\"1234\" />",@h.fb_photo("1234", :class => :picky)
+  end
+  def test_fb_photo_with_style
+    assert_equal "<fb:photo pid=\"1234\" style=\"some=css;put=here;\" />",@h.fb_photo("1234", :style => "some=css;put=here;")
+  end
+
   def test_fb_name_with_invalid_key
     assert_raises(ArgumentError) {@h.fb_name(1234, :sizee => false)}
   end
@@ -631,9 +638,18 @@ class RailsHelperTest < Test::Unit::TestCase
   
   def test_fb_request_form
     @h.expects(:capture).returns("body")
+    @h.expects(:protect_against_forgery?).returns(false)
     assert_equal "<fb:request-form action=\"action\" content=\"Test Param\" invite=\"true\" method=\"post\" type=\"invite\">body</fb:request-form>",
       (@h.fb_request_form("invite","test_param","action") {})
-    
+  end
+
+  def test_fb_request_form_with_protect_against_forgery
+    @h.expects(:capture).returns("body")
+    @h.expects(:protect_against_forgery?).returns(true)
+    @h.expects(:request_forgery_protection_token).returns('forgery_token')
+    @h.expects(:form_authenticity_token).returns('form_token')
+    assert_equal "<fb:request-form action=\"action\" content=\"Test Param\" invite=\"true\" method=\"post\" type=\"invite\">body<input name=\"forgery_token\" type=\"hidden\" value=\"form_token\" /></fb:request-form>",
+      (@h.fb_request_form("invite","test_param","action") {})
   end
   
   def test_fb_error_with_only_message

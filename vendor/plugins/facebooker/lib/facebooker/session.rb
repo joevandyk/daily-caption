@@ -46,7 +46,7 @@ module Facebooker
     class MissingOrInvalidImageFile < StandardError; end
     class TooManyUnapprovedPhotosPending < StandardError; end
     class ExtendedPermissionRequired < StandardError; end
-
+    
     API_SERVER_BASE_URL       = ENV["FACEBOOKER_API"] == "new" ? "api.new.facebook.com" : "api.facebook.com"
     API_PATH_REST             = "/restserver.php"
     WWW_SERVER_BASE_URL       = ENV["FACEBOOKER_API"] == "new" ? "www.new.facebook.com" : "www.facebook.com"
@@ -84,29 +84,29 @@ module Facebooker
       options = default_login_url_options.merge(options)
       "http://www.facebook.com/login.php?api_key=#{@api_key}&v=1.0#{login_url_optional_parameters(options)}"
     end
-
+    
     def install_url(options={})
       "http://www.facebook.com/install.php?api_key=#{@api_key}&v=1.0#{install_url_optional_parameters(options)}"
     end
-
+    
     def permission_url(permission,options={})
       options = default_login_url_options.merge(options)
       "http://www.facebook.com/authorize.php?api_key=#{@api_key}&v=1.0&ext_perm=#{permission}#{install_url_optional_parameters(options)}"
     end
-
+    
     def install_url_optional_parameters(options)
       optional_parameters = []      
       optional_parameters += add_next_parameters(options)
       optional_parameters.join
     end
-
+    
     def add_next_parameters(options)
       opts = []
       opts << "&next=#{CGI.escape(options[:next])}" if options[:next]
       opts << "&next_cancel=#{CGI.escape(options[:next_cancel])}" if options[:next_cancel]
       opts
     end
-
+    
     def login_url_optional_parameters(options)
       # It is important that unused options are omitted as stuff like &canvas=false will still display the canvas. 
       optional_parameters = []
@@ -116,7 +116,7 @@ module Facebooker
       optional_parameters << "&canvas=true" if options[:canvas]
       optional_parameters.join
     end
-
+    
     def default_login_url_options
       {}
     end
@@ -279,34 +279,15 @@ module Facebooker
       end
       post 'facebook.notifications.send', params
     end 
-
+    
     ##
     # Send email to as many as 100 users at a time
-    def send_email(user_ids, subject, text, fbml = nil)
+    def send_email(user_ids, subject, text, fbml = nil) 			
       user_ids = Array(user_ids)
       params = {:fbml => fbml, :recipients => user_ids.map{ |id| User.cast_to_facebook_id(id)}.join(','), :text => text, :subject => subject} 
       post 'facebook.notifications.sendEmail', params
     end
-
-    # Sets the profile FBML for whichever user is given.
-    # Accepts a hash of values.
-    # :uid is required. :profile_main, :profile, :mobile_profile and :profile_action are optional.
-    def set_fbml(parameters)
-      post('facebook.profile.setFBML', parameters)
-    end
-
-    # *** NEW PROFILE DESIGN ***
-    # Set profile info options
-    def set_profile_info_options(field, options)
-      post('facebook.profile.setInfoOptions', :field => field, :options => options.to_json)
-    end
-
-    # *** NEW PROFILE DESIGN ***
-    # Get profile info options
-    def profile_info_options(field)
-      post('facebook.profile.getInfoOptions', :field => field)
-    end
-
+    
     # Only serialize the bare minimum to recreate the session.
     def marshal_load(variables)#:nodoc:
       fields_to_serialize.each_with_index{|field, index| instance_variable_set_value(field, variables[index])}
@@ -344,7 +325,7 @@ module Facebooker
       def login_url
         super + "&auth_token=#{auth_token}"
       end
-
+      
       def secret_for_method(method_name)
         secret = auth_request_methods.include?(method_name) ? super : @secret_from_session
         secret
@@ -455,27 +436,27 @@ module Facebooker
         hash[:call_id] = Time.now.to_f.to_s unless method == 'facebook.auth.getSession'
         hash[:v] = "1.0"
       end
-
+      
       def self.extract_key_from_environment(key_name)
         val = ENV["FACEBOOK_" + key_name.to_s.upcase + "_KEY"]
       end
-
+      
       def self.extract_key_from_configuration_file(key_name)
         read_configuration_file[key_name]
       end
-
+      
       def self.report_inability_to_find_key(key_name)
         raise ConfigurationMissing, "Could not find configuration information for #{key_name}"
       end
-
+      
       def self.read_configuration_file
         eval(File.read(configuration_file_path))
       end
-
+      
       def service
         @service ||= Service.new(API_SERVER_BASE_URL, API_PATH_REST, @api_key)      
       end
-
+      
       def uid
         @uid || (secure!; @uid)
       end

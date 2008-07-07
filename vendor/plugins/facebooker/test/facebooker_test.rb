@@ -304,18 +304,6 @@ class TestFacebooker < Test::Unit::TestCase
     }
   end
   
-  def test_can_set_profile_info_section
-    mock_http = establish_session
-    mock_http.should_receive(:post_form).and_return(example_set_profile_info_xml).once.ordered(:posts)
-    assert_match(/1/, @session.user.set_profile_info("Title", [Facebooker::InfoField.new(:field => "field", :items => [Facebooker::InfoItem.new])]))
-  end
-
-  def test_can_get_profile_info_section
-    mock_http = establish_session
-    mock_http.should_receive(:post_form).and_return(example_get_profile_info_xml).once.ordered(:posts)
-    assert_match(/The original and still undefeated/, @session.user.profile_info.to_json)
-  end
-
   private
   def populate_user_info
     mock_http = establish_session
@@ -365,74 +353,19 @@ class TestFacebooker < Test::Unit::TestCase
     XML
   end
   
-  def example_set_profile_info_xml
-    <<-XML
-    <profile_setInfo_response xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd' xmlns='http://api.facebook.com/1.0/'>1</profile_setInfo_response>
-    XML
-  end
-
-  def example_get_profile_info_xml
-    <<-XML
-    <profile_getInfo_response xmlns="http://api.facebook.com/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd">
-      <title>My Smilies</title>
-      <info_fields list="true">
-        <info_field>
-          <field>Good Smilies</field>
-          <items list="true">
-            <info_item>
-              <label>Happy</label>
-              <sublabel/>
-              <description>The original and still undefeated.</description>
-              <link>http://www.facebook.com</link>
-              <image>http://fbplatform.mancrushonmcslee.com/smiley/images/smile0.jpg</image>
-            </info_item>
-            <info_item>
-              <label>Indifferent</label>
-              <description>meh...</description>
-              <link>http://www.facebook.com</link>
-              <image>http://fbplatform.mancrushonmcslee.com/smiley/images/smile1.jpg</image>
-            </info_item>
-            <info_item>
-              <label>Sad</label>
-              <description>Oh my god! you killed my dog!</description>
-              <link>http://www.facebook.com</link>
-              <image>http://fbplatform.mancrushonmcslee.com/smiley/images/smile2.jpg</image>
-            </info_item>
-            <info_item>
-              <label>Cool</label>
-              <description>Yeah. whatever</description>
-              <link>http://www.facebook.com</link>
-              <image>http://fbplatform.mancrushonmcslee.com/smiley/images/smile3.jpg</image>
-            </info_item>
-          </items>
-        </info_field>
-        <info_field>
-          <field>Bad</field>
-          <items list="true">
-            <info_item>
-              <label>Evil</label>
-              <link>http://www.evil.com</link>
-            </info_item>
-          </items>
-        </info_field>
-      </info_fields>
-    </profile_getInfo_response>
-    XML
-  end
-
   def example_notifications_send_xml
     <<-XML
-    <?xml version="1.0" encoding="UTF-8"?>
-    <notifications_send_response xmlns="http://api.facebook.com/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd">http://www.facebook.com/send_email.php?from=211031&id=52</notifications_send_response>
+<?xml version="1.0" encoding="UTF-8"?>
+<notifications_send_response xmlns="http://api.facebook.com/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd">http://www.facebook.com/send_email.php?from=211031&id=52</notifications_send_response>
     XML
   end     
   
-  def example_notifications_send_email_xml
-    <<-XML
-    <?xml version="1.0" encoding="UTF-8"?>
-    <notifications_sendEmail_response xmlns="http://api.facebook.com/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd">123,321</notifications_sendEmail_response>
-    XML
-  end
+	  def example_notifications_send_email_xml
+	    <<-XML
+	    <?xml version="1.0" encoding="UTF-8"?>
+	<notifications_sendEmail_response xmlns="http://api.facebook.com/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://api.facebook.com/1.0/ http://api.facebook.com/1.0/facebook.xsd">123,321</notifications_sendEmail_response>
+	    XML
+	  end
 
   def example_request_send_xml
     <<-XML

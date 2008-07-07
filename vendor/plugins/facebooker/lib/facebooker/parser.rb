@@ -250,26 +250,13 @@ module Facebooker
       hashinate(element('profile_getInfo_response info_fields', data))
     end
   end
-
+  
   class ProfileInfoSet < Parser#:nodoc:
     def self.process(data)
       element('profile_setInfo_response', data).text_value
     end
   end
-
-  class ProfileInfoOptions < Parser#:nodoc:
-    def self.process(data)
-      array_of_hashes(element('profile_getInfoOptions_response', data), 'info_item')
-    end
-  end
-
-  class ProfileInfoOptionsSet < Parser#:nodoc:
-    def self.process(data)
-      # Not sure why, but facebook is just returning a blank XML response.
-      element('profile_setInfoOptions_response', data).text_value
-    end
-  end
-
+  
   class FqlQuery < Parser#nodoc
     def self.process(data)
       root = element('fql_query_response', data)
@@ -439,8 +426,6 @@ module Facebooker
       'facebook.profile.setFBML' => ProfileFBMLSet,
       'facebook.profile.getInfo' => ProfileInfo,
       'facebook.profile.setInfo' => ProfileInfoSet,
-      'facebook.profile.getInfoOptions' => ProfileInfoOptions,
-      'facebook.profile.setInfoOptions' => ProfileInfoOptionsSet,
       'facebook.fbml.setRefHandle' => SetRefHandle,
       'facebook.fbml.refreshRefUrl' => RefreshRefURL,
       'facebook.fbml.refreshImgSrc' => RefreshImgSrc,
