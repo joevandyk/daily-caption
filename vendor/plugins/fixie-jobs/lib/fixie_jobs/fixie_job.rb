@@ -9,8 +9,6 @@ module Fixie
       job
     end
 
-    protected
-
     def mark_job_started!
       timestamp :started_at
     end
