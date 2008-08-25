@@ -3,7 +3,7 @@ class AddFixieJobs < ActiveRecord::Migration
     create_table :fixie_jobs do |t|
       t.column :the_method, :string,  :null => false
       t.column :klass,      :text,    :null => false
-      t.column :options,    :string
+      t.column :options,    :text
       t.column :record_id,  :integer
       t.column :created_at, :datetime
       t.column :priority,   :integer
