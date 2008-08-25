@@ -51,6 +51,12 @@ class User < ActiveRecord::Base
     Vote.not_for_mine(self).map{ |v| v.caption }
   end
 
+  # Async method
+  def update_profile fbml
+    # TODO should also update friends list
+    self.facebook_user.profile_fbml = fbml
+  end
+
   # Number of times voted == Total number of votes - Total number of captions
   def number_of_votes_given
     self.votes.count - self.captions.count

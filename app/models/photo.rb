@@ -138,11 +138,11 @@ class Photo < ActiveRecord::Base
 
     self.update_attribute :winner_id, winner.user_id
 
-    FacebookPublisher.queue(:deliver_email_winner, winner) rescue StandardError
-    FacebookPublisher.queue(:deliver_notify_winner, winner) rescue StandardError
-    FacebookPublisher.queue(:deliver_winning_caption_action, winner) rescue StandardError
+    FacebookPublisher.push(:deliver_email_winner, winner) rescue StandardError
+    FacebookPublisher.push(:deliver_notify_winner, winner) rescue StandardError
+    FacebookPublisher.push(:deliver_winning_caption_action, winner) rescue StandardError
     winner.votes.each do |vote|
-      FacebookPublisher.queue(:deliver_winning_voters, winner, vote.user) rescue StandardError
+      FacebookPublisher.push(:deliver_winning_voters, winner, vote.user) rescue StandardError
     end
   end
 end

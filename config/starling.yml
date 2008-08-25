@@ -1,0 +1,33 @@
+production:
+  host: ey03-s00234
+  port: 22122
+  pid_file: /tmp/dailycaption-starling.pid
+  queue_path: /tmp
+  timeout: 0
+  syslog_channel: starling-dailycaption
+  log_level: DEBUG
+  daemonize: true
+  queue: dailycaption_production
+
+development:
+  host: localhost
+  port: 4000
+  pid_file: /tmp/dailycaption-starling.pid
+  queue_path: /tmp
+  timeout: 0
+  syslog_channel: starling-dailycaption
+  log_level: DEBUG
+  daemonize: true
+  queue: dailycaption_development
+
+test:
+  host: localhost
+  port: 4000
+  pid_file: /tmp/dailycaption-starling.pid
+  queue_path: /tmp
+  timeout: 0
+  syslog_channel: starling-dailycaption
+  log_level: DEBUG
+  daemonize: true
+  queue: dailycaption_test
+
