@@ -1,11 +1,13 @@
 module Fixie
   LOGGER = Logger.new("#{RAILS_ROOT}/log/#{RAILS_ENV}_fixie_jobs.log")
   class Jobs
+    trap('TERM') { puts 'Exiting...'; $exit = true }
+    trap('INT')  { puts 'Exiting...'; $exit = true }
 
     def self.process(daemonize = true)
       pid = fork do
         Signal.trap('HUP', 'IGNORE') # Don't die upon logout
-        loop { pop }
+        loop { pop; exit if $exit == true }
       end
 
       if daemonize

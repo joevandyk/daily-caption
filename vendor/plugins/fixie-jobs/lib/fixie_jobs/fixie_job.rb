@@ -4,7 +4,7 @@ module Fixie
 
     def execute!
       begin
-        options = self.options.blank? ? [] :  Marshal.load(self.options)
+        options = self.options.blank? ? [] :  Marshal.load(Base64.decode64(self.options))
         if self.record_id
           self.klass.constantize.find(self.record_id).send(self.the_method, *options)
         else
