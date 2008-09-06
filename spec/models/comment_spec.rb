@@ -25,8 +25,4 @@ describe Comment do
     create_comment :caption => @caption, :user => user
   end
 
-  it "should fail" do
-    true.should == false
-  end
-
 end

@@ -1,4 +1,8 @@
 %p
-  = link_to image_tag(photo.small), photo.medium
-  by
-  = photo.author
+  - if photo.valid?
+      = link_to image_tag(photo.small), photo.medium
+      by
+      = photo.author
+  - else
+    Invalid photo was added with id
+    = photo.flickr_id

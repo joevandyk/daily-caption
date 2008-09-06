@@ -11,6 +11,8 @@ Spec::Runner.configure do |config|
 end
 
 def make_captionable photo
+  photo.small = "small.jpg"
+  photo.medium = "medium.jpg"
   photo.ready_for_captioning!
   photo.start_captioning!
 end
@@ -27,7 +29,7 @@ def create_user
 end
 
 def create_photo options={}
-  default = { :flickr_id => "1234567890" }
+  default = { :flickr_id => "1234567890", :small => 'small.jpg', :medium => 'medium.jpg' }
   Photo.create! default.update(options)
 end
 

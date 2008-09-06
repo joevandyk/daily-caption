@@ -4,7 +4,7 @@ class Photo < ActiveRecord::Base
 
   acts_as_state_machine :initial => :submitted
   state :submitted                                      
-  state :ready_for_captioning
+  state :ready_for_captioning,  :enter => :check_photo_size
   state :captioning,            :enter => :mark_caption_start_time, :exit => :score_contest
   state :captioned              
   state :flickr_failure
@@ -125,6 +125,12 @@ class Photo < ActiveRecord::Base
   end
   
   private
+
+  def check_photo_size
+    raise "No small image!"  unless self.small 
+    raise "No medium image!" unless self.medium
+    return true
+  end
 
   def mark_caption_start_time
     self.captioned_at = Time.now
