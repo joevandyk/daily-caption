@@ -1,9 +1,9 @@
-%p
+%p[photo]
   - if photo.valid?
     = link_to image_tag(photo.small), photo.medium
     by
     = photo.author
-    = link_to "Destroy!  This photo sucks", admin_photo_path(photo), :method => :delete, :confirm => "it sucks?"
+    = link_to_remote("Destroy!  This photo sucks", :url => admin_photo_path(photo), :method => :delete, :html => { :confirm => "you sure?" })
   - else
     Invalid photo was added with id
     = photo.flickr_id

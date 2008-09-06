@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Admin::PhotosController do
+  integrate_views
   before(:each) do
     login_as_admin
   end
@@ -18,6 +19,5 @@ describe Admin::PhotosController do
       post :destroy, :id => photo.id
     end
     lambda { photo.reload }.should raise_error(ActiveRecord::RecordNotFound)
-    response.should redirect_to admin_photos_path
   end
 end

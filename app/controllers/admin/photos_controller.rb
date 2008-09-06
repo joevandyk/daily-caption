@@ -16,7 +16,9 @@ class Admin::PhotosController < Admin::AdminController
   def destroy
     photo = Photo.find params[:id]
     photo.destroy
-    flash[:notice] = "Photo destroyed"
-    redirect_to admin_photos_path
+
+    render :update do |page|
+      page.visual_effect :puff, dom_id(photo)
+    end
   end
 end
