@@ -12,4 +12,11 @@ class Admin::PhotosController < Admin::AdminController
     flash[:notice] = "#{count} photos created"
     redirect_to new_admin_photo_path
   end
+
+  def destroy
+    photo = Photo.find params[:id]
+    photo.destroy
+    flash[:notice] = "Photo destroyed"
+    redirect_to admin_photos_path
+  end
 end
