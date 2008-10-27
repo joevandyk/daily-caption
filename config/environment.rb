@@ -16,7 +16,7 @@ Rails::Initializer.run do |config|
   config.gem 'fiveruns-memcache-client', :lib => 'memcache', :source => 'http://gems.github.com'
   config.gem 'starling-starling', :lib => 'starling', :source => 'http://gems.github.com'
 
-  # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
+  # config.plugins = [ :facebooker, :hoptoad_notifier, :all ]
 
   config.load_paths += %W( #{RAILS_ROOT}/vendor/lib )
 
@@ -72,5 +72,3 @@ ActionController::AbstractRequest.class_eval do
   end
   alias_method_chain :request_method, :facebook_overrides
 end
-
-ExceptionNotifier.exception_recipients = %w( joe@pinkpucker.net jordanisip@yahoo.com )
