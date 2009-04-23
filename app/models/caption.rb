@@ -68,7 +68,7 @@ class Caption < ActiveRecord::Base
   def send_notification
     begin
       logger.info "Publishing feed for caption"
-      FacebookPublisher.deliver_caption_action, self if RAILS_ENV != 'test'
+      FacebookPublisher.deliver_caption_action(self) if RAILS_ENV != 'test'
     rescue StandardError
       nil
     end
