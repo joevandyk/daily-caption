@@ -1,81 +1,39 @@
-# Please install the Engine Yard Capistrano gem
-# gem install eycap --source http://gems.engineyard.com
+set :application, "dailycaption"
+set :repository,  "git@github.com:joevandyk/daily-caption.git"
+set :scm, :git
+set :ssh_options, { :forward_agent => true }
+set :deploy_to, "/data/#{application}"
+set :user, 'monkey'
+set :deploy_via, :remote_cache
 
-require "eycap/recipes"
+set :use_sudo, false
+role :app, "ec2.fixieconsulting.com"
+role :web, "ec2.fixieconsulting.com"
+role :db,  "ec2.fixieconsulting.com", :primary => true
 
-# =============================================================================
-# ENGINE YARD REQUIRED VARIABLES
-# =============================================================================
-# You must always specify the application and repository for every recipe. The
-# repository must be the URL of the repository you want this recipe to
-# correspond to. The :deploy_to variable must be the root of the application.
+namespace :deploy do
+  task :restart, :roles => :app do
+    # invoke_command "cd #{release_path} && RAILS_ENV=production script/runner 'Publisher.register_all_templates'"
+    invoke_command "touch #{release_path}/tmp/restart.txt"
+  end
 
-set :keep_releases,       5
-set :application,         "dailycaption"
-set :repository,          "github-dailycaption:joevandyk/daily-caption.git"
-set :user,                "tanga"
-set :password,            "k31bv4j3"
-set :deploy_to,           "/data/#{application}"
-# This will execute the Git revision parsing on the *remote* server rather than locally
-set :real_revision,       lambda { source.query_revision(revision) { |cmd| capture(cmd) } }
+  task :after_update_code, :roles => [:app] do
+    run "cp #{release_path}/config/live/facebooker.yml #{release_path}/config"
+  end
 
-set :monit_group,         "dailycaption"
-set :scm,                 :git
-set :runner,              "tanga"
-
-# Database configuration for production
-set :production_database, "psql82-2-master"
-set :production_dbhost,   ""
-
-
-set :dbuser, "tanga_db"
-set :dbpass, "lb31v12j"
-
-# comment out if it gives you trouble. newest net/ssh needs this set.
-ssh_options[:paranoid] = false
-
-# =============================================================================
-# ROLES
-# =============================================================================
-# You can define any number of roles, each of which contains any number of
-# machines. Roles might include such things as :web, or :app, or :db, defining
-# what the purpose of each machine is. You can also specify options that can
-# be used to single out a specific subset of boxes in a particular role, like
-# :primary => true.
-
-task :production do
-  role :web, "74.201.254.36:8234" # tanga [thin] [psql82-2-master] and dailycaption [thin] [psql82-2-master]
-  role :app, "74.201.254.36:8234", :thin => true
-  role :db,  "74.201.254.36:8234", :primary => true
-  set :rails_env, "production"
-  set :environment_database, defer { production_database }
-  set :environment_dbhost, defer { production_dbhost }
+  task :regenerate do
+    invoke_command "cd #{current_path} && rake paperclip:refresh CLASS=#{ENV['CLASS']} RAILS_ENV=production "
+  end
 end
 
-# =============================================================================
-# after "deploy:symlink_configs", "dailycaption_custom"
-# task :dailycaption_custom, :roles => :app, :except => {:no_release => true, :no_symlink => true} do
-#   run <<-CMD
-#   CMD
-# end
-# =============================================================================
 
-# Do not change below unless you know what you are doing!
-
-after "deploy",             "deploy:cleanup"
-after "deploy:migrations",  "deploy:cleanup"
-after "deploy:update_code", "deploy:symlink_configs"
-
-after "deploy:symlink_configs", "symlink_dc_configs"
-task "symlink_dc_configs", :roles => :app, :except => { :no_release => true, :no_symlink => true } do
-  run <<-CMD
-    ln -nfs #{shared_path}/config/facebooker.yml #{release_path}/config
-  CMD
-  run <<-CMD
-    ln -nfs #{shared_path}/config/memcached.yml #{release_path}/config
-  CMD
-end
-
-# uncomment the following to have a database backup done before every migration
-# before "deploy:migrate", "db:dump"
-
+require 'vendor/plugins/cap_gun/lib/cap_gun' # typical Rails vendor/plugins location
+set :cap_gun_action_mailer_config, {
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :user_name => "mailer@groupieguide.com",
+    :password => "welcome",
+    :authentication => :plain
+}
+set :cap_gun_email_envelope, { :recipients => %w[joe@fixieconsulting.com, jordan@fixieconsulting.com], :from => "Fixie Deployer <info@fixieconsulting.com>" }
+after "deploy:restart", "cap_gun:email"
