@@ -18,7 +18,7 @@ namespace :deploy do
   end
 
   task :after_update_code, :roles => [:app] do
-    run "cp #{release_path}/config/live/facebooker.yml #{release_path}/config"
+    run "cp #{release_path}/config/live/*.yml #{release_path}/config"
   end
 
   task :regenerate do
@@ -36,4 +36,4 @@ set :cap_gun_action_mailer_config, {
     :authentication => :plain
 }
 set :cap_gun_email_envelope, { :recipients => %w[joe@fixieconsulting.com, jordan@fixieconsulting.com], :from => "Fixie Deployer <info@fixieconsulting.com>" }
-after "deploy:restart", "cap_gun:email"
+#after "deploy:restart", "cap_gun:email"
