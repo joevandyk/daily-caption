@@ -11,10 +11,10 @@ RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-  config.gem 'SyslogLogger', :lib => 'syslog'
-  config.gem 'eventmachine'
-  config.gem 'fiveruns-memcache-client', :lib => 'memcache', :source => 'http://gems.github.com'
-  config.gem 'starling-starling', :lib => 'starling', :source => 'http://gems.github.com'
+  #config.gem 'SyslogLogger', :lib => 'syslog'
+  #config.gem 'eventmachine'
+  #config.gem 'fiveruns-memcache-client', :lib => 'memcache', :source => 'http://gems.github.com'
+  #config.gem 'starling-starling', :lib => 'starling', :source => 'http://gems.github.com'
 
   # config.plugins = [ :facebooker, :hoptoad_notifier, :all ]
 
