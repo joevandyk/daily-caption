@@ -7,6 +7,7 @@
   #archive
     = will_paginate @photos
     - for photo in @photos
+      - next unless photo.winning_caption
       = render :partial => "contests/photo_caption", :locals => {:photo => photo, :caption => photo.winning_caption, :show_date => true}
     = will_paginate @photos
   .clear-both
