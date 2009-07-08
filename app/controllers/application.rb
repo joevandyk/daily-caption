@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  before_filter :disable
   before_filter :ensure_current_photo
   include FacebookActions
   include HoptoadNotifier::Catcher
@@ -40,5 +41,10 @@ class ApplicationController < ActionController::Base
     if !self.kind_of?(Admin::AdminController) and  Photo.current.nil?
       raise "Uh oh, there is no current photo!" 
     end
+  end
+
+  def disable
+    render :text => "Daily Caption will return shortly!"
+    return false
   end
 end
